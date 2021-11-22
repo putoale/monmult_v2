@@ -12,10 +12,10 @@ library IEEE;
 
 
 
-entity tb_mac_ab is
-end tb_mac_ab;
+entity tb_mac_mn is
+end tb_mac_mn;
 
-architecture Behavioral of tb_mac_ab is
+architecture Behavioral of tb_mac_mn is
 
 	------------------ CONSTANT DECLARATION -------------------------
 
@@ -62,7 +62,7 @@ architecture Behavioral of tb_mac_ab is
 	------ COMPONENT DECLARATION for the Device Under Test (DUT) ------
 
 	-------- First DUT ---------
-	component FSM_mac_ab is
+	component FSM_mac_mn is
 		generic(
 			N_WORDS				: integer	:=4;
 			N_BITS_PER_WORD		: integer	:=8
@@ -72,10 +72,9 @@ architecture Behavioral of tb_mac_ab is
 	           reset : in STD_LOGIC;
 			   start : in std_logic;
 
-			   a : in STD_LOGIC_VECTOR (N_BITS_PER_WORD-1  downto 0);
-	           b : in STD_LOGIC_VECTOR (N_BITS_PER_WORD-1  downto 0);
-	           t_mac_in : in STD_LOGIC_VECTOR (N_BITS_PER_WORD-1  downto 0);
-	           t_adder_in : in STD_LOGIC_VECTOR (N_BITS_PER_WORD-1  downto 0);
+			   n : in STD_LOGIC_VECTOR (N_BITS_PER_WORD-1  downto 0);
+	           m : in STD_LOGIC_VECTOR (N_BITS_PER_WORD-1  downto 0);
+	           t_in : in STD_LOGIC_VECTOR (N_BITS_PER_WORD-1  downto 0);
 	           t_mac_out : out STD_LOGIC_VECTOR (N_BITS_PER_WORD-1  downto 0);
 	           c_mac_out : out STD_LOGIC_VECTOR (N_BITS_PER_WORD-1  downto 0)
 
@@ -108,13 +107,12 @@ architecture Behavioral of tb_mac_ab is
 	signal dut_start  :  std_logic := '0'; -- start signal from outside
 
 	------------------------------Input data ports----------------------------------------
-	signal dut_a  :  std_logic_vector (DUT_N_BITS_PER_WORD-1 downto 0):= (Others =>'0'); -- input word from mac_ab
-	signal dut_b  :  std_logic_vector (DUT_N_BITS_PER_WORD-1 downto 0):= (Others =>'0'); -- input n'(0)
+	signal dut_n  :  std_logic_vector (DUT_N_BITS_PER_WORD-1 downto 0):= (Others =>'0'); -- input word from mac_ab
+	signal dut_m  :  std_logic_vector (DUT_N_BITS_PER_WORD-1 downto 0):= (Others =>'0'); -- input n'(0)
 	--------------------------------------------------------------------------------------
 
 	----------------------------------Output data ports-----------------------------------
-	signal dut_t_mac_in :  std_logic_vector (DUT_N_BITS_PER_WORD-1 downto 0) := (Others =>'0');
-	signal dut_t_adder_in :  std_logic_vector (DUT_N_BITS_PER_WORD-1 downto 0) := (Others =>'0');
+	signal dut_t_in :  std_logic_vector (DUT_N_BITS_PER_WORD-1 downto 0) := (Others =>'0');
 	signal dut_t_mac_out	: std_logic_vector (DUT_N_BITS_PER_WORD-1 downto 0) := (Others =>'0');
 	signal dut_c_mac_out	: std_logic_vector (DUT_N_BITS_PER_WORD-1 downto 0) := (Others =>'0');
 	--------------------------------------------------------------------------------------
@@ -154,7 +152,7 @@ begin
 	--------------------- COMPONENTS DUT WRAPPING --------------------
 
 	-------- First DUT ---------
-	mac_ab_dut: FSM_mac_ab
+	mac_ab_dut: FSM_mac_mn
 	Generic map(
 			N_WORDS => DUT_N_WORDS,
 			N_BITS_PER_WORD => DUT_N_BITS_PER_WORD
@@ -163,11 +161,11 @@ begin
 			clk => clk,
 			reset => reset,
 			start => dut_start,
-			a				=>  dut_a,
-			b				=> dut_b,
-			t_mac_in		=> dut_t_mac_in,
-			t_adder_in		=> dut_t_adder_in,
-			t_mac_out		=> dut_t_mac_out,
+			n				=>  dut_n,
+			m				=> dut_m,
+			t_in		=> dut_t_in,
+			t_mac_out 		=>dut_t_mac_out,
+
 			c_mac_out		=> dut_c_mac_out
 
 	);
@@ -199,9 +197,7 @@ begin
 		wait for RESET_WND;
 
 		reset <= not reset;
-		dut_start <= '1';
 		wait until rising_edge(clk);
-		dut_start <= '0';
 
 		wait;
     end process;
@@ -218,18 +214,21 @@ begin
 
 		-- Start
 		wait until rising_edge(clk);
+		dut_start <= '1';
+		wait for CLK_PERIOD;
 		for i in 0 to DUT_N_WORDS-1 loop
 			for j in 0 to DUT_N_WORDS-1 loop
-				dut_a<=std_logic_vector(to_unsigned(int_value, dut_a'length));
+				dut_n<=std_logic_vector(to_unsigned(int_value, dut_n'length));
 				if j= 0 then
-					dut_b<= std_logic_vector(to_unsigned(int_value, dut_a'length));
+					dut_m<= std_logic_vector(to_unsigned(int_value, dut_n'length));
 				end if;
 				if i /= 0 then
 				elsif j/=DUT_N_WORDS-1 then
-					dut_t_mac_in <= std_logic_vector(to_unsigned(int_value, dut_a'length));
+					dut_t_in <= std_logic_vector(to_unsigned(int_value, dut_n'length));
 				elsif j=DUT_N_WORDS-1 then
-					dut_t_adder_in<= std_logic_vector(to_unsigned(int_value, dut_a'length));
+					dut_t_in<= std_logic_vector(to_unsigned(int_value, dut_n'length));
 				end if;
+				wait until rising_edge(clk);
 			end loop;
 		end loop;
 

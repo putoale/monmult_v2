@@ -50,6 +50,7 @@ entity FSM_mac_mn is
     Port ( clk : in STD_LOGIC;
            reset : in STD_LOGIC;
 		   start : in std_logic;  --receive start, wait 2 cycles
+
 		   n : in std_logic_vector (N_BITS_PER_WORD-1  downto 0);
            m : in std_logic_vector (N_BITS_PER_WORD-1  downto 0);
 		   t_in : in std_logic_vector (N_BITS_PER_WORD-1  downto 0);
@@ -116,6 +117,8 @@ architecture Behavioral of FSM_mac_mn is
 
 	signal start_reg: std_logic:='0';
 	signal start_reg_reg: std_logic:='0';
+	signal finished: std_logic:='0';
+
 	--end signals---------------------------------------------------------------
 begin
 	mac_inst: simple_1w_mac
@@ -134,13 +137,8 @@ begin
 
 
 
-
-	counters_process:process(clk)
-	begin
-
-
-	end process;
-
+	c_mac_out<=c_out_dut;
+	t_mac_out<=s_out_dut;
 	FSM_process: process(clk)
 	begin
 		if reset='1' then
@@ -150,7 +148,7 @@ begin
 			t_in_dut	<=(others=>'0');
 			c_in_dut	<=(others=>'0');
 		elsif rising_edge(clk) then
-			if start= '1' then
+			if start= '1' and finished='0' then
 				start_reg<=start;
 				start_reg_reg<=start_reg;
 				if start_reg_reg='1' then
@@ -161,25 +159,22 @@ begin
 						if i= N_WORDS-1 then
 							i<=0;
 						end if;
+						if i=N_WORDS-1 and j=N_WORDS-1 then
+							finished<='1';
+						end if;
 					end if;
 					n_dut<=n;
-					c_mac_out<=c_out_dut;
-					t_mac_out<=s_out_dut;
+					t_in_dut<=t_in;
 					if j=0 then
 						m_dut<=m;
 						c_in_dut<=(others=>'0');
 					else
 						c_in_dut<=c_out_dut;
 					end if;
-					if i=0 then
-						t_in_dut<=(others=>'0');
-						c_in_dut<=(others=>'0');
-					else
-						c_in_dut<=c_out_dut;
+
 					end if;
 				end if;
 			end if;
-		end if;
 	end process;
 
 end Behavioral;

@@ -120,6 +120,8 @@ architecture Behavioral of FSM_mac_ab is
 	signal c_out_dut : std_logic_vector(a'range);
 	signal	din_dut		: std_logic_vector(t_mac_in'range);
 	signal	dout_dut	: std_logic_vector(t_mac_in'range);
+
+	signal finished : std_logic:='0';
 	--end signals---------------------------------------------------------------
 begin
 	mac_inst: simple_1w_mac
@@ -164,6 +166,9 @@ begin
 					t_adder_in when i/=0 and j=N_WORDS-1;
 	end generate;
 
+
+	c_mac_out<=c_out_dut;
+	t_mac_out<=s_out_dut;
 	counters_process:process(clk)
 	begin
 
@@ -178,7 +183,7 @@ begin
 			t_in_dut	<=(others=>'0');
 			c_in_dut	<=(others=>'0');
 		elsif rising_edge(clk) then
-			if start= '1' then
+			if start= '1' and finished='0' then
 				j<=j+1;
 				if j=N_WORDS-1 then
 					j<=0;
@@ -186,10 +191,13 @@ begin
 					if i= N_WORDS-1 then
 						i<=0;
 					end if;
+					if i=N_WORDS-1 and j=N_WORDS-1 then
+						finished<='1';
+					end if;
 				end if;
 				a_dut<=a;
-				c_mac_out<=c_out_dut;
-				t_mac_out<=s_out_dut;
+				--c_mac_out<=c_out_dut;
+				--t_mac_out<=s_out_dut;
 				if j=0 then
 					b_dut<=b;
 					c_in_dut<=(others=>'0');

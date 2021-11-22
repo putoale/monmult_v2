@@ -199,9 +199,7 @@ begin
 		wait for RESET_WND;
 
 		reset <= not reset;
-		dut_start <= '1';
 		wait until rising_edge(clk);
-		dut_start <= '0';
 
 		wait;
     end process;
@@ -218,6 +216,7 @@ begin
 
 		-- Start
 		wait until rising_edge(clk);
+		dut_start <= '1';
 		for i in 0 to DUT_N_WORDS-1 loop
 			for j in 0 to DUT_N_WORDS-1 loop
 				dut_a<=std_logic_vector(to_unsigned(int_value, dut_a'length));
@@ -230,6 +229,9 @@ begin
 				elsif j=DUT_N_WORDS-1 then
 					dut_t_adder_in<= std_logic_vector(to_unsigned(int_value, dut_a'length));
 				end if;
+				int_value<=int_value+1;
+				wait until rising_edge(clk);
+
 			end loop;
 		end loop;
 
