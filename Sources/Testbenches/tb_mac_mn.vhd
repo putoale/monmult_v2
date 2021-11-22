@@ -152,7 +152,7 @@ begin
 	--------------------- COMPONENTS DUT WRAPPING --------------------
 
 	-------- First DUT ---------
-	mac_ab_dut: FSM_mac_mn
+	mac_mn_dut: FSM_mac_mn
 	Generic map(
 			N_WORDS => DUT_N_WORDS,
 			N_BITS_PER_WORD => DUT_N_BITS_PER_WORD
@@ -215,19 +215,15 @@ begin
 		-- Start
 		wait until rising_edge(clk);
 		dut_start <= '1';
-		wait for CLK_PERIOD;
+		wait for CLK_PERIOD*2;
 		for i in 0 to DUT_N_WORDS-1 loop
 			for j in 0 to DUT_N_WORDS-1 loop
 				dut_n<=std_logic_vector(to_unsigned(int_value, dut_n'length));
 				if j= 0 then
 					dut_m<= std_logic_vector(to_unsigned(int_value, dut_n'length));
 				end if;
-				if i /= 0 then
-				elsif j/=DUT_N_WORDS-1 then
-					dut_t_in <= std_logic_vector(to_unsigned(int_value, dut_n'length));
-				elsif j=DUT_N_WORDS-1 then
-					dut_t_in<= std_logic_vector(to_unsigned(int_value, dut_n'length));
-				end if;
+				dut_t_in <= std_logic_vector(to_unsigned(int_value, dut_n'length));
+				int_value<=int_value+1;
 				wait until rising_edge(clk);
 			end loop;
 		end loop;
