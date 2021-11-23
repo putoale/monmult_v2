@@ -34,6 +34,10 @@ architecture Behavioral of tb_mult is
 	constant DUT_N_WORDS           : POSITIVE range 4 to 512 := 4;
 	constant DUT_N_BITS_PER_WORD   : POSITIVE range 8 to 64  := 8;
 	----------------------------
+
+	-----------Other constants-------
+	constant D_IN_LENGTH					 : POSITIVE := DUT_N_WORDS * DUT_N_WORDS;
+	---------------------------------
 	-----------------------------------------------------------------
 
 
@@ -41,7 +45,7 @@ architecture Behavioral of tb_mult is
 	------------------------ TYPES DECLARATION ----------------------
 
 	--------- SECTION ----------
-	-- NONE
+	type data_in_type is array(0 to (D_IN_LENGTH-1)) of std_logic_vector(DUT_N_BITS_PER_WORD-1 downto 0);
 	----------------------------
 
 	-----------------------------------------------------------------
@@ -114,6 +118,23 @@ architecture Behavioral of tb_mult is
 	------------------------------Input data ports----------------------------------------
 	signal dut_t_in   :  std_logic_vector (DUT_N_BITS_PER_WORD-1 downto 0):= (Others =>'0'); -- input word from mac_ab
 	signal dut_nn0    :  std_logic_vector (DUT_N_BITS_PER_WORD-1 downto 0):= (Others =>'0'); -- input n'(0)
+
+	signal data_in_array : data_in_type := (X"02",
+																					X"11",
+																					X"22",
+																					X"33",
+																					X"44",
+																					X"55",
+																					X"66",
+																					X"77",
+																					X"88",
+																					X"99",
+																					X"AA",
+																					X"BB",
+																					X"CC",
+																					X"DD",
+																					X"EE",
+																					X"FF");
 	--------------------------------------------------------------------------------------
 
 	----------------------------------Output data ports-----------------------------------
@@ -186,7 +207,7 @@ begin
 	----------------------------
 
 	--------- SECTION ----------
-	-- NONE
+	dut_nn0 <= X"AB";
 	----------------------------
 
 	-------------------------------------------------------------------
@@ -217,11 +238,19 @@ begin
     begin
 		-- waiting the reset wave
 		wait for RESET_WND;
+		wait until rising_edge(clk);
+
+		for ii in 0 to D_IN_LENGTH-1 loop
+
+			dut_t_in <= data_in_array(ii);
+			wait until rising_edge(clk);
+
+		end loop;
 
 
 		-- Start
 
-		
+
 
     -- Stop
 
