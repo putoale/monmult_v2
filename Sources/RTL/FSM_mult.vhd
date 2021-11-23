@@ -93,7 +93,7 @@ begin
           a_sig <= t_in; --load t on multiplier only every s words
         end if;
 
-        t_in_reg <= t_in; -- store value of t. It will be available to be read by mac_mn at the same moment of m_out
+        t_out <= t_in; -- store value of t. It will be available to be read by mac_mn at the same moment of m_out
         --t_out    <= t_in_reg;
 
         if j_counter = N_WORDS-1 then
