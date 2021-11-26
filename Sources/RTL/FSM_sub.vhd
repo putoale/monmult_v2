@@ -66,7 +66,7 @@ architecture Behavioral of FSM_sub is
   signal n_in_sig     : std_logic_vector (N_BITS_PER_WORD-1 downto 0):= (Others =>'0');
   signal b_in_sig     : std_logic_vector (0 downto 0) := (Others =>'0');
 
-  signal diff_out_sig : std_logic_vector (N_WORDS-1 downto 0):=(Others =>'0');
+  signal diff_out_sig : std_logic_vector (N_BITS_PER_WORD-1 downto 0):=(Others =>'0');
   signal b_out_sig    : std_logic_vector (0 downto 0) := (Others =>'0');
   signal b_out_reg    : std_logic_vector (0 downto 0) := (Others =>'0');
 
@@ -98,6 +98,8 @@ begin
     write_counter <= 0;
     wait_counter  <= 0;
     state <= IDLE;
+    start_reg <= '0';
+    EoC <= '0';
 
 
   elsif(rising_edge(clk)) then
@@ -107,6 +109,8 @@ begin
 
       when IDLE =>
         --wait for CLK_TO_WAIT before moving to next state
+        EoC <= '0';
+
         if start = '1' then
           start_reg <= '1';
         end if;
@@ -135,6 +139,7 @@ begin
 
           t_in_sig   <= t_in;
           t_out_temp (read_counter) <= t_in;
+          n_in_sig <= n_in;
 
           if read_counter = N_WORDS-1 then
             read_counter <= 0;
@@ -163,6 +168,8 @@ begin
 
         if write_counter = N_WORDS - 1 then
           write_counter <= 0;
+          EoC <= '1';
+          start_reg <= '0';
           state <= IDLE;
         else
           write_counter <= write_counter + 1;
