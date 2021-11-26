@@ -4,7 +4,7 @@ use IEEE.NUMERIC_STD.ALL;
 
 entity simple_1w_sub is
   Generic(
-          N_BITS_PER_WORD : POSITIVE range 2 to 512
+          N_BITS_PER_WORD : POSITIVE range 8 to 512 := 8
   );
   Port (
         d1_in : in std_logic_vector (N_BITS_PER_WORD-1 downto 0);
