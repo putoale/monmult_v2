@@ -23,11 +23,13 @@ end tb_memory;
 
 
 architecture Behavioral of tb_memory is
-	component input_mem is
+	component input_mem_abn is
 		generic(
 			WRITE_WIDTH: integer:=8;
 			READ_WIDTH: integer :=8;   --assuming READ_WIDTH=WRITE_WIDT, for now
-			CYLCES_TO_WAIT: integer:=4;   --goes from 1 for a to and entire N_WORDS for b
+			CYLCES_TO_WAIT: integer:=1;   --goes from 1 for a to and entire N_WORDS for b
+			LATENCY			: integer :=100; 		--goes from 1 to what needed
+
 			MEMORY_DEPTH: integer:=16
 		);
 		Port (
@@ -47,7 +49,7 @@ architecture Behavioral of tb_memory is
 	constant	READ_WIDTH		: integer := 8;
 	constant	CYLCES_TO_WAIT		: integer := 4;
 	constant	MEMORY_DEPTH		: integer := 16;
-
+	constant LATENCY:INTEGER :=100;
 	constant CLK_PERIOD: time:=10 ns;
 	signal clk : std_logic:='0';
 	signal reset: std_logic:='0';
@@ -58,11 +60,12 @@ architecture Behavioral of tb_memory is
 
   begin
 
-  mem_inst: input_mem
+  mem_inst: input_mem_abn
   	generic map (
 		WRITE_WIDTH		=>WRITE_WIDTH,
 		READ_WIDTH		=>READ_WIDTH,
 		CYLCES_TO_WAIT		=>CYLCES_TO_WAIT,
+		LATENCY=>LATENCY,
 		MEMORY_DEPTH		=>MEMORY_DEPTH
 	)
 
@@ -82,8 +85,9 @@ architecture Behavioral of tb_memory is
 
 	load_memory:PROCESS
 	begin
-		wr_en<='1';
 		wait until rising_edge(clk);
+		wr_en<='1';
+
 		for i in 0 to MEMORY_DEPTH-1 loop
 
 			wr_port<= std_logic_vector(to_unsigned(i, wr_port'length));

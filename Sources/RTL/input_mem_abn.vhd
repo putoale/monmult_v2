@@ -31,11 +31,13 @@ use IEEE.NUMERIC_STD.ALL;
 --library UNISIM;
 --use UNISIM.VComponents.all;
 
-entity input_mem is
+entity input_mem_abn is
 	generic(
 		WRITE_WIDTH: integer:=8;
 		READ_WIDTH: integer :=8;   --assuming READ_WIDTH=WRITE_WIDT, for now
 		CYLCES_TO_WAIT: integer:=4;   --goes from 1 for a to and entire N_WORDS for b
+		LATENCY			: integer :=4; 		--goes from 1 to what needed
+		INPUT_VS_OUTPUT: string:="INPUT";
 		MEMORY_DEPTH: integer:=16
 	);
 	Port (
@@ -50,23 +52,40 @@ entity input_mem is
 
 
   );
-end input_mem;
+end input_mem_abn;
 
-architecture Behavioral of input_mem is
+architecture Behavioral of input_mem_abn is
 	type memory_type is array (MEMORY_DEPTH-1 downto 0) of std_logic_vector(READ_WIDTH-1 downto 0);
 	signal memory:memory_type;
 
 	signal write_counter: integer range 0 to MEMORY_DEPTH :=0;
 	signal read_counter: integer range 0 to MEMORY_DEPTH :=0;
-	signal memory_full: std_logic;
+	signal memory_full: std_logic:='0';
 	signal memory_empty: std_logic;
 	signal cycle_counter: integer:=0;
+	signal initial_counter: integer:=0;
+	signal begin_reading: std_logic:='0';
 begin
 
 	process(clk)
 	begin
-		if rising_edge(clk ) then
-			if wr_en='1' then
+		if reset = '1' then
+			memory_full<='0';
+			memory<=(others=>(others=>'0'));
+			begin_reading<='0';
+			write_counter<=0;
+			read_counter<=0;
+		elsif rising_edge(clk ) then
+
+			if begin_reading= '0' then
+				initial_counter<=initial_counter+1;
+				if initial_counter = LATENCY-1 then
+					begin_reading<='1';
+					initial_counter<=0;
+				end if;
+			end if;
+
+			if wr_en='1'  and memory_full = '0' then
 				memory(write_counter)<=wr_port;
 				write_counter<=write_counter+1;
 				if write_counter = MEMORY_DEPTH-1 then
@@ -75,7 +94,7 @@ begin
 				end if;
 			end if;
 
-			if rd_en='1' and memory_full='1' then
+			if rd_en='1' and memory_full='1' and begin_reading='1'  then
 				cycle_counter<=cycle_counter+1 ;
 				if cycle_counter = CYLCES_TO_WAIT-1 then
 					cycle_counter<=0;
