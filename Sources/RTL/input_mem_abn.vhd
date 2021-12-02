@@ -44,6 +44,7 @@ entity input_mem_abn is
 
 		clk : in std_logic;
 		reset: in std_logic;
+		memory_full: out std_logic;
 
 		wr_en: in std_logic;
 		wr_port:in  std_logic_vector(WRITE_WIDTH-1 downto 0);
@@ -60,17 +61,17 @@ architecture Behavioral of input_mem_abn is
 
 	signal write_counter: integer range 0 to MEMORY_DEPTH :=0;
 	signal read_counter: integer range 0 to MEMORY_DEPTH :=0;
-	signal memory_full: std_logic:='0';
+	signal memory_full_int: std_logic:='0';
 	signal memory_empty: std_logic;
 	signal cycle_counter: integer:=0;
 	signal initial_counter: integer:=0;
 	signal begin_reading: std_logic:='0';
 begin
-
+	memory_full<=memory_full_int;
 	process(clk)
 	begin
 		if reset = '1' then
-			memory_full<='0';
+			memory_full_int<='0';
 			memory<=(others=>(others=>'0'));
 			begin_reading<='0';
 			write_counter<=0;
@@ -85,16 +86,16 @@ begin
 				end if;
 			end if;
 
-			if wr_en='1'  and memory_full = '0' then
+			if wr_en='1'  and memory_full_int = '0' then
 				memory(write_counter)<=wr_port;
 				write_counter<=write_counter+1;
 				if write_counter = MEMORY_DEPTH-1 then
 					write_counter<=0;
-					memory_full<='1';
+					memory_full_int<='1';
 				end if;
 			end if;
 
-			if rd_en='1' and memory_full='1' and begin_reading='1'  then
+			if rd_en='1' and memory_full_int='1' and begin_reading='1'  then
 				cycle_counter<=cycle_counter+1 ;
 				if cycle_counter = CYLCES_TO_WAIT-1 then
 					cycle_counter<=0;
