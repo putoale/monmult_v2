@@ -207,14 +207,68 @@ architecture Behavioral of cios_top_1w is
 begin
 
 	-------instantiations-------------------------------------------------------
-	mac_ab_inst:
+	mac_ab_inst: FSM_mac_ab
+	generic map(
+		N_WORDS=>N_WORDS,
+		N_BITS_PER_WORD=>N_BITS_PER_WORD
+	)
+	port map(
+	clk=> clk,
+reset=> reset,
+start=> start,
+a=> a,
+b=> b,
+t_mac_in=> t_mac_in_ab,
+t_adder_in=> t_adder_in_ab,
+t_mac_out=> t_mac_out_ab,
+c_mac_out=> c_mac_out_ab
+	);
 
 
 
-	mac_mn:i
+	mac_mn_inst: FSM_mac_mn
+		generic map(
+			N_WORDS=>N_WORDS,
+			N_BITS_PER_WORD=>N_BITS_PER_WORD
+		)
+		port map(
+		clk	=>clk,
+		reset	=>reset,
+		start	=>start,
+		n	=>n,
+		m	=>m,
+		t_in	=>t_in,
+		t_mac_out	=>t_mac_out_mn,
+		c_mac_out	=>c_mac_out_mn
+		);
 
-
-
-
+ mult_inst: FSM_mult
+ generic map(
+ N_WORDS=>N_WORDS,
+	N_BITS_PER_WORD=>N_BITS_PER_WORD
+ )
+port map(
+	clk=>clk,
+	reset=>reset,
+	start=>start,
+	t_in=>t_in,
+	nn0=>nn0,
+	t_out=>t_out,
+	m_out=>m
+);
+sub_inst: FSM_sub
+generic map(
+N_WORDS=>N_WORDS,
+ N_BITS_PER_WORD=>N_BITS_PER_WORD
+ )
+port map(
+clk=>clk,
+reset=>reset,
+start=>start,
+EoC=>EoC,
+t_in=>t_in,
+n_in=>n_in,
+mult_result=>result
+);
 	----------------------------------------------------------------------------
 end Behavioral;
