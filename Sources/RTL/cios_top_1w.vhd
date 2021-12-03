@@ -179,8 +179,9 @@ architecture Behavioral of cios_top_1w is
 
 
 	signal	t_mac_in_ab		: std_logic_vector(N_BITS_PER_WORD-1 downto 0);
-	signal	t_adder_in_ab		: std_logic_vector(N_BITS_PER_WORD-1 downto 0);
+	--signal	t_adder_in_ab		: std_logic_vector(N_BITS_PER_WORD-1 downto 0);
 	signal	t_mac_out_ab		: std_logic_vector(N_BITS_PER_WORD-1 downto 0);
+	--signal	c_mac_out_ab		: std_logic_vector(N_BITS_PER_WORD-1 downto 0);
 	signal	c_mac_out_ab		: std_logic_vector(N_BITS_PER_WORD-1 downto 0);
 
 	signal m : std_logic_vector (N_BITS_PER_WORD-1  downto 0);
@@ -188,8 +189,8 @@ architecture Behavioral of cios_top_1w is
 	signal	t_mac_in_mn		: std_logic_vector(N_BITS_PER_WORD-1 downto 0);
 	signal	t_adder_in_mn		: std_logic_vector(N_BITS_PER_WORD-1 downto 0);
 	signal t_mac_out_mn :  std_logic_vector (N_BITS_PER_WORD-1  downto 0);
-	signal c_mac_out_mn :  std_logic_vector (N_BITS_PER_WORD-1  downto 0);
-
+	--signal c_mac_out_mn :  std_logic_vector (N_BITS_PER_WORD-1  downto 0);
+	signal c_out_mn :  std_logic_vector (N_BITS_PER_WORD-1  downto 0);
 	signal c_in_ab : std_logic_vector (N_BITS_PER_WORD-1 downto 0);
 	signal c_in_mn : std_logic_vector (N_BITS_PER_WORD-1 downto 0);
 	---------------------------------------------------------
@@ -202,7 +203,8 @@ architecture Behavioral of cios_top_1w is
 
 	signal t_in : std_logic_vector (N_BITS_PER_WORD-1 downto 0);
 	signal n_in : std_logic_vector (N_BITS_PER_WORD-1 downto 0);
-
+	signal t_adder: std_logic_vector (N_BITS_PER_WORD-1 downto 0);
+	signal t_out_mult: std_logic_vector (N_BITS_PER_WORD-1 downto 0);
 	----------------------------------------------------------------------------
 begin
 
@@ -213,15 +215,15 @@ begin
 		N_BITS_PER_WORD=>N_BITS_PER_WORD
 	)
 	port map(
-	clk=> clk,
-reset=> reset,
-start=> start,
-a=> a,
-b=> b,
-t_mac_in=> t_mac_in_ab,
-t_adder_in=> t_adder_in_ab,
-t_mac_out=> t_mac_out_ab,
-c_mac_out=> c_mac_out_ab
+		clk=> clk,
+		reset=> reset,
+		start=> start,
+		a=> a,
+		b=> b,
+		t_mac_in=> t_mac_out_mn,
+		t_adder_in=> t_adder,
+		t_mac_out=> t_mac_out_ab,
+		c_mac_out=> c_mac_out_ab
 	);
 
 
@@ -237,38 +239,55 @@ c_mac_out=> c_mac_out_ab
 		start	=>start,
 		n	=>n,
 		m	=>m,
-		t_in	=>t_in,
+		t_in	=>t_out_mult,
 		t_mac_out	=>t_mac_out_mn,
-		c_mac_out	=>c_mac_out_mn
+		c_mac_out	=>c_out_mn
 		);
 
- mult_inst: FSM_mult
- generic map(
- N_WORDS=>N_WORDS,
-	N_BITS_PER_WORD=>N_BITS_PER_WORD
- )
-port map(
-	clk=>clk,
-	reset=>reset,
-	start=>start,
-	t_in=>t_in,
-	nn0=>nn0,
-	t_out=>t_out,
-	m_out=>m
-);
-sub_inst: FSM_sub
-generic map(
-N_WORDS=>N_WORDS,
- N_BITS_PER_WORD=>N_BITS_PER_WORD
- )
-port map(
-clk=>clk,
-reset=>reset,
-start=>start,
-EoC=>EoC,
-t_in=>t_in,
-n_in=>n_in,
-mult_result=>result
-);
+	 mult_inst: FSM_mult
+	 generic map(
+		N_WORDS=>N_WORDS,
+		N_BITS_PER_WORD=>N_BITS_PER_WORD
+	 )
+	port map(
+		clk=>clk,
+		reset=>reset,
+		start=>start,
+		t_in=>t_mac_out_ab,
+		nn0=>nn0,
+		t_out=>t_out_mult,
+		m_out=>m
+	);
+
+	add_inst: FSM_add
+	generic map(
+		N_WORDS=>N_WORDS,
+ 		N_BITS_PER_WORD=>N_BITS_PER_WORD
+	)
+	port map(
+
+	clk=>			clk,
+	reset=>		reset,
+	start=>		start,
+	c_in_ab=>	c_out_ab,
+	c_in_mn=>	c_out_mn,
+	c_out=>		c_out,
+	t_out	=>	t_adder
+
+	);
+	sub_inst: FSM_sub
+	generic map(
+		N_WORDS=>N_WORDS,
+	 N_BITS_PER_WORD=>N_BITS_PER_WORD
+	 )
+	port map(
+		clk=>clk,
+		reset=>reset,
+		start=>start,
+		EoC=>EoC,
+		t_in=>t_in,
+		n_in=>n_in,
+		mult_result=>result
+	);
 	----------------------------------------------------------------------------
 end Behavioral;
