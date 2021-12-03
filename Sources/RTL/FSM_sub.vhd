@@ -16,6 +16,7 @@ entity FSM_sub is
           ----------------- Control signals------------------
           start : in std_logic;
           EoC   : out std_logic;
+          out_valid : out std_logic;
           ---------------------------------------------------
 
           -------------------- Input data -------------------
@@ -145,6 +146,8 @@ begin
             read_counter <= 0;
 
             state <= COMPARE_STATE;
+            out_valid <= '1';
+
           else
             read_counter <= read_counter + 1;
           end if;
@@ -170,6 +173,7 @@ begin
           write_counter <= 0;
           EoC <= '1';
           start_reg <= '0';
+          out_valid <= '0';
           state <= IDLE;
         else
           write_counter <= write_counter + 1;
