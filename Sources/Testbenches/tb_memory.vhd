@@ -30,7 +30,7 @@ architecture Behavioral of tb_memory is
 			CYLCES_TO_WAIT: integer:=1;   --goes from 1 for a to and entire N_WORDS for b
 			LATENCY			: integer :=100; 		--goes from 1 to what needed
 
-			MEMORY_DEPTH: integer:=16
+			MEMORY_DEPTH: integer:=4
 		);
 		Port (
 

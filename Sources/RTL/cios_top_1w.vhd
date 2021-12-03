@@ -39,7 +39,9 @@ entity cios_top_1w is
 	Port (
 		a			:in std_logic_vector(N_BITS_PER_WORD-1 downto 0);
 		b			:in std_logic_vector(N_BITS_PER_WORD-1 downto 0);
-		n			:in std_logic_vector(N_BITS_PER_WORD-1 downto 0);
+		n_mac			:in std_logic_vector(N_BITS_PER_WORD-1 downto 0);
+		n_sub			:in std_logic_vector(N_BITS_PER_WORD-1 downto 0);
+		start: in std_logic;
 		nn0			:in std_logic_vector(N_BITS_PER_WORD-1 downto 0);
 		result		:out std_logic_vector(N_BITS_PER_WORD-1 downto 0)
 	);
@@ -155,16 +157,18 @@ architecture Behavioral of cios_top_1w is
 
 				----------------- Control signals------------------
 				start : in std_logic;
-				EoC   : out std_logic;
 				---------------------------------------------------
 
 				-------------------- Input data -------------------
-				t_in : std_logic_vector (N_BITS_PER_WORD-1 downto 0);
+				t_in_mac : in std_logic_vector (N_BITS_PER_WORD-1 downto 0);
+				t_in_add : in std_logic_vector (N_BITS_PER_WORD-1 downto 0);
+
 				n_in : std_logic_vector (N_BITS_PER_WORD-1 downto 0);
 				---------------------------------------------------
 
 				------------------- Output data -------------------
-				mult_result : out std_logic_vector(N_BITS_PER_WORD-1 downto 0) := (Others =>'0')
+				mult_result : out std_logic_vector(N_BITS_PER_WORD-1 downto 0) := (Others =>'0');
+				EoC: out std_logic
 				---------------------------------------------------
 		 );
 	end component;
@@ -198,13 +202,14 @@ architecture Behavioral of cios_top_1w is
 	signal c_out :  std_logic_vector (N_BITS_PER_WORD-1 downto 0):=(Others =>'0');
 	signal t_out :  std_logic_vector (N_BITS_PER_WORD-1 downto 0):=(Others =>'0');
 
-	signal start : std_logic;
-	signal EoC   :  std_logic;
+	--signal start : std_logic;
+
 
 	signal t_in : std_logic_vector (N_BITS_PER_WORD-1 downto 0);
 	signal n_in : std_logic_vector (N_BITS_PER_WORD-1 downto 0);
 	signal t_adder: std_logic_vector (N_BITS_PER_WORD-1 downto 0);
 	signal t_out_mult: std_logic_vector (N_BITS_PER_WORD-1 downto 0);
+	signal EoC: std_logic;
 	----------------------------------------------------------------------------
 begin
 
@@ -237,7 +242,7 @@ begin
 		clk	=>clk,
 		reset	=>reset,
 		start	=>start,
-		n	=>n,
+		n	=>n_mac,
 		m	=>m,
 		t_in	=>t_out_mult,
 		t_mac_out	=>t_mac_out_mn,
@@ -269,9 +274,9 @@ begin
 	clk=>			clk,
 	reset=>		reset,
 	start=>		start,
-	c_in_ab=>	c_out_ab,
+	c_in_ab=>	c_mac_out_ab,
 	c_in_mn=>	c_out_mn,
-	c_out=>		c_out,
+	c_out=>		open,
 	t_out	=>	t_adder
 
 	);
@@ -285,8 +290,9 @@ begin
 		reset=>reset,
 		start=>start,
 		EoC=>EoC,
-		t_in=>t_in,
-		n_in=>n_in,
+		t_in_mac=>t_mac_out_mn,
+		t_in_add=>t_adder,
+		n_in=>n_sub,
 		mult_result=>result
 	);
 	----------------------------------------------------------------------------

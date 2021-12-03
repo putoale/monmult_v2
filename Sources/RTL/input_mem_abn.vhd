@@ -37,7 +37,7 @@ entity input_mem_abn is
 		READ_WIDTH: integer :=8;   --assuming READ_WIDTH=WRITE_WIDT, for now
 		CYLCES_TO_WAIT: integer:=4;   --goes from 1 for a to and entire N_WORDS for b
 		LATENCY			: integer :=4; 		--goes from 1 to what needed
-		INPUT_VS_OUTPUT: string:="INPUT";
+		--INPUT_VS_OUTPUT: string:="INPUT";
 		MEMORY_DEPTH: integer:=16
 	);
 	Port (
@@ -49,9 +49,9 @@ entity input_mem_abn is
 		wr_en: in std_logic;
 		wr_port:in  std_logic_vector(WRITE_WIDTH-1 downto 0);
 		rd_en:in  std_logic;
-		rd_port: out std_logic_vector(READ_WIDTH-1 downto 0)
-
-
+		rd_port: out std_logic_vector(READ_WIDTH-1 downto 0);
+		start: out std_logic;
+		EoC_in: in std_logic
   );
 end input_mem_abn;
 
@@ -70,15 +70,16 @@ begin
 	memory_full<=memory_full_int;
 	process(clk)
 	begin
-		if reset = '1' then
+		if reset = '1' or EoC_in = '1' then
 			memory_full_int<='0';
 			memory<=(others=>(others=>'0'));
 			begin_reading<='0';
 			write_counter<=0;
 			read_counter<=0;
+			start<='0';
 		elsif rising_edge(clk ) then
-
-			if begin_reading= '0' then
+			start<=memory_full_int;
+			if begin_reading= '0' and memory_full_int='1' then
 				initial_counter<=initial_counter+1;
 				if initial_counter = LATENCY-1 then
 					begin_reading<='1';
@@ -92,6 +93,7 @@ begin
 				if write_counter = MEMORY_DEPTH-1 then
 					write_counter<=0;
 					memory_full_int<='1';
+
 				end if;
 			end if;
 
