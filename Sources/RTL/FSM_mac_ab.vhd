@@ -120,9 +120,14 @@ architecture Behavioral of FSM_mac_ab is
 	signal c_out_dut : std_logic_vector(a'range);
 	signal	din_dut		: std_logic_vector(t_mac_in'range);
 	signal	dout_dut	: std_logic_vector(t_mac_in'range);
-	signal counter : integer range 0 to N_WORDS*N_WORDS-1:=0;
+	signal counter : integer :=0;
 	signal start_reg: std_logic;
 	signal finished : std_logic:='0';
+
+
+	signal send_t_mac_in: std_logic:='0';
+	signal send_t_adder: std_logic:='0';
+	signal counter_mac: integer:=0;
 	--end signals---------------------------------------------------------------
 begin
 	mac_inst: simple_1w_mac
@@ -159,16 +164,16 @@ begin
 		  dout  =>	dout_dut
 		  ---------------------------------
 		);
+
+		din_dut<=	(others=>'0') when send_t_mac_in ='0' and send_t_adder ='0' else
+							t_mac_in when send_t_mac_in='1'   else
+							t_adder_in when send_t_adder='1';
+		--din_dut viene caricato a partire dal clock 4 assumendo che jloopab legga la prima
+		--parola al clock0, dal clock 4 legge s-1 volte mn e una volta adder
+									-----------------------------------------------------------------------------\
 	end generate;
 	---DATAFLOW ASSIGNMENT--------------------------------------------------------
 
-	din_dut<=	(others=>'0') when counter <4 else
-						t_mac_in when counter < N_WORDS*N_WORDS-1 else
-						t_adder_in when counter = N_WORDS*N_WORDS-1;
-	--din_dut viene caricato a partire dal clock 4 assumendo che jloopab legga la prima
-	--parola al clock0, dal clock 4 legge s-1 volte mn e una volta adder
-
-							-----------------------------------------------------------------------------\
 	generate_wire:if N_WORDS=4 generate   -- wire only generated if there is no sr
 		dout_dut<=	(others=>'0') when i=0 else
 					t_mac_in when i/=0 and j/=N_WORDS-1 else
@@ -178,11 +183,7 @@ begin
 
 	c_mac_out<=c_out_dut;
 	t_mac_out<=s_out_dut;
-	counters_process:process(clk)
-	begin
 
-
-	end process;
 
 	FSM_process: process(clk)
 	begin
@@ -191,9 +192,25 @@ begin
 			b_dut	<=(others=>'0');
 			t_in_dut	<=(others=>'0');
 			c_in_dut	<=(others=>'0');
+			start_reg<='0';
 		elsif rising_edge(clk) then
+			--if start='1' then
+			--	start_reg<= '1' ;
+			--end if;
+			send_t_mac_in<='0';  --unless overwritten later
+			send_t_adder<='0';
 			if start= '1' and finished='0' then
-				counter<=counter+1 ;
+
+				counter<=counter+1 ;  --for some reason it is 1 clock forward wrt j
+				if counter >= 4 -1  then
+					counter_mac<=counter_mac+1;
+					send_t_mac_in<='1';
+					if counter_mac= N_WORDS-1 then
+						send_t_mac_in<='0';
+						send_t_adder<='1';
+						counter_mac<=0;
+					end if;
+				end if;
 				if counter = N_WORDS*N_WORDS-1 then
 					counter<=0;
 				end if;
