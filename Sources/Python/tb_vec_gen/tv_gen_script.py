@@ -33,13 +33,20 @@ tv_list = [] #list containing test vectors to send to file
 tv_list.extend([test_vec_256_1,test_vec_256_2])
 
 
-file_lines =[]
+file_lines =[] #create empty list to send to file
 
-
+# populate file_lines from tv_list
 for i in tv_list:
-    file_lines.append(tbm.send_tv_str(*i.values(),64,4,16))
+    file_lines.append(tbm.send_tv_str_oneline(*i.values(),64,4,16))
 
-file_lines[-1] = file_lines[-1][:-2]
+file_lines[-1] = file_lines[-1][:-2] #remove last \n\r from output
 
-with open("out_results.txt","w") as ff:
+# find path of file to write to
+import os
+script_dir = os.path.dirname(__file__)
+rel_path = "txt"
+file_name = "out_results.txt"
+complete_path = os.path.join(script_dir,rel_path,file_name)
+
+with open(complete_path,"w") as ff:
     ff.writelines(file_lines)
