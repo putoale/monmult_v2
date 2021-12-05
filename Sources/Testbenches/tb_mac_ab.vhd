@@ -31,7 +31,7 @@ architecture Behavioral of tb_mac_ab is
 
 
 	------- DUT Generics -------
-	constant DUT_N_WORDS           : POSITIVE range 4 to 512 := 4;
+	constant DUT_N_WORDS           : POSITIVE range 4 to 512 := 16;
 	constant DUT_N_BITS_PER_WORD   : POSITIVE range 8 to 64  := 8;
 	----------------------------
 	-----------------------------------------------------------------
@@ -104,7 +104,7 @@ architecture Behavioral of tb_mac_ab is
 	----------------------------
 
 	----- First DUT Signals ----
-
+	constant ADDER_VALUE: integer:= 2**DUT_N_BITS_PER_WORD -1 ;
 	signal dut_start  :  std_logic := '0'; -- start signal from outside
 
 	------------------------------Input data ports----------------------------------------
@@ -122,7 +122,10 @@ architecture Behavioral of tb_mac_ab is
 
 
 	----- Last DUT Signals -----
+	signal counter: integer range 0 to DUT_N_WORDS*DUT_N_WORDS-1 :=0;
 	signal  int_value: integer range 0 to 2**(DUT_N_BITS_PER_WORD)-1 :=15;
+	signal counter_mac: integer:=0;
+	signal counter_add: integer:=0;
 	----------------------------
 
 
@@ -207,7 +210,7 @@ begin
 
 
    ------ Stimulus process -------
-
+	 generate_4: if DUT_N_WORDS=4 generate
     stim_proc: process
     begin
 		-- waiting the reset wave
@@ -219,45 +222,66 @@ begin
 		dut_start <= '1';
 		for i in 0 to DUT_N_WORDS-1 loop
 			for j in 0 to DUT_N_WORDS-1 loop
-				dut_a<=std_logic_vector(to_unsigned(int_value, dut_a'length));
+				counter<=counter+1;
+				if counter  = DUT_N_WORDS*DUT_N_WORDS-1 then
+					counter <= 0;
+				end if;
+				dut_a<=std_logic_vector(to_unsigned(counter, dut_a'length));
 				if j= 0 then
-					dut_b<= std_logic_vector(to_unsigned(int_value, dut_a'length));
+					dut_b<= std_logic_vector(to_unsigned(counter, dut_a'length));
 				end if;
 				if i /= 0 then
 				elsif j/=DUT_N_WORDS-1 then
-					dut_t_mac_in <= std_logic_vector(to_unsigned(int_value, dut_a'length));
+					dut_t_mac_in <= std_logic_vector(to_unsigned(counter, dut_a'length));
 				elsif j=DUT_N_WORDS-1 then
-					dut_t_adder_in<= std_logic_vector(to_unsigned(int_value, dut_a'length));
+					dut_t_adder_in<= std_logic_vector(to_unsigned(ADDER_VALUE, dut_a'length));
 				end if;
 				int_value<=int_value+1;
 				wait until rising_edge(clk);
 
 			end loop;
 		end loop;
-
     -- Stop
-
-
       wait;
     end process;
+	end generate;
+
 	----------------------------
+	------ Stimulus process -------
+  generate_bigger: if DUT_N_WORDS>4 generate
+ 	stim_proc: process
+ 	begin
+ 	-- waiting the reset wave
+ 	wait for RESET_WND;
 
 
-	------ Sync Process --------
-	-- NONE
-	----------------------------
+ 	-- Start
+ 	wait until rising_edge(clk);
+ 	dut_start <= '1';
+ 	for i in 0 to DUT_N_WORDS-1 loop
+ 		for j in 0 to DUT_N_WORDS-1 loop
+ 			counter<=counter+1;
+ 			if counter  = DUT_N_WORDS*DUT_N_WORDS-1 then
+ 				counter <= 0;
 
+			--	din_dut<=	(others=>'0') when counter <4 else
+			--						t_mac_in when counter < N_WORDS*N_WORDS-1 else
+			--						t_adder_in when counter = N_WORDS*N_WORDS-1;
+ 			end if;
+ 			dut_a<=std_logic_vector(to_unsigned(counter, dut_a'length));
+ 			if j= 0 then
+ 				dut_b<= std_logic_vector(to_unsigned(counter, dut_a'length));
+ 			end if;
+			dut_t_mac_in <= std_logic_vector(to_unsigned(counter, dut_a'length));
+			dut_t_adder_in<= std_logic_vector(to_unsigned(ADDER_VALUE, dut_a'length));
+ 			wait until rising_edge(clk);
 
-	----- Async Process --------
-	-- NONE
-	----------------------------
-
-
-	--------- SECTION ----------
-	-- NONE
-	----------------------------
-
-	-------------------------------------------------------------------
+ 		end loop;
+ 	end loop;
+ 	-- Stop
+ 		wait;
+ 	end process;
+ end generate;
 
 
 end;
