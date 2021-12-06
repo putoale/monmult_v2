@@ -68,7 +68,7 @@ architecture Behavioral of input_mem_abn is
 	signal begin_reading: std_logic:='0';
 begin
 	memory_full<=memory_full_int;
-	process(clk)
+	process(clk,reset, EoC_in)
 	begin
 		if reset = '1' or EoC_in = '1' then
 			memory_full_int<='0';

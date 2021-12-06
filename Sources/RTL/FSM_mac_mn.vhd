@@ -139,7 +139,7 @@ begin
 
 	c_mac_out<=c_out_dut;
 	t_mac_out<=s_out_dut;
-	FSM_process: process(clk)
+	FSM_process: process(clk,reset)
 	begin
 		if reset='1' then
 			start_reg_reg<='0';

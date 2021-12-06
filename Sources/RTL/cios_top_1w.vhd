@@ -43,7 +43,9 @@ entity cios_top_1w is
 		n_sub			:in std_logic_vector(N_BITS_PER_WORD-1 downto 0);
 		start: in std_logic;
 		nn0			:in std_logic_vector(N_BITS_PER_WORD-1 downto 0);
+		EoC: out std_logic;
 		result		:out std_logic_vector(N_BITS_PER_WORD-1 downto 0)
+
 	);
 end cios_top_1w;
 
@@ -144,7 +146,7 @@ architecture Behavioral of cios_top_1w is
 
          );
 	end component;
-	component FSM_sub is
+	component FSM_sub_v2 is
 		Generic(
 				  N_BITS_PER_WORD : POSITIVE range 8 to 64 := 32;
 				  N_WORDS : POSITIVE range 4 to 512 := 4
@@ -163,7 +165,7 @@ architecture Behavioral of cios_top_1w is
 				t_in_mac : in std_logic_vector (N_BITS_PER_WORD-1 downto 0);
 				t_in_add : in std_logic_vector (N_BITS_PER_WORD-1 downto 0);
 
-				n_in : std_logic_vector (N_BITS_PER_WORD-1 downto 0);
+				n_in : in std_logic_vector (N_BITS_PER_WORD-1 downto 0);
 				---------------------------------------------------
 
 				------------------- Output data -------------------
@@ -191,7 +193,6 @@ architecture Behavioral of cios_top_1w is
 	signal m : std_logic_vector (N_BITS_PER_WORD-1  downto 0);
 
 	signal	t_mac_in_mn		: std_logic_vector(N_BITS_PER_WORD-1 downto 0);
-	signal	t_adder_in_mn		: std_logic_vector(N_BITS_PER_WORD-1 downto 0);
 	signal t_mac_out_mn :  std_logic_vector (N_BITS_PER_WORD-1  downto 0);
 	--signal c_mac_out_mn :  std_logic_vector (N_BITS_PER_WORD-1  downto 0);
 	signal c_out_mn :  std_logic_vector (N_BITS_PER_WORD-1  downto 0);
@@ -209,7 +210,7 @@ architecture Behavioral of cios_top_1w is
 	signal n_in : std_logic_vector (N_BITS_PER_WORD-1 downto 0);
 	signal t_adder: std_logic_vector (N_BITS_PER_WORD-1 downto 0);
 	signal t_out_mult: std_logic_vector (N_BITS_PER_WORD-1 downto 0);
-	signal EoC: std_logic;
+
 	----------------------------------------------------------------------------
 begin
 
@@ -280,7 +281,7 @@ begin
 	t_out	=>	t_adder
 
 	);
-	sub_inst: FSM_sub
+	sub_inst: FSM_sub_v2
 	generic map(
 		N_WORDS=>N_WORDS,
 	 N_BITS_PER_WORD=>N_BITS_PER_WORD

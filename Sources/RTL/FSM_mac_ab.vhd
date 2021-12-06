@@ -185,7 +185,7 @@ begin
 	t_mac_out<=s_out_dut;
 
 
-	FSM_process: process(clk)
+	FSM_process: process(clk,reset)
 	begin
 		if reset='1' then
 			a_dut	<=(others=>'0');
