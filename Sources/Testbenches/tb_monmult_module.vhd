@@ -42,14 +42,15 @@ architecture Behavioral of tb_monmult_module is
 		);
 	end component;
 	-----------_CONSTANTS---------------------------------------------------------
-	constant N_BITS_PER_WORD: integer:=8;
+	--total is 256 bits, to be divided in 4*64
+	constant N_BITS_PER_WORD: integer:=64;
 	constant N_WORDS: integer :=4;
 	constant	MEMORY_DEPTH: integer:=4;
-	constant WRITE_WIDTH: integer :=8;
-	constant READ_WIDTH: integer :=8;
+	constant WRITE_WIDTH: integer :=64;
+	constant READ_WIDTH: integer :=64;
 
 	constant CLK_PERIOD: time:=10 ns;
-	constant C_FILE_NAME :string  := "tb_vec_gentxtout_results.txt";
+	constant C_FILE_NAME :string  := "/home/matteo/Documents/monmult_v2/Sources/Python/tb_vec_gentxtout_results.txt"; --absolute path
 	constant time_between_tests: time := CLK_PERIOD * N_WORDS *N_WORDS;
 	------------------------------------------------------------------------------
 
@@ -69,7 +70,7 @@ architecture Behavioral of tb_monmult_module is
 	------------------------------------------------------------------------------
 
 	---------FILE HANDLES---------------------------------------------------------
-	file fptr: text;
+
 	------------------------------------------------------------------------------
 begin
 	---------------------MODULE INSTANTIATION-------------------------------------
@@ -104,16 +105,16 @@ begin
 
 	reset<='1', '0' after 10 ns;
 	stimulus: process
-	variable fstatus       :file_open_status;
+
+	file fptr: text open read_mode is C_FILE_NAME;
 
 	variable file_line     :line;
 	--variable var_data1     :std_logic_vector(N_BITS_PER_WORD-1 downto 0);
-		variable var_data1     :std_logic_vector(N_BITS_PER_WORD-1 downto 0);
+	variable var_data1     :std_logic_vector(N_BITS_PER_WORD-1 downto 0);
 	variable char     :character;
 
 	begin
 		wait until reset = '0' ;
-		file_open(fstatus, fptr, C_FILE_NAME, read_mode);
 		while (not endfile(fptr) ) loop
 			wait until rising_edge(clk);
 			readline(fptr, file_line);
