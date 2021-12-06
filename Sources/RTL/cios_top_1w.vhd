@@ -37,11 +37,14 @@ entity cios_top_1w is
 		N_WORDS				:integer :=4
 	);
 	Port (
+		clk: in std_logic;
+		reset: in std_logic;
 		a			:in std_logic_vector(N_BITS_PER_WORD-1 downto 0);
 		b			:in std_logic_vector(N_BITS_PER_WORD-1 downto 0);
 		n_mac			:in std_logic_vector(N_BITS_PER_WORD-1 downto 0);
 		n_sub			:in std_logic_vector(N_BITS_PER_WORD-1 downto 0);
 		start: in std_logic;
+
 		nn0			:in std_logic_vector(N_BITS_PER_WORD-1 downto 0);
 		EoC: out std_logic;
 		result		:out std_logic_vector(N_BITS_PER_WORD-1 downto 0)
@@ -180,8 +183,6 @@ architecture Behavioral of cios_top_1w is
 
 
 	------------------------SIGNALS---------------------------------------------
-	signal clk: std_logic;
-	signal reset: std_logic;
 
 
 	signal	t_mac_in_ab		: std_logic_vector(N_BITS_PER_WORD-1 downto 0);

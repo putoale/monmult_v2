@@ -41,10 +41,15 @@ entity monmult_module is
 
 	);
 	Port (
+		clk: in std_logic;
+		reset: in std_logic;
+		wr_en_a: in std_logic;
+		wr_en_b: in std_logic;
+		wr_en_n_mac: in std_logic;
+		wr_en_n_sub: in std_logic;
 		a					:in std_logic_vector(N_BITS_PER_WORD-1 downto 0);
 		b					:in std_logic_vector(N_BITS_PER_WORD-1 downto 0);
 		n					:in std_logic_vector(N_BITS_PER_WORD-1 downto 0);
-		--start			:in std_logic;
 		nn0				:in std_logic_vector(N_BITS_PER_WORD-1 downto 0);
 		result		:out std_logic_vector(N_BITS_PER_WORD-1 downto 0)
 	);
@@ -54,9 +59,7 @@ architecture Behavioral of monmult_module is
 
 
 	------------------------SIGNALS---------------------------------------------
-	signal clk: std_logic;
-	signal reset: std_logic;
-	signal start: std_logic;
+
 	signal a_mem:std_logic_vector(N_BITS_PER_WORD-1 downto 0);
 	signal b_mem:std_logic_vector(N_BITS_PER_WORD-1 downto 0);
 	signal n_mac_mem:std_logic_vector(N_BITS_PER_WORD-1 downto 0);
@@ -65,12 +68,13 @@ architecture Behavioral of monmult_module is
 	signal start_b: std_logic;
 	signal start_n_mac: std_logic;
 	signal start_n_sub: std_logic;
+	signal start: std_logic;
 	signal EoC: std_logic;
 	signal memory_full: std_logic;
-	signal wr_en_a: std_logic;
-	signal wr_en_b: std_logic;
-	signal wr_en_n_mac: std_logic;
-	signal wr_en_n_sub: std_logic;
+	--signal wr_en_a: std_logic;
+	--signal wr_en_b: std_logic;
+	--signal wr_en_n_mac: std_logic;
+	--signal wr_en_n_sub: std_logic;
 	----------------------------------------------------------------------------
 	component cios_top_1w is
 		generic (
@@ -78,6 +82,8 @@ architecture Behavioral of monmult_module is
 			N_WORDS				:integer :=4
 		);
 		Port (
+			clk: in std_logic;
+			reset: in std_logic;
 			a			:in std_logic_vector(N_BITS_PER_WORD-1 downto 0);
 			b			:in std_logic_vector(N_BITS_PER_WORD-1 downto 0);
 			n_mac		:in std_logic_vector(N_BITS_PER_WORD-1 downto 0);
@@ -127,7 +133,8 @@ begin
 
 	)
 	port map(
-
+		clk=> clk,
+		reset=>reset,
 		a=> a_mem,
 		b=> b_mem,
 		n_mac=> n_mac_mem,
