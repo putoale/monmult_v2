@@ -4,6 +4,7 @@
 !*.xpr
 !.gitignore
 !*.ods
-!*.sh
+!/*.sh
 !*.pdf
 !*.py
+!/*.tcl
