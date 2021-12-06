@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="tb_sub_v2_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="tb_sub_v2" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="153.688 ns"></ZoomStartTime>
+      <ZoomEndTime time="262.889 ns"></ZoomEndTime>
+      <Cursor1Time time="255.000 ns"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="276"></NameColumnWidth>
+      <ValueColumnWidth column_width="120"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="25" />
+   <wvobject type="logic" fp_name="/tb_sub_v2/reset">
+      <obj_property name="ElementShortName">reset</obj_property>
+      <obj_property name="ObjectShortName">reset</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_sub_v2/clk">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_sub_v2/dut_start">
+      <obj_property name="ElementShortName">dut_start</obj_property>
+      <obj_property name="ObjectShortName">dut_start</obj_property>
+   </wvobject>
+   <wvobject fp_name="divider34" type="divider">
+      <obj_property name="label">Input Data</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_sub_v2/big_in_array">
+      <obj_property name="ElementShortName">big_in_array[0:3][7:0]</obj_property>
+      <obj_property name="ObjectShortName">big_in_array[0:3][7:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_sub_v2/small_in_array">
+      <obj_property name="ElementShortName">small_in_array[0:3][7:0]</obj_property>
+      <obj_property name="ObjectShortName">small_in_array[0:3][7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="divider35" type="divider">
+      <obj_property name="label">Input PORTS</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_sub_v2/dut_t_in_mac">
+      <obj_property name="ElementShortName">dut_t_in_mac[7:0]</obj_property>
+      <obj_property name="ObjectShortName">dut_t_in_mac[7:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_sub_v2/dut_t_in_add">
+      <obj_property name="ElementShortName">dut_t_in_add[7:0]</obj_property>
+      <obj_property name="ObjectShortName">dut_t_in_add[7:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_sub_v2/dut_n_in">
+      <obj_property name="ElementShortName">dut_n_in[7:0]</obj_property>
+      <obj_property name="ObjectShortName">dut_n_in[7:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="divider36" type="divider">
+      <obj_property name="label">Output port</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_sub_v2/dut_mult_result">
+      <obj_property name="ElementShortName">dut_mult_result[7:0]</obj_property>
+      <obj_property name="ObjectShortName">dut_mult_result[7:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_sub_v2/dut_EoC">
+      <obj_property name="ElementShortName">dut_EoC</obj_property>
+      <obj_property name="ObjectShortName">dut_EoC</obj_property>
+   </wvobject>
+   <wvobject fp_name="divider38" type="divider">
+      <obj_property name="label">Combinatorial signals</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_sub_v2/FSM_sub_inst/t_in_sig">
+      <obj_property name="ElementShortName">t_in_sig[7:0]</obj_property>
+      <obj_property name="ObjectShortName">t_in_sig[7:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_sub_v2/FSM_sub_inst/n_in_sig">
+      <obj_property name="ElementShortName">n_in_sig[7:0]</obj_property>
+      <obj_property name="ObjectShortName">n_in_sig[7:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_sub_v2/FSM_sub_inst/b_in_sig">
+      <obj_property name="ElementShortName">b_in_sig[0:0]</obj_property>
+      <obj_property name="ObjectShortName">b_in_sig[0:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_sub_v2/FSM_sub_inst/diff_out_sig">
+      <obj_property name="ElementShortName">diff_out_sig[7:0]</obj_property>
+      <obj_property name="ObjectShortName">diff_out_sig[7:0]</obj_property>
+      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_sub_v2/FSM_sub_inst/b_out_sig">
+      <obj_property name="ElementShortName">b_out_sig[0:0]</obj_property>
+      <obj_property name="ObjectShortName">b_out_sig[0:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="divider37" type="divider">
+      <obj_property name="label">Memories</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_sub_v2/FSM_sub_inst/diff_out_temp">
+      <obj_property name="ElementShortName">diff_out_temp[0:3][7:0]</obj_property>
+      <obj_property name="ObjectShortName">diff_out_temp[0:3][7:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_sub_v2/FSM_sub_inst/t_out_temp">
+      <obj_property name="ElementShortName">t_out_temp[0:3][7:0]</obj_property>
+      <obj_property name="ObjectShortName">t_out_temp[0:3][7:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_sub_v2/FSM_sub_inst/b_out_reg">
+      <obj_property name="ElementShortName">b_out_reg[0:0]</obj_property>
+      <obj_property name="ObjectShortName">b_out_reg[0:0]</obj_property>
+   </wvobject>
+   <wvobject type="group" fp_name="group32">
+      <obj_property name="label">Control signals</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject type="other" fp_name="/tb_sub_v2/FSM_sub_inst/state">
+         <obj_property name="ElementShortName">state</obj_property>
+         <obj_property name="ObjectShortName">state</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_sub_v2/FSM_sub_inst/start_reg">
+         <obj_property name="ElementShortName">start_reg</obj_property>
+         <obj_property name="ObjectShortName">start_reg</obj_property>
+      </wvobject>
+      <wvobject type="other" fp_name="/tb_sub_v2/FSM_sub_inst/read_counter">
+         <obj_property name="ElementShortName">read_counter</obj_property>
+         <obj_property name="ObjectShortName">read_counter</obj_property>
+      </wvobject>
+      <wvobject type="other" fp_name="/tb_sub_v2/FSM_sub_inst/write_counter">
+         <obj_property name="ElementShortName">write_counter</obj_property>
+         <obj_property name="ObjectShortName">write_counter</obj_property>
+      </wvobject>
+      <wvobject type="other" fp_name="/tb_sub_v2/FSM_sub_inst/wait_counter">
+         <obj_property name="ElementShortName">wait_counter</obj_property>
+         <obj_property name="ObjectShortName">wait_counter</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject type="group" fp_name="group31">
+      <obj_property name="label">Constants</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject type="other" fp_name="/tb_sub_v2/CLK_PERIOD">
+         <obj_property name="ElementShortName">CLK_PERIOD</obj_property>
+         <obj_property name="ObjectShortName">CLK_PERIOD</obj_property>
+      </wvobject>
+      <wvobject type="other" fp_name="/tb_sub_v2/RESET_WND">
+         <obj_property name="ElementShortName">RESET_WND</obj_property>
+         <obj_property name="ObjectShortName">RESET_WND</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_sub_v2/TB_CLK_INIT">
+         <obj_property name="ElementShortName">TB_CLK_INIT</obj_property>
+         <obj_property name="ObjectShortName">TB_CLK_INIT</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_sub_v2/TB_RESET_INIT">
+         <obj_property name="ElementShortName">TB_RESET_INIT</obj_property>
+         <obj_property name="ObjectShortName">TB_RESET_INIT</obj_property>
+      </wvobject>
+      <wvobject type="other" fp_name="/tb_sub_v2/DUT_N_BITS_PER_WORD">
+         <obj_property name="ElementShortName">DUT_N_BITS_PER_WORD</obj_property>
+         <obj_property name="ObjectShortName">DUT_N_BITS_PER_WORD</obj_property>
+      </wvobject>
+      <wvobject type="other" fp_name="/tb_sub_v2/DUT_N_WORDS">
+         <obj_property name="ElementShortName">DUT_N_WORDS</obj_property>
+         <obj_property name="ObjectShortName">DUT_N_WORDS</obj_property>
+      </wvobject>
+      <wvobject type="other" fp_name="/tb_sub_v2/CLK_TO_DATA_IN">
+         <obj_property name="ElementShortName">CLK_TO_DATA_IN</obj_property>
+         <obj_property name="ObjectShortName">CLK_TO_DATA_IN</obj_property>
+      </wvobject>
+   </wvobject>
+</wave_config>
