@@ -34,6 +34,7 @@ architecture Behavioral of tb_monmult_module is
 			wr_en_b: in std_logic;
 			wr_en_n_mac: in std_logic;
 			wr_en_n_sub: in std_logic;
+			EoC: out std_logic;
 			a					:in std_logic_vector(N_BITS_PER_WORD-1 downto 0);
 			b					:in std_logic_vector(N_BITS_PER_WORD-1 downto 0);
 			n					:in std_logic_vector(N_BITS_PER_WORD-1 downto 0);
@@ -66,7 +67,7 @@ architecture Behavioral of tb_monmult_module is
 	signal n: std_logic_vector(N_BITS_PER_WORD-1 downto 0);
 	signal nn0: std_logic_vector(N_BITS_PER_WORD-1 downto 0);
 	signal result: std_logic_vector(N_BITS_PER_WORD-1 downto 0);
-
+	signal EoC: std_logic;
 	------------------------------------------------------------------------------
 
 	---------FILE HANDLES---------------------------------------------------------
@@ -91,12 +92,14 @@ begin
 			wr_en_b 			=> wr_en_b,
 			wr_en_n_mac	=> wr_en_n_mac,
 			wr_en_n_sub 	=> wr_en_n_sub,
+			EoC				=> EoC,
 			a							=> a,
 			b							=> b,
 			n							=> n,
 			nn0						=> nn0,
 			result				=> result
-		);
+
+				);
 
 
 
@@ -157,10 +160,11 @@ begin
 			hread(file_line, var_data1);
 			nn0<=var_data1;
 			wait until rising_edge(clk);
-			wait for time_between_tests;
+			
+			wait for CLK_PERIOD*100;
 		end loop;
 		file_close(fptr);
 		wait;
-
+        
 end process;
 end architecture;
