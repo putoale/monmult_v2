@@ -198,20 +198,24 @@ port map(
 	begin
 
 
-		if reset='1' then
-			--a_dut	<=(others=>'0');
-			--b_dut	<=(others=>'0');
-			--t_in_dut	<=(others=>'0');
-			--c_in_dut	<=(others=>'0');
-			start_reg<='0';
-		elsif rising_edge(clk) then
-			if start='1' then
-				start_reg<= start ;
+
+		if rising_edge(clk) then
+			if reset='1'  or finished = '1' then
+				--a_dut	<=(others=>'0');
+				--b_dut	<=(others=>'0');
+				--t_in_dut	<=(others=>'0');
+				--c_in_dut	<=(others=>'0');
+				start_reg<='0';
 			end if;
+
+			if start='1' then
+				start_reg<= '1' ;
+			end if;
+
 			send_t_mac_in<='0';  --unless overwritten later
 			send_t_adder<='0';
-			if start_reg= '1' and finished='0' then
-
+			--if start_reg= '1' and finished='0' then
+				if start_reg= '1' then
 				counter<=counter+1 ;  --for some reason it is 1 clock forward wrt j
 				if counter >= 4 -1  then
 					counter_mac<=counter_mac+1;
@@ -232,6 +236,7 @@ port map(
 					if i= N_WORDS-1 then
 						i<=0;
 					end if;
+
 					if i=N_WORDS-1 and j=N_WORDS-1 then
 						finished<='1';
 					end if;

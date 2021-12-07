@@ -38,7 +38,8 @@ entity input_mem_abn is
 		CYLCES_TO_WAIT: integer:=4;   --goes from 1 for a to and entire N_WORDS for b
 		LATENCY			: integer :=4; 		--goes from 1 to what needed
 		--INPUT_VS_OUTPUT: string:="INPUT";
-		MEMORY_DEPTH: integer:=16
+		MEMORY_DEPTH: integer:=16;
+		FULL_READ_NUMBER: integer := 4
 	);
 	Port (
 
@@ -70,16 +71,17 @@ begin
 	process(clk,reset, EoC_in)
 		--variable begin_reading:='0';
 	begin
-		if reset = '1' or EoC_in = '1' then
-			--memory_full_int<='0';
-			memory<=(others=>(others=>'0'));
-			begin_reading<='0';
-			--begin_reading:='0';
-			write_counter<=0;
-			read_counter<=0;
-			start<='0';
-			cycle_counter<=0;
-		elsif rising_edge(clk ) then
+
+		if rising_edge(clk ) then
+			if reset = '1' or EoC_in = '1' then
+				memory_full_int<='0';
+				memory<=(others=>(others=>'0'));
+				begin_reading<='0';
+				--begin_reading:='0';
+				write_counter<=0;
+				read_counter<=0;
+				cycle_counter<=0;
+			end if;
 			start<=memory_full_int;
 			if begin_reading= '0' and memory_full_int='1' then
 				initial_counter<=initial_counter+1;
