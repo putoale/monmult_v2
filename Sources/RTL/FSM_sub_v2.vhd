@@ -71,7 +71,12 @@ architecture Behavioral of FSM_sub_v2 is
   signal b_out_sig    : std_logic_vector (0 downto 0) := (Others =>'0');
   signal b_out_reg    : std_logic_vector (0 downto 0) := (Others =>'0');
 
+	--aggiunti da Matteo----------------------------------------------------------
 
+	constant LATENCY: integer:=2;
+
+	signal start_counter : integer:=0;
+	------------------------------------------------------------------------------
 begin
 
 
@@ -111,10 +116,16 @@ begin
       when IDLE =>
         --wait for CLK_TO_WAIT before moving to next state
         EoC <= '0';
-
-        if start = '1' then
-          start_reg <= '1';
-        end if;
+				if start='1' then
+					start_counter<=start_counter+1;
+					if start_counter = LATENCY -1 then
+						start_counter<=0;
+						start_reg<='1';
+					end if;
+				end if;
+        --if start = '1' then
+        --  start_reg <= '1';
+        --end if;
 
         if start_reg = '1' then
 
