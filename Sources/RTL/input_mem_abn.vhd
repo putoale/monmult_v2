@@ -38,8 +38,8 @@ entity input_mem_abn is
 		CYLCES_TO_WAIT: integer:=4;   --goes from 1 for a to and entire N_WORDS for b
 		LATENCY			: integer :=4; 		--goes from 1 to what needed
 		--INPUT_VS_OUTPUT: string:="INPUT";
-		MEMORY_DEPTH: integer:=16;
-		FULL_READ_NUMBER: integer := 4
+		MEMORY_DEPTH: integer:=16
+		--FULL_READ_NUMBER: integer := 4
 	);
 	Port (
 
@@ -52,6 +52,10 @@ entity input_mem_abn is
 		rd_en:in  std_logic;
 		rd_port: out std_logic_vector(READ_WIDTH-1 downto 0):=(others=>'0');
 		start: out std_logic:='0';
+
+		---add start latency
+		start_in: in std_logic:='0';
+
 		EoC_in: in std_logic
   );
 end input_mem_abn;
@@ -66,6 +70,7 @@ architecture Behavioral of input_mem_abn is
 	signal cycle_counter: integer:=0;
 	signal initial_counter: integer:=0;
 	signal begin_reading: std_logic:='0';
+	signal start_flag: std_logic:='0';
 begin
 	memory_full<=memory_full_int;
 	process(clk,reset, EoC_in)
@@ -81,9 +86,16 @@ begin
 				write_counter<=0;
 				read_counter<=0;
 				cycle_counter<=0;
+				initial_counter<=0;
+				start_flag:='0';
+			end if;
+			--------------------------------------------------------------------------
+			if start='1' then
+				start_flag='1';
 			end if;
 			start<=memory_full_int;
-			if begin_reading= '0' and memory_full_int='1' then
+			--------------------------------------------------------------------------
+			if begin_reading= '0' and memory_full_int='1' and start_flag='1' then
 				initial_counter<=initial_counter+1;
 				if initial_counter = LATENCY-1 then
 					begin_reading<='1';

@@ -77,6 +77,9 @@ architecture Behavioral of monmult_module is
 	signal start: std_logic;
 	signal EoC_sig: std_logic;
 	signal memory_full: std_logic;
+
+	signal start_mem: std_logic;
+	signal start_modules: std_logic;
 	--signal wr_en_a: std_logic;
 	--signal wr_en_b: std_logic;
 	--signal wr_en_n_mac: std_logic;
@@ -104,6 +107,20 @@ architecture Behavioral of monmult_module is
 	end component;
 
 
+	component start_regulator is
+
+		port(
+				clk		in std_logic;
+				reset	in std_logic;
+				in_1: in std_logic;
+				in_2: in std_logic;
+				in_3: in std_logic;
+				in_4: in std_logic;
+				EoC: in std_logic;
+				output_start			out std_logic:='0';
+				output_start_reg	out std_logic:='0'
+		);
+	end component;
 
 	component input_mem_abn is
 		generic(
@@ -124,6 +141,7 @@ architecture Behavioral of monmult_module is
 			rd_en:in  std_logic;
 			rd_port: out std_logic_vector(READ_WIDTH-1 downto 0);
 			start: out std_logic;
+			start_in: in std_logic:='0';
 
 			EoC_in: in std_logic
 
@@ -171,6 +189,7 @@ begin
 		rd_en=> '1',
 		rd_port=> a_mem,
 		start=> start_a,
+		start_in=> start_modules,
 		EoC_in=>EoC_sig
 
 	);
@@ -193,6 +212,8 @@ begin
 		rd_en=> '1',
 		EoC_in=>EoC_sig,
 		start=> start_b,
+		start_in=> start_modules,
+
 		rd_port=> b_mem
 	);
 
@@ -214,6 +235,8 @@ begin
 		rd_en=> '1',
 		EoC_in=>EoC_sig,
 		start=> start_n_mac,
+		start_in=> start_modules,
+
 		rd_port=> n_mac_mem
 	);
 
@@ -235,10 +258,26 @@ begin
 		rd_en=> '1',
 		EoC_in=>EoC_sig,
 		start=> start_n_sub,
+		start_in=> start_modules,
+
 		rd_port=> n_sub_mem
 	);
 
-		start<=start_a and start_b and start_n_mac and start_n_sub;
+
+	regulator_inst: start_regulator
+		port map(
+
+		clk		=> clk,
+		reset		=> reset,
+		in_1		=> start_a,
+		in_2		=> start_b,
+		in_3		=> start_n_mac,
+		in_4		=> start_n_sub,
+		EoC		=> EoC_sig,
+		output_start		=> start_mem,
+		output_start_reg		=> start_modules
+		);
+		--start<=start_a and start_b and start_n_mac and start_n_sub;
 		EoC <= EoC_sig;
 	----------------------------------------------------------------------------
 end Behavioral;
