@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="top_tb_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="top_tb" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="143.800 ns"></ZoomStartTime>
+      <ZoomEndTime time="374.201 ns"></ZoomEndTime>
+      <Cursor1Time time="215.000 ns"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="235"></NameColumnWidth>
+      <ValueColumnWidth column_width="110"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="22" />
+   <wvobject type="logic" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/mac_mn_inst/clk">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/mac_mn_inst/reset">
+      <obj_property name="ElementShortName">reset</obj_property>
+      <obj_property name="ObjectShortName">reset</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/mac_mn_inst/start">
+      <obj_property name="ElementShortName">start</obj_property>
+      <obj_property name="ObjectShortName">start</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/mac_mn_inst/n">
+      <obj_property name="ElementShortName">n[63:0]</obj_property>
+      <obj_property name="ObjectShortName">n[63:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/mac_mn_inst/m">
+      <obj_property name="ElementShortName">m[63:0]</obj_property>
+      <obj_property name="ObjectShortName">m[63:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/mac_mn_inst/t_in">
+      <obj_property name="ElementShortName">t_in[63:0]</obj_property>
+      <obj_property name="ObjectShortName">t_in[63:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/mac_mn_inst/t_mac_out">
+      <obj_property name="ElementShortName">t_mac_out[63:0]</obj_property>
+      <obj_property name="ObjectShortName">t_mac_out[63:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/mac_mn_inst/c_mac_out">
+      <obj_property name="ElementShortName">c_mac_out[63:0]</obj_property>
+      <obj_property name="ObjectShortName">c_mac_out[63:0]</obj_property>
+   </wvobject>
+   <wvobject type="other" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/mac_mn_inst/i">
+      <obj_property name="ElementShortName">i</obj_property>
+      <obj_property name="ObjectShortName">i</obj_property>
+   </wvobject>
+   <wvobject type="other" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/mac_mn_inst/j">
+      <obj_property name="ElementShortName">j</obj_property>
+      <obj_property name="ObjectShortName">j</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/mac_mn_inst/n_dut">
+      <obj_property name="ElementShortName">n_dut[63:0]</obj_property>
+      <obj_property name="ObjectShortName">n_dut[63:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/mac_mn_inst/m_dut">
+      <obj_property name="ElementShortName">m_dut[63:0]</obj_property>
+      <obj_property name="ObjectShortName">m_dut[63:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/mac_mn_inst/t_in_dut">
+      <obj_property name="ElementShortName">t_in_dut[63:0]</obj_property>
+      <obj_property name="ObjectShortName">t_in_dut[63:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/mac_mn_inst/c_in_dut">
+      <obj_property name="ElementShortName">c_in_dut[63:0]</obj_property>
+      <obj_property name="ObjectShortName">c_in_dut[63:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/mac_mn_inst/s_out_dut">
+      <obj_property name="ElementShortName">s_out_dut[63:0]</obj_property>
+      <obj_property name="ObjectShortName">s_out_dut[63:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/mac_mn_inst/c_out_dut">
+      <obj_property name="ElementShortName">c_out_dut[63:0]</obj_property>
+      <obj_property name="ObjectShortName">c_out_dut[63:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/mac_mn_inst/start_reg">
+      <obj_property name="ElementShortName">start_reg</obj_property>
+      <obj_property name="ObjectShortName">start_reg</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/mac_mn_inst/start_reg_reg">
+      <obj_property name="ElementShortName">start_reg_reg</obj_property>
+      <obj_property name="ObjectShortName">start_reg_reg</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/mac_mn_inst/finished">
+      <obj_property name="ElementShortName">finished</obj_property>
+      <obj_property name="ObjectShortName">finished</obj_property>
+   </wvobject>
+   <wvobject type="other" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/mac_mn_inst/N_WORDS">
+      <obj_property name="ElementShortName">N_WORDS</obj_property>
+      <obj_property name="ObjectShortName">N_WORDS</obj_property>
+   </wvobject>
+   <wvobject type="other" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/mac_mn_inst/N_BITS_PER_WORD">
+      <obj_property name="ElementShortName">N_BITS_PER_WORD</obj_property>
+      <obj_property name="ObjectShortName">N_BITS_PER_WORD</obj_property>
+   </wvobject>
+   <wvobject type="group" fp_name="group356">
+      <obj_property name="label">Combinatorial</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject type="array" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/mac_mn_inst/mac_inst/a_j">
+         <obj_property name="ElementShortName">a_j[63:0]</obj_property>
+         <obj_property name="ObjectShortName">a_j[63:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/mac_mn_inst/mac_inst/b_i">
+         <obj_property name="ElementShortName">b_i[63:0]</obj_property>
+         <obj_property name="ObjectShortName">b_i[63:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/mac_mn_inst/mac_inst/t_in">
+         <obj_property name="ElementShortName">t_in[63:0]</obj_property>
+         <obj_property name="ObjectShortName">t_in[63:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/mac_mn_inst/mac_inst/c_in">
+         <obj_property name="ElementShortName">c_in[63:0]</obj_property>
+         <obj_property name="ObjectShortName">c_in[63:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/mac_mn_inst/mac_inst/s_out">
+         <obj_property name="ElementShortName">s_out[63:0]</obj_property>
+         <obj_property name="ObjectShortName">s_out[63:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/mac_mn_inst/mac_inst/c_out">
+         <obj_property name="ElementShortName">c_out[63:0]</obj_property>
+         <obj_property name="ObjectShortName">c_out[63:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/mac_mn_inst/mac_inst/big_sum">
+         <obj_property name="ElementShortName">big_sum[127:0]</obj_property>
+         <obj_property name="ObjectShortName">big_sum[127:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/mac_mn_inst/mac_inst/aj_bi">
+         <obj_property name="ElementShortName">aj_bi[127:0]</obj_property>
+         <obj_property name="ObjectShortName">aj_bi[127:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/mac_mn_inst/mac_inst/t_c">
+         <obj_property name="ElementShortName">t_c[127:0]</obj_property>
+         <obj_property name="ObjectShortName">t_c[127:0]</obj_property>
+      </wvobject>
+      <wvobject type="other" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/mac_mn_inst/mac_inst/N_BITS">
+         <obj_property name="ElementShortName">N_BITS</obj_property>
+         <obj_property name="ObjectShortName">N_BITS</obj_property>
+      </wvobject>
+   </wvobject>
+</wave_config>

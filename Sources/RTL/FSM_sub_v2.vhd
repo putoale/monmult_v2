@@ -15,7 +15,7 @@ entity FSM_sub_v2 is
 
           ----------------- Control signals------------------
           start : in std_logic;
-          EoC   : out std_logic;
+          EoC   : out std_logic:='0';
           ---------------------------------------------------
 
           -------------------- Input data -------------------

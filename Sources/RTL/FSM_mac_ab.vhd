@@ -130,11 +130,11 @@ architecture Behavioral of FSM_mac_ab is
 	signal counter_mac: integer:=0;
 	--end signals---------------------------------------------------------------
 begin
-	mac_inst: simple_1w_mac
-	generic map(
-		N_BITS=>N_BITS_PER_WORD
-	)
-	port map(
+mac_inst: simple_1w_mac
+generic map(
+	N_BITS=>N_BITS_PER_WORD
+)
+port map(
 	a_j		=>	a_dut,
 	b_i		=>	b_dut,
 	t_in	=>	t_in_dut,
@@ -143,6 +143,7 @@ begin
 	c_out	=>	c_out_dut
 
 	);
+
 
       din_dut<=	(others=>'0') when send_t_mac_in ='0' and send_t_adder ='0' else
                         t_mac_in when send_t_mac_in='1'   else
@@ -189,7 +190,14 @@ begin
 
 
 	FSM_process: process(clk,reset)
+		variable a_dut_var : std_logic_vector(a'range):=(others=>'0');
+		variable b_dut_var : std_logic_vector(a'range):=(others=>'0');
+		variable t_in_dut_var : std_logic_vector(a'range):=(others=>'0');
+		variable c_in_dut_var : std_logic_vector(a'range):=(others=>'0');
+
 	begin
+
+
 		if reset='1' then
 			--a_dut	<=(others=>'0');
 			--b_dut	<=(others=>'0');
@@ -197,12 +205,13 @@ begin
 			--c_in_dut	<=(others=>'0');
 			start_reg<='0';
 		elsif rising_edge(clk) then
-			--if start='1' then
-			--	start_reg<= '1' ;
-			--end if;
+			if start='1' then
+				start_reg<= start ;
+			end if;
 			send_t_mac_in<='0';  --unless overwritten later
 			send_t_adder<='0';
-			if start= '1' and finished='0' then
+			if start_reg= '1' and finished='0' then
+
 				counter<=counter+1 ;  --for some reason it is 1 clock forward wrt j
 				if counter >= 4 -1  then
 					counter_mac<=counter_mac+1;
@@ -228,18 +237,25 @@ begin
 					end if;
 				end if;
 					a_dut<=a;
+					a_dut_var:=a;
 				if j=0 then
 					b_dut<=b;
+					b_dut_var:=b;
+
 					c_in_dut<=(others=>'0');
 				else
 					c_in_dut<=c_out_dut;
 				end if;
 				if i=0  then
 					t_in_dut<=(others=>'0');
+					t_in_dut_var:=(others=>'0');
 					c_in_dut<=(others=>'0');
+					c_in_dut_var:=(others=>'0');
 				else
 					t_in_dut<=dout_dut;
+					t_in_dut_var:=dout_dut;
 					c_in_dut<=(others=>'0'); --added
+					c_in_dut_var:=(others=>'0');
 				end if;
 
 

@@ -10,9 +10,9 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="104.917 ns"></ZoomStartTime>
-      <ZoomEndTime time="525.418 ns"></ZoomEndTime>
-      <Cursor1Time time="175.000 ns"></Cursor1Time>
+      <ZoomStartTime time="824.100 ns"></ZoomStartTime>
+      <ZoomEndTime time="1,400.101 ns"></ZoomEndTime>
+      <Cursor1Time time="920.100 ns"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="235"></NameColumnWidth>
@@ -127,7 +127,6 @@
    <wvobject type="group" fp_name="group263">
       <obj_property name="label">memb</obj_property>
       <obj_property name="DisplayName">label</obj_property>
-      <obj_property name="isExpanded"></obj_property>
       <wvobject type="logic" fp_name="/top_tb/monmult_module_inst/mem_b_inst/start">
          <obj_property name="ElementShortName">start</obj_property>
          <obj_property name="ObjectShortName">start</obj_property>
@@ -164,7 +163,6 @@
    <wvobject type="group" fp_name="group275">
       <obj_property name="label">mema</obj_property>
       <obj_property name="DisplayName">label</obj_property>
-      <obj_property name="isExpanded"></obj_property>
       <wvobject type="logic" fp_name="/top_tb/monmult_module_inst/mem_a_inst/start">
          <obj_property name="ElementShortName">start</obj_property>
          <obj_property name="ObjectShortName">start</obj_property>

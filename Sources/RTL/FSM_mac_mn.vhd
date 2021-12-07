@@ -55,8 +55,8 @@ entity FSM_mac_mn is
            m : in std_logic_vector (N_BITS_PER_WORD-1  downto 0);
 		   t_in : in std_logic_vector (N_BITS_PER_WORD-1  downto 0);
 
-           t_mac_out : out std_logic_vector (N_BITS_PER_WORD-1  downto 0);
-           c_mac_out : out std_logic_vector (N_BITS_PER_WORD-1  downto 0)
+           t_mac_out : out std_logic_vector (N_BITS_PER_WORD-1  downto 0):=(others=>'0');
+           c_mac_out : out std_logic_vector (N_BITS_PER_WORD-1  downto 0):=(others=>'0')
 
 		   );
 
@@ -104,7 +104,7 @@ architecture Behavioral of FSM_mac_mn is
 	end component;
 
 	--signals-------------------------------------------------------------------
-
+	constant LATENCY: integer:=3;
 	signal i: integer:=0;
 	signal j: integer:=0;
 
@@ -118,7 +118,7 @@ architecture Behavioral of FSM_mac_mn is
 	signal start_reg: std_logic:='0';
 	signal start_reg_reg: std_logic:='0';
 	signal finished: std_logic:='0';
-
+	signal start_counter : integer:=0;
 	--end signals---------------------------------------------------------------
 begin
 	mac_inst: simple_1w_mac
@@ -143,15 +143,20 @@ begin
 	begin
 		if reset='1' then
 			start_reg_reg<='0';
+			start_reg<='0';
 			n_dut	<=(others=>'0');
 			m_dut	<=(others=>'0');
 			t_in_dut	<=(others=>'0');
 			c_in_dut	<=(others=>'0');
 		elsif rising_edge(clk) then
 			if start= '1' and finished='0' then
-				start_reg<=start;
-				start_reg_reg<=start_reg;
-				if start_reg_reg='1' then
+
+				start_counter<=start_counter+1;
+				if start_counter = LATENCY -1 then
+					start_counter<=0;
+					start_reg<='1';
+				end if;
+				if start_reg='1' then
 					j<=j+1;
 					if j=N_WORDS-1 then
 						j<=0;

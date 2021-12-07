@@ -61,6 +61,10 @@ architecture Behavioral of monmult_module is
 
 	------------------------SIGNALS---------------------------------------------
 
+
+	constant LATENCY_AB:integer:=1;
+	constant LATENCY_N_SUB:integer:=LATENCY_AB +N_WORDS*(N_WORDS-1)+3;
+	constant LATENCY_N_MAC:integer:=LATENCY_AB+2 ;
 	signal a_mem:std_logic_vector(N_BITS_PER_WORD-1 downto 0);
 	signal b_mem:std_logic_vector(N_BITS_PER_WORD-1 downto 0);
 	signal n_mac_mem:std_logic_vector(N_BITS_PER_WORD-1 downto 0);
@@ -151,7 +155,7 @@ begin
 		WRITE_WIDTH	=> WRITE_WIDTH,
 		READ_WIDTH	=> READ_WIDTH,
 		CYLCES_TO_WAIT	=> 1,
-		LATENCY	=> 1,
+		LATENCY	=> LATENCY_AB,
 
 		MEMORY_DEPTH	=> MEMORY_DEPTH
 	)
@@ -173,7 +177,7 @@ begin
 		WRITE_WIDTH	=> WRITE_WIDTH,
 		READ_WIDTH	=> READ_WIDTH,
 		CYLCES_TO_WAIT	=> N_WORDS,
-		LATENCY	=> 1,
+		LATENCY	=> LATENCY_AB,
 
 		MEMORY_DEPTH	=> MEMORY_DEPTH
 	)
@@ -194,7 +198,7 @@ begin
 		WRITE_WIDTH	=> WRITE_WIDTH,
 		READ_WIDTH	=> READ_WIDTH,
 		CYLCES_TO_WAIT	=> 1,
-		LATENCY	=> 2,
+		LATENCY	=> LATENCY_N_MAC,
 
 		MEMORY_DEPTH	=> MEMORY_DEPTH
 	)
@@ -215,7 +219,7 @@ begin
 		WRITE_WIDTH	=> WRITE_WIDTH,
 		READ_WIDTH	=> READ_WIDTH,
 		CYLCES_TO_WAIT	=> 1,
-		LATENCY	=> N_WORDS*(N_WORDS-1)+3,
+		LATENCY	=> LATENCY_N_SUB,
 
 		MEMORY_DEPTH	=> MEMORY_DEPTH
 	)

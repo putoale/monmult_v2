@@ -10,13 +10,13 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="0.000 ns"></ZoomStartTime>
-      <ZoomEndTime time="28.000 ns"></ZoomEndTime>
-      <Cursor1Time time="0.000 ns"></Cursor1Time>
+      <ZoomStartTime time="145.000 ns"></ZoomStartTime>
+      <ZoomEndTime time="375.401 ns"></ZoomEndTime>
+      <Cursor1Time time="195.000 ns"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="235"></NameColumnWidth>
-      <ValueColumnWidth column_width="114"></ValueColumnWidth>
+      <ValueColumnWidth column_width="110"></ValueColumnWidth>
    </column_width_setting>
    <WVObjectSize size="14" />
    <wvobject type="logic" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/mult_inst/clk">
@@ -30,6 +30,10 @@
    <wvobject type="logic" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/mult_inst/start">
       <obj_property name="ElementShortName">start</obj_property>
       <obj_property name="ObjectShortName">start</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/mult_inst/start_reg">
+      <obj_property name="ElementShortName">start_reg</obj_property>
+      <obj_property name="ObjectShortName">start_reg</obj_property>
    </wvobject>
    <wvobject type="array" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/mult_inst/t_in">
       <obj_property name="ElementShortName">t_in[63:0]</obj_property>
@@ -58,10 +62,6 @@
    <wvobject type="array" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/mult_inst/a_sig">
       <obj_property name="ElementShortName">a_sig[63:0]</obj_property>
       <obj_property name="ObjectShortName">a_sig[63:0]</obj_property>
-   </wvobject>
-   <wvobject type="logic" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/mult_inst/start_reg">
-      <obj_property name="ElementShortName">start_reg</obj_property>
-      <obj_property name="ObjectShortName">start_reg</obj_property>
    </wvobject>
    <wvobject type="array" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/mult_inst/t_in_reg">
       <obj_property name="ElementShortName">t_in_reg[63:0]</obj_property>
