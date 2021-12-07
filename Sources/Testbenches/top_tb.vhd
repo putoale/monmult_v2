@@ -38,6 +38,8 @@ architecture bench of top_tb is
 
       EoC : out std_logic;
 
+      valid_out : out std_logic := '0';
+
       result : out std_logic_vector(N_BITS_PER_WORD-1 downto 0)
     );
   end component;
@@ -70,6 +72,9 @@ architecture bench of top_tb is
     -- type to store all the values of nn0 to test
   type test_vector_1w_array is array(0 to N_TEST_VECTORS-1) of std_logic_vector(DUT_N_BITS_PER_WORD-1 downto 0);
 
+    -- type to store result of one monmult
+  type output_result_array is array (DUT_N_WORDS-1 downto 0) of std_logic_vector(DUT_N_BITS_PER_WORD-1 downto 0);
+
   -- Ports
   signal clk              : std_logic := TB_CLK_INIT;
   signal reset            : std_logic:= TB_RESET_INIT;
@@ -82,6 +87,7 @@ architecture bench of top_tb is
   signal dut_n            : std_logic_vector(DUT_N_BITS_PER_WORD-1 downto 0);
   signal dut_nn0          : std_logic_vector(DUT_N_BITS_PER_WORD-1 downto 0);
   signal dut_EoC          : std_logic := '0';
+  signal dut_valid_out    : std_logic := '0';
   signal dut_result       : std_logic_vector(DUT_N_BITS_PER_WORD-1 downto 0);
 
   --Other signals
@@ -98,6 +104,9 @@ architecture bench of top_tb is
 
     -- memory with all test vectors of "nn0" operand
   signal nn0_memory : test_vector_1w_array := (Others => (Others=>'0'));
+
+    -- memory for one test vector result
+  signal res_memory : output_result_array := (Others => (Others => '0'));
 
 begin
 
@@ -121,6 +130,7 @@ begin
       n => dut_n,
       nn0 => dut_nn0,
       EoC => dut_EoC,
+      valid_out => dut_valid_out,
       result => dut_result
     );
 
@@ -245,6 +255,58 @@ begin
       wait;
 
 end process;
+-----------------------------------------------------------------
+
+------------------ output memory write process------------------
+
+out_res_mem_proc: process
+
+begin
+
+  wait until dut_valid_out = '1';
+
+  for word_counter in 0 to DUT_N_WORDS-1 loop
+
+    wait until rising_edge(clk);
+
+    res_memory (word_counter) <= dut_result;
+
+
+
+  end loop;
+
+end process;
+
+
+
+
+----------------------------------------------------------------
+
+--------------------- output file write process------------------
+file_write_proc: process
+
+file      output_file : text open write_mode is "out_results.txt";         
+variable  output_line : line;                             
+
+begin
+
+    wait until dut_EoC = '1';
+
+      wait until rising_edge(clk);
+
+      for word_counter in DUT_N_WORDS-1 downto 0 loop
+
+        wait until rising_edge(clk);
+
+
+        hwrite(output_line, res_memory(word_counter) , left, DUT_N_BITS_PER_WORD);
+
+      end loop;
+    
+      writeline(output_file, output_line);
+    
+end process;
+-----------------------------------------------------------------
 
 
 
