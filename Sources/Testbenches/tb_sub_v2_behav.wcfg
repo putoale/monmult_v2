@@ -10,15 +10,15 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="153.688 ns"></ZoomStartTime>
-      <ZoomEndTime time="262.889 ns"></ZoomEndTime>
-      <Cursor1Time time="255.000 ns"></Cursor1Time>
+      <ZoomStartTime time="252.900 ns"></ZoomStartTime>
+      <ZoomEndTime time="308.001 ns"></ZoomEndTime>
+      <Cursor1Time time="335.000 ns"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="276"></NameColumnWidth>
-      <ValueColumnWidth column_width="120"></ValueColumnWidth>
+      <ValueColumnWidth column_width="116"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="25" />
+   <WVObjectSize size="26" />
    <wvobject type="logic" fp_name="/tb_sub_v2/reset">
       <obj_property name="ElementShortName">reset</obj_property>
       <obj_property name="ObjectShortName">reset</obj_property>
@@ -50,7 +50,7 @@
    <wvobject type="array" fp_name="/tb_sub_v2/dut_t_in_mac">
       <obj_property name="ElementShortName">dut_t_in_mac[7:0]</obj_property>
       <obj_property name="ObjectShortName">dut_t_in_mac[7:0]</obj_property>
-      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
    </wvobject>
    <wvobject type="array" fp_name="/tb_sub_v2/dut_t_in_add">
       <obj_property name="ElementShortName">dut_t_in_add[7:0]</obj_property>
@@ -172,5 +172,9 @@
          <obj_property name="ElementShortName">CLK_TO_DATA_IN</obj_property>
          <obj_property name="ObjectShortName">CLK_TO_DATA_IN</obj_property>
       </wvobject>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_sub_v2/dut_valid_out">
+      <obj_property name="ElementShortName">dut_valid_out</obj_property>
+      <obj_property name="ObjectShortName">dut_valid_out</obj_property>
    </wvobject>
 </wave_config>

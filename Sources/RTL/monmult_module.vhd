@@ -52,6 +52,7 @@ entity monmult_module is
 		n				: in std_logic_vector(N_BITS_PER_WORD-1 downto 0);
 		nn0				: in std_logic_vector(N_BITS_PER_WORD-1 downto 0);
 		EoC 			: out std_logic := '0';
+		valid_out		: out std_logic := '0';
 		result			: out std_logic_vector(N_BITS_PER_WORD-1 downto 0):=(others=>'0')
 	);
 end monmult_module;
@@ -96,7 +97,8 @@ architecture Behavioral of monmult_module is
 			start: in std_logic;
 			nn0			:in std_logic_vector(N_BITS_PER_WORD-1 downto 0);
 			result		:out std_logic_vector(N_BITS_PER_WORD-1 downto 0);
-			EoC: out std_logic
+			EoC: out std_logic:= '0';
+			valid_out : out std_logic := '0'
 
 		);
 	end component;
@@ -147,6 +149,7 @@ begin
 		start=> start,
 		nn0=> nn0,
 		result=> result,
+		valid_out => valid_out,
 		EoC=>EoC_sig
 	);
 

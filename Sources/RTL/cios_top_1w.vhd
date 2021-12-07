@@ -47,6 +47,7 @@ entity cios_top_1w is
 
 		nn0			:in std_logic_vector(N_BITS_PER_WORD-1 downto 0);
 		EoC: out std_logic;
+		valid_out : out std_logic := '0';
 		result		:out std_logic_vector(N_BITS_PER_WORD-1 downto 0)
 
 	);
@@ -149,6 +150,7 @@ architecture Behavioral of cios_top_1w is
 
          );
 	end component;
+
 	component FSM_sub_v2 is
 		Generic(
 				  N_BITS_PER_WORD : POSITIVE range 8 to 64 := 32;
@@ -173,7 +175,8 @@ architecture Behavioral of cios_top_1w is
 
 				------------------- Output data -------------------
 				mult_result : out std_logic_vector(N_BITS_PER_WORD-1 downto 0) := (Others =>'0');
-				EoC: out std_logic
+				EoC: out std_logic:= '0';
+				valid_out : out std_logic := '0'
 				---------------------------------------------------
 		 );
 	end component;
@@ -292,6 +295,7 @@ begin
 		reset=>reset,
 		start=>start,
 		EoC=>EoC,
+		valid_out => valid_out,
 		t_in_mac=>t_mac_out_mn,
 		t_in_add=>t_adder,
 		n_in=>n_sub,

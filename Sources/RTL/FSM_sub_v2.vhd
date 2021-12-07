@@ -14,8 +14,9 @@ entity FSM_sub_v2 is
           ---------------------------------------------------
 
           ----------------- Control signals------------------
-          start : in std_logic;
-          EoC   : out std_logic:='0';
+          start     : in std_logic;
+          EoC       : out std_logic:='0';
+          valid_out : out std_logic := '0';
           ---------------------------------------------------
 
           -------------------- Input data -------------------
@@ -116,6 +117,7 @@ begin
       when IDLE =>
         --wait for CLK_TO_WAIT before moving to next state
         EoC <= '0';
+        valid_out <= '0';
 				if start='1' then
 					start_counter<=start_counter+1;
 					if start_counter = LATENCY -1 then
@@ -123,9 +125,10 @@ begin
 						start_reg<='1';
 					end if;
 				end if;
-        --if start = '1' then
+        
+        -- if start = '1' then
         --  start_reg <= '1';
-        --end if;
+        -- end if;
 
         if start_reg = '1' then
 
@@ -157,7 +160,6 @@ begin
             read_counter <= 0;
             t_in_sig <= t_in_add;
             t_out_temp (read_counter) <= t_in_add;
-
             state <= COMPARE_STATE;
           else
             read_counter <= read_counter + 1;
@@ -179,6 +181,8 @@ begin
         else
           mult_result <= t_out_temp(write_counter);
         end if;
+
+          valid_out <= '1';
 
         if write_counter = N_WORDS - 1 then
           write_counter <= 0;

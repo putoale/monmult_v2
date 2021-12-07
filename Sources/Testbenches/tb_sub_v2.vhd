@@ -89,6 +89,7 @@ architecture Behavioral of tb_sub_v2 is
             ----------------- Control signals------------------
             start : in std_logic;
             EoC   : out std_logic;
+			valid_out : out std_logic := '0';
             ---------------------------------------------------
 
             -------------------- Input data -------------------
@@ -125,8 +126,9 @@ architecture Behavioral of tb_sub_v2 is
 	----- First DUT Signals ----
 
   ----------------- Control signals------------------
-  signal dut_start : std_logic;
-  signal dut_EoC   : std_logic;
+  signal dut_start 		: std_logic := '0';
+  signal dut_EoC   		: std_logic := '0';
+  signal dut_valid_out :std_logic 	:= '0';
   ---------------------------------------------------
 
   -------------------- Input data -------------------
@@ -202,6 +204,7 @@ begin
             reset => reset,
             start => dut_start,
             EoC   => dut_EoC,
+			valid_out => dut_valid_out,
 
             t_in_mac  => dut_t_in_mac,
 			t_in_add  => dut_t_in_add,
