@@ -92,6 +92,7 @@ architecture bench of top_tb is
 
   --Other signals
   signal file_read_complete : boolean := false;
+  signal writeline_complete : boolean := false;
 
     -- memory with all test vectors of "a" operand
   signal a_memory   : test_vector_Nw_array := (Others =>(Others => (Others=>'0')));
@@ -285,7 +286,7 @@ end process;
 --------------------- output file write process------------------
 file_write_proc: process
 
-file      output_file : text open write_mode is "out_results.txt";         
+file      output_file : text open write_mode is "output_results.txt";         
 variable  output_line : line;                             
 
 begin
@@ -299,12 +300,15 @@ begin
         wait until rising_edge(clk);
 
 
-        hwrite(output_line, res_memory(word_counter) , left, DUT_N_BITS_PER_WORD);
+        hwrite(output_line, res_memory(word_counter) ,left, (DUT_N_BITS_PER_WORD/4)+1);
 
       end loop;
     
       writeline(output_file, output_line);
-    
+      writeline_complete <= true;
+      wait until rising_edge(clk);
+      writeline_complete <= false;
+      
 end process;
 -----------------------------------------------------------------
 
