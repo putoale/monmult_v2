@@ -33,7 +33,7 @@ file_lines[-1] = file_lines[-1][:-2] #remove last \n\r from output
 import os
 script_dir = os.path.dirname(__file__)
 rel_path = "txt"
-file_name = "out_results.txt"
+file_name = "input_vectors.txt"
 complete_path = os.path.join(script_dir,rel_path,file_name)
 
 with open(complete_path,"w") as ff:
