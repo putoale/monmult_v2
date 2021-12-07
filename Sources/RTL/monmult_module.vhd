@@ -41,17 +41,18 @@ entity monmult_module is
 
 	);
 	Port (
-		clk: in std_logic;
-		reset: in std_logic;
-		wr_en_a: in std_logic;
-		wr_en_b: in std_logic;
-		wr_en_n_mac: in std_logic;
-		wr_en_n_sub: in std_logic;
-		a					:in std_logic_vector(N_BITS_PER_WORD-1 downto 0);
-		b					:in std_logic_vector(N_BITS_PER_WORD-1 downto 0);
-		n					:in std_logic_vector(N_BITS_PER_WORD-1 downto 0);
-		nn0				:in std_logic_vector(N_BITS_PER_WORD-1 downto 0);
-		result		:out std_logic_vector(N_BITS_PER_WORD-1 downto 0)
+		clk				: in std_logic;
+		reset			: in std_logic;
+		wr_en_a			: in std_logic;
+		wr_en_b			: in std_logic;
+		wr_en_n_mac		: in std_logic;
+		wr_en_n_sub		: in std_logic;
+		a				: in std_logic_vector(N_BITS_PER_WORD-1 downto 0);
+		b				: in std_logic_vector(N_BITS_PER_WORD-1 downto 0);
+		n				: in std_logic_vector(N_BITS_PER_WORD-1 downto 0);
+		nn0				: in std_logic_vector(N_BITS_PER_WORD-1 downto 0);
+		EoC 			: out std_logic := '0';
+		result			: out std_logic_vector(N_BITS_PER_WORD-1 downto 0)
 	);
 end monmult_module;
 
@@ -69,7 +70,7 @@ architecture Behavioral of monmult_module is
 	signal start_n_mac: std_logic;
 	signal start_n_sub: std_logic;
 	signal start: std_logic;
-	signal EoC: std_logic;
+	signal EoC_sig: std_logic;
 	signal memory_full: std_logic;
 	--signal wr_en_a: std_logic;
 	--signal wr_en_b: std_logic;
@@ -142,7 +143,7 @@ begin
 		start=> start,
 		nn0=> nn0,
 		result=> result,
-		EoC=>EoC
+		EoC=>EoC_sig
 	);
 
 	mem_a_inst: input_mem_abn
@@ -163,7 +164,7 @@ begin
 		rd_en=> '1',
 		rd_port=> a_mem,
 		start=> start_a,
-		EoC_in=>EoC
+		EoC_in=>EoC_sig
 
 	);
 
@@ -183,7 +184,7 @@ begin
 		wr_en=> wr_en_b,
 		wr_port=> b,
 		rd_en=> '1',
-		EoC_in=>EoC,
+		EoC_in=>EoC_sig,
 		start=> start_b,
 		rd_port=> b_mem
 	);
@@ -204,7 +205,7 @@ begin
 		wr_en=> wr_en_n_mac,
 		wr_port=> n,
 		rd_en=> '1',
-		EoC_in=>EoC,
+		EoC_in=>EoC_sig,
 		start=> start_n_mac,
 		rd_port=> n_mac_mem
 	);
@@ -225,11 +226,12 @@ begin
 		wr_en=> wr_en_n_sub,
 		wr_port=> n,
 		rd_en=> '1',
-		EoC_in=>EoC,
+		EoC_in=>EoC_sig,
 		start=> start_n_sub,
 		rd_port=> n_sub_mem
 	);
 
 		start<=start_a and start_b and start_n_mac and start_n_sub;
+		EoC <= EoC_sig;
 	----------------------------------------------------------------------------
 end Behavioral;
