@@ -71,7 +71,7 @@ begin
 	process(clk,reset, EoC_in)
 	begin
 		if reset = '1' or EoC_in = '1' then
-			memory_full_int<='0';
+			--memory_full_int<='0';
 			memory<=(others=>(others=>'0'));
 			begin_reading<='0';
 			write_counter<=0;
@@ -93,7 +93,8 @@ begin
 				if write_counter = MEMORY_DEPTH-1 then
 					write_counter<=0;
 					memory_full_int<='1';
-
+                    else 
+                        memory_full_int<= '0';
 				end if;
 			end if;
 

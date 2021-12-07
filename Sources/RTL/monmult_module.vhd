@@ -125,7 +125,7 @@ architecture Behavioral of monmult_module is
 	end component;
 
 begin
-
+    EoC<=EoC_sig;
 	-------instantiations-------------------------------------------------------
 	inst_cios_1w: cios_top_1w
 	generic map(
