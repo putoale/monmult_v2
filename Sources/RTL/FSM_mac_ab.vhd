@@ -52,14 +52,14 @@ entity FSM_mac_ab is
 	);
     Port ( clk : in STD_LOGIC;
            reset : in STD_LOGIC;
-		   start : in std_logic;
+		   		start : in std_logic;
 
-		   a : in std_logic_vector (N_BITS_PER_WORD-1  downto 0);
+		   		a : in std_logic_vector (N_BITS_PER_WORD-1  downto 0);
            b : in std_logic_vector (N_BITS_PER_WORD-1  downto 0);
            t_mac_in : in std_logic_vector (N_BITS_PER_WORD-1  downto 0);
            t_adder_in : in std_logic_vector (N_BITS_PER_WORD-1  downto 0);
-           t_mac_out : out std_logic_vector (N_BITS_PER_WORD-1  downto 0);
-           c_mac_out : out std_logic_vector (N_BITS_PER_WORD-1  downto 0)
+           t_mac_out : out std_logic_vector (N_BITS_PER_WORD-1  downto 0):=(others=>'0');
+           c_mac_out : out std_logic_vector (N_BITS_PER_WORD-1  downto 0):=(others=>'0')
 
 		   );
 
@@ -112,12 +112,12 @@ architecture Behavioral of FSM_mac_ab is
 	signal j: integer:=0;
 
 	signal sr_in: std_logic_vector(t_adder_in'range);
-	signal a_dut : std_logic_vector(a'range);
-	signal b_dut : std_logic_vector(a'range);
-	signal t_in_dut : std_logic_vector(a'range);
-	signal c_in_dut : std_logic_vector(a'range);
-	signal s_out_dut : std_logic_vector(a'range);
-	signal c_out_dut : std_logic_vector(a'range);
+	signal a_dut : std_logic_vector(a'range):=(others=>'0');
+	signal b_dut : std_logic_vector(a'range):=(others=>'0');
+	signal t_in_dut : std_logic_vector(a'range):=(others=>'0');
+	signal c_in_dut : std_logic_vector(a'range):=(others=>'0');
+	signal s_out_dut : std_logic_vector(a'range):=(others=>'0');
+	signal c_out_dut : std_logic_vector(a'range):=(others=>'0');
 	signal	din_dut		: std_logic_vector(t_mac_in'range);
 	signal	dout_dut	: std_logic_vector(t_mac_in'range);
 	signal counter : integer :=0;
@@ -144,7 +144,9 @@ begin
 
 	);
 
-
+      din_dut<=	(others=>'0') when send_t_mac_in ='0' and send_t_adder ='0' else
+                        t_mac_in when send_t_mac_in='1'   else
+                        t_adder_in when send_t_adder='1';
 	generate_sr: if N_WORDS > 4 generate
 		sr_inst: sr
 		generic map(
@@ -165,9 +167,9 @@ begin
 		  ---------------------------------
 		);
 
-		din_dut<=	(others=>'0') when send_t_mac_in ='0' and send_t_adder ='0' else
-							t_mac_in when send_t_mac_in='1'   else
-							t_adder_in when send_t_adder='1';
+		--din_dut<=	(others=>'0') when send_t_mac_in ='0' and send_t_adder ='0' else
+		--					t_mac_in when send_t_mac_in='1'   else
+		--					t_adder_in when send_t_adder='1';
 		--din_dut viene caricato a partire dal clock 4 assumendo che jloopab legga la prima
 		--parola al clock0, dal clock 4 legge s-1 volte mn e una volta adder
 									-----------------------------------------------------------------------------\
@@ -175,9 +177,10 @@ begin
 	---DATAFLOW ASSIGNMENT--------------------------------------------------------
 
 	generate_wire:if N_WORDS=4 generate   -- wire only generated if there is no sr
-		dout_dut<=	(others=>'0') when i=0 else
-					t_mac_in when i/=0 and j/=N_WORDS-1 else
-					t_adder_in when i/=0 and j=N_WORDS-1;
+		--dout_dut<=	(others=>'0') when i=0 else
+		--			t_mac_in when i/=0 and j/=N_WORDS-1 else
+		--			t_adder_in when i/=0 and j=N_WORDS-1;
+		dout_dut<=din_dut;
 	end generate;
 --------------------------------------------------------------------------------
 
@@ -188,10 +191,10 @@ begin
 	FSM_process: process(clk,reset)
 	begin
 		if reset='1' then
-			a_dut	<=(others=>'0');
-			b_dut	<=(others=>'0');
-			t_in_dut	<=(others=>'0');
-			c_in_dut	<=(others=>'0');
+			--a_dut	<=(others=>'0');
+			--b_dut	<=(others=>'0');
+			--t_in_dut	<=(others=>'0');
+			--c_in_dut	<=(others=>'0');
 			start_reg<='0';
 		elsif rising_edge(clk) then
 			--if start='1' then
@@ -200,7 +203,6 @@ begin
 			send_t_mac_in<='0';  --unless overwritten later
 			send_t_adder<='0';
 			if start= '1' and finished='0' then
-
 				counter<=counter+1 ;  --for some reason it is 1 clock forward wrt j
 				if counter >= 4 -1  then
 					counter_mac<=counter_mac+1;
@@ -225,22 +227,22 @@ begin
 						finished<='1';
 					end if;
 				end if;
-				a_dut<=a;
-				--c_mac_out<=c_out_dut;
-				--t_mac_out<=s_out_dut;
+					a_dut<=a;
 				if j=0 then
 					b_dut<=b;
 					c_in_dut<=(others=>'0');
 				else
 					c_in_dut<=c_out_dut;
-
 				end if;
-				if i=0 then
+				if i=0  then
 					t_in_dut<=(others=>'0');
 					c_in_dut<=(others=>'0');
 				else
 					t_in_dut<=dout_dut;
+					c_in_dut<=(others=>'0'); --added
 				end if;
+
+
 			end if;
 		end if;
 	end process;

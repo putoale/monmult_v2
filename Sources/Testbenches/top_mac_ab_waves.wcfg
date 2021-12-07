@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="top_tb_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="top_tb" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="104.917 ns"></ZoomStartTime>
+      <ZoomEndTime time="525.418 ns"></ZoomEndTime>
+      <Cursor1Time time="175.000 ns"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="235"></NameColumnWidth>
+      <ValueColumnWidth column_width="110"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="18" />
+   <wvobject type="logic" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/mac_ab_inst/clk">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/mac_ab_inst/reset">
+      <obj_property name="ElementShortName">reset</obj_property>
+      <obj_property name="ObjectShortName">reset</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/mac_ab_inst/start">
+      <obj_property name="ElementShortName">start</obj_property>
+      <obj_property name="ObjectShortName">start</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/mac_ab_inst/a">
+      <obj_property name="ElementShortName">a[63:0]</obj_property>
+      <obj_property name="ObjectShortName">a[63:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/mac_ab_inst/b">
+      <obj_property name="ElementShortName">b[63:0]</obj_property>
+      <obj_property name="ObjectShortName">b[63:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/mac_ab_inst/t_mac_in">
+      <obj_property name="ElementShortName">t_mac_in[63:0]</obj_property>
+      <obj_property name="ObjectShortName">t_mac_in[63:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/mac_ab_inst/t_adder_in">
+      <obj_property name="ElementShortName">t_adder_in[63:0]</obj_property>
+      <obj_property name="ObjectShortName">t_adder_in[63:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/mac_ab_inst/t_mac_out">
+      <obj_property name="ElementShortName">t_mac_out[63:0]</obj_property>
+      <obj_property name="ObjectShortName">t_mac_out[63:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/mac_ab_inst/c_mac_out">
+      <obj_property name="ElementShortName">c_mac_out[63:0]</obj_property>
+      <obj_property name="ObjectShortName">c_mac_out[63:0]</obj_property>
+   </wvobject>
+   <wvobject type="other" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/mac_ab_inst/i">
+      <obj_property name="ElementShortName">i</obj_property>
+      <obj_property name="ObjectShortName">i</obj_property>
+   </wvobject>
+   <wvobject type="other" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/mac_ab_inst/j">
+      <obj_property name="ElementShortName">j</obj_property>
+      <obj_property name="ObjectShortName">j</obj_property>
+   </wvobject>
+   <wvobject type="other" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/mac_ab_inst/counter">
+      <obj_property name="ElementShortName">counter</obj_property>
+      <obj_property name="ObjectShortName">counter</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/mac_ab_inst/send_t_mac_in">
+      <obj_property name="ElementShortName">send_t_mac_in</obj_property>
+      <obj_property name="ObjectShortName">send_t_mac_in</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/mac_ab_inst/send_t_adder">
+      <obj_property name="ElementShortName">send_t_adder</obj_property>
+      <obj_property name="ObjectShortName">send_t_adder</obj_property>
+   </wvobject>
+   <wvobject type="other" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/mac_ab_inst/counter_mac">
+      <obj_property name="ElementShortName">counter_mac</obj_property>
+      <obj_property name="ObjectShortName">counter_mac</obj_property>
+   </wvobject>
+   <wvobject type="group" fp_name="group297">
+      <obj_property name="label">combinatorial</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject type="array" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/mac_ab_inst/mac_inst/a_j">
+         <obj_property name="ElementShortName">a_j[63:0]</obj_property>
+         <obj_property name="ObjectShortName">a_j[63:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/mac_ab_inst/mac_inst/b_i">
+         <obj_property name="ElementShortName">b_i[63:0]</obj_property>
+         <obj_property name="ObjectShortName">b_i[63:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/mac_ab_inst/mac_inst/t_in">
+         <obj_property name="ElementShortName">t_in[63:0]</obj_property>
+         <obj_property name="ObjectShortName">t_in[63:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/mac_ab_inst/mac_inst/c_in">
+         <obj_property name="ElementShortName">c_in[63:0]</obj_property>
+         <obj_property name="ObjectShortName">c_in[63:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/mac_ab_inst/mac_inst/s_out">
+         <obj_property name="ElementShortName">s_out[63:0]</obj_property>
+         <obj_property name="ObjectShortName">s_out[63:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/mac_ab_inst/mac_inst/c_out">
+         <obj_property name="ElementShortName">c_out[63:0]</obj_property>
+         <obj_property name="ObjectShortName">c_out[63:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/mac_ab_inst/mac_inst/big_sum">
+         <obj_property name="ElementShortName">big_sum[127:0]</obj_property>
+         <obj_property name="ObjectShortName">big_sum[127:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/mac_ab_inst/mac_inst/aj_bi">
+         <obj_property name="ElementShortName">aj_bi[127:0]</obj_property>
+         <obj_property name="ObjectShortName">aj_bi[127:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/mac_ab_inst/mac_inst/t_c">
+         <obj_property name="ElementShortName">t_c[127:0]</obj_property>
+         <obj_property name="ObjectShortName">t_c[127:0]</obj_property>
+      </wvobject>
+      <wvobject type="other" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/mac_ab_inst/mac_inst/N_BITS">
+         <obj_property name="ElementShortName">N_BITS</obj_property>
+         <obj_property name="ObjectShortName">N_BITS</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject type="group" fp_name="group263">
+      <obj_property name="label">memb</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject type="logic" fp_name="/top_tb/monmult_module_inst/mem_b_inst/start">
+         <obj_property name="ElementShortName">start</obj_property>
+         <obj_property name="ObjectShortName">start</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/top_tb/monmult_module_inst/mem_b_inst/memory_full_int">
+         <obj_property name="ElementShortName">memory_full_int</obj_property>
+         <obj_property name="ObjectShortName">memory_full_int</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/top_tb/monmult_module_inst/mem_b_inst/wr_port">
+         <obj_property name="ElementShortName">wr_port[63:0]</obj_property>
+         <obj_property name="ObjectShortName">wr_port[63:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/top_tb/monmult_module_inst/mem_b_inst/rd_port">
+         <obj_property name="ElementShortName">rd_port[63:0]</obj_property>
+         <obj_property name="ObjectShortName">rd_port[63:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/top_tb/monmult_module_inst/mem_b_inst/begin_reading">
+         <obj_property name="ElementShortName">begin_reading</obj_property>
+         <obj_property name="ObjectShortName">begin_reading</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/top_tb/monmult_module_inst/mem_b_inst/memory">
+         <obj_property name="ElementShortName">memory[3:0][63:0]</obj_property>
+         <obj_property name="ObjectShortName">memory[3:0][63:0]</obj_property>
+      </wvobject>
+      <wvobject type="other" fp_name="/top_tb/monmult_module_inst/mem_b_inst/LATENCY">
+         <obj_property name="ElementShortName">LATENCY</obj_property>
+         <obj_property name="ObjectShortName">LATENCY</obj_property>
+      </wvobject>
+      <wvobject type="other" fp_name="/top_tb/monmult_module_inst/mem_b_inst/MEMORY_DEPTH">
+         <obj_property name="ElementShortName">MEMORY_DEPTH</obj_property>
+         <obj_property name="ObjectShortName">MEMORY_DEPTH</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject type="group" fp_name="group275">
+      <obj_property name="label">mema</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject type="logic" fp_name="/top_tb/monmult_module_inst/mem_a_inst/start">
+         <obj_property name="ElementShortName">start</obj_property>
+         <obj_property name="ObjectShortName">start</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/top_tb/monmult_module_inst/mem_a_inst/wr_port">
+         <obj_property name="ElementShortName">wr_port[63:0]</obj_property>
+         <obj_property name="ObjectShortName">wr_port[63:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/top_tb/monmult_module_inst/mem_a_inst/rd_port">
+         <obj_property name="ElementShortName">rd_port[63:0]</obj_property>
+         <obj_property name="ObjectShortName">rd_port[63:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/top_tb/monmult_module_inst/mem_a_inst/begin_reading">
+         <obj_property name="ElementShortName">begin_reading</obj_property>
+         <obj_property name="ObjectShortName">begin_reading</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/top_tb/monmult_module_inst/mem_a_inst/memory_full">
+         <obj_property name="ElementShortName">memory_full</obj_property>
+         <obj_property name="ObjectShortName">memory_full</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/top_tb/monmult_module_inst/mem_a_inst/rd_en">
+         <obj_property name="ElementShortName">rd_en</obj_property>
+         <obj_property name="ObjectShortName">rd_en</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/top_tb/monmult_module_inst/mem_a_inst/memory_full_int">
+         <obj_property name="ElementShortName">memory_full_int</obj_property>
+         <obj_property name="ObjectShortName">memory_full_int</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/top_tb/monmult_module_inst/mem_a_inst/memory">
+         <obj_property name="ElementShortName">memory[3:0][63:0]</obj_property>
+         <obj_property name="ObjectShortName">memory[3:0][63:0]</obj_property>
+      </wvobject>
+      <wvobject type="other" fp_name="/top_tb/monmult_module_inst/mem_a_inst/CYLCES_TO_WAIT">
+         <obj_property name="ElementShortName">CYLCES_TO_WAIT</obj_property>
+         <obj_property name="ObjectShortName">CYLCES_TO_WAIT</obj_property>
+      </wvobject>
+      <wvobject type="other" fp_name="/top_tb/monmult_module_inst/mem_a_inst/LATENCY">
+         <obj_property name="ElementShortName">LATENCY</obj_property>
+         <obj_property name="ObjectShortName">LATENCY</obj_property>
+      </wvobject>
+   </wvobject>
+</wave_config>

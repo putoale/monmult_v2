@@ -44,13 +44,13 @@ entity input_mem_abn is
 
 		clk : in std_logic;
 		reset: in std_logic;
-		memory_full: out std_logic;
+		memory_full: out std_logic:='0';
 
 		wr_en: in std_logic;
 		wr_port:in  std_logic_vector(WRITE_WIDTH-1 downto 0);
 		rd_en:in  std_logic;
-		rd_port: out std_logic_vector(READ_WIDTH-1 downto 0);
-		start: out std_logic;
+		rd_port: out std_logic_vector(READ_WIDTH-1 downto 0):=(others=>'0');
+		start: out std_logic:='0';
 		EoC_in: in std_logic
   );
 end input_mem_abn;
@@ -62,27 +62,30 @@ architecture Behavioral of input_mem_abn is
 	signal write_counter: integer range 0 to MEMORY_DEPTH :=0;
 	signal read_counter: integer range 0 to MEMORY_DEPTH :=0;
 	signal memory_full_int: std_logic:='0';
-	signal memory_empty: std_logic;
 	signal cycle_counter: integer:=0;
 	signal initial_counter: integer:=0;
 	signal begin_reading: std_logic:='0';
 begin
 	memory_full<=memory_full_int;
 	process(clk,reset, EoC_in)
+		--variable begin_reading:='0';
 	begin
 		if reset = '1' or EoC_in = '1' then
 			--memory_full_int<='0';
 			memory<=(others=>(others=>'0'));
 			begin_reading<='0';
+			--begin_reading:='0';
 			write_counter<=0;
 			read_counter<=0;
 			start<='0';
+			cycle_counter<=0;
 		elsif rising_edge(clk ) then
 			start<=memory_full_int;
 			if begin_reading= '0' and memory_full_int='1' then
 				initial_counter<=initial_counter+1;
 				if initial_counter = LATENCY-1 then
 					begin_reading<='1';
+					--begin_reading:='0';
 					initial_counter<=0;
 				end if;
 			end if;
@@ -93,16 +96,16 @@ begin
 				if write_counter = MEMORY_DEPTH-1 then
 					write_counter<=0;
 					memory_full_int<='1';
-                    else 
-                        memory_full_int<= '0';
+					else
+					memory_full_int<= '0';
 				end if;
 			end if;
 
 			if rd_en='1' and memory_full_int='1' and begin_reading='1'  then
 				cycle_counter<=cycle_counter+1 ;
+				rd_port<=memory(read_counter);
 				if cycle_counter = CYLCES_TO_WAIT-1 then
 					cycle_counter<=0;
-					rd_port<=memory(read_counter);
 					read_counter<=read_counter+1;
 					if read_counter = MEMORY_DEPTH-1 then
 						read_counter<=0;

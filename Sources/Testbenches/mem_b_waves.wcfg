@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="top_tb_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="top_tb" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="0.000 ns"></ZoomStartTime>
+      <ZoomEndTime time="1,000.001 ns"></ZoomEndTime>
+      <Cursor1Time time="205.000 ns"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="235"></NameColumnWidth>
+      <ValueColumnWidth column_width="110"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="22" />
+   <wvobject type="logic" fp_name="/top_tb/monmult_module_inst/mem_b_inst/clk">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/top_tb/monmult_module_inst/mem_b_inst/reset">
+      <obj_property name="ElementShortName">reset</obj_property>
+      <obj_property name="ObjectShortName">reset</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/top_tb/monmult_module_inst/mem_b_inst/memory_full">
+      <obj_property name="ElementShortName">memory_full</obj_property>
+      <obj_property name="ObjectShortName">memory_full</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/top_tb/monmult_module_inst/mem_b_inst/wr_en">
+      <obj_property name="ElementShortName">wr_en</obj_property>
+      <obj_property name="ObjectShortName">wr_en</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/top_tb/monmult_module_inst/mem_b_inst/wr_port">
+      <obj_property name="ElementShortName">wr_port[63:0]</obj_property>
+      <obj_property name="ObjectShortName">wr_port[63:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/top_tb/monmult_module_inst/mem_b_inst/rd_en">
+      <obj_property name="ElementShortName">rd_en</obj_property>
+      <obj_property name="ObjectShortName">rd_en</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/top_tb/monmult_module_inst/mem_b_inst/rd_port">
+      <obj_property name="ElementShortName">rd_port[63:0]</obj_property>
+      <obj_property name="ObjectShortName">rd_port[63:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/top_tb/monmult_module_inst/mem_b_inst/start">
+      <obj_property name="ElementShortName">start</obj_property>
+      <obj_property name="ObjectShortName">start</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/top_tb/monmult_module_inst/mem_b_inst/EoC_in">
+      <obj_property name="ElementShortName">EoC_in</obj_property>
+      <obj_property name="ObjectShortName">EoC_in</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/top_tb/monmult_module_inst/mem_b_inst/memory">
+      <obj_property name="ElementShortName">memory[3:0][63:0]</obj_property>
+      <obj_property name="ObjectShortName">memory[3:0][63:0]</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+   </wvobject>
+   <wvobject type="other" fp_name="/top_tb/monmult_module_inst/mem_b_inst/write_counter">
+      <obj_property name="ElementShortName">write_counter</obj_property>
+      <obj_property name="ObjectShortName">write_counter</obj_property>
+   </wvobject>
+   <wvobject type="other" fp_name="/top_tb/monmult_module_inst/mem_b_inst/read_counter">
+      <obj_property name="ElementShortName">read_counter</obj_property>
+      <obj_property name="ObjectShortName">read_counter</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/top_tb/monmult_module_inst/mem_b_inst/memory_full_int">
+      <obj_property name="ElementShortName">memory_full_int</obj_property>
+      <obj_property name="ObjectShortName">memory_full_int</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/top_tb/monmult_module_inst/mem_b_inst/memory_empty">
+      <obj_property name="ElementShortName">memory_empty</obj_property>
+      <obj_property name="ObjectShortName">memory_empty</obj_property>
+   </wvobject>
+   <wvobject type="other" fp_name="/top_tb/monmult_module_inst/mem_b_inst/initial_counter">
+      <obj_property name="ElementShortName">initial_counter</obj_property>
+      <obj_property name="ObjectShortName">initial_counter</obj_property>
+   </wvobject>
+   <wvobject type="other" fp_name="/top_tb/monmult_module_inst/mem_b_inst/cycle_counter">
+      <obj_property name="ElementShortName">cycle_counter</obj_property>
+      <obj_property name="ObjectShortName">cycle_counter</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/top_tb/monmult_module_inst/mem_b_inst/begin_reading">
+      <obj_property name="ElementShortName">begin_reading</obj_property>
+      <obj_property name="ObjectShortName">begin_reading</obj_property>
+   </wvobject>
+   <wvobject type="other" fp_name="/top_tb/monmult_module_inst/mem_b_inst/WRITE_WIDTH">
+      <obj_property name="ElementShortName">WRITE_WIDTH</obj_property>
+      <obj_property name="ObjectShortName">WRITE_WIDTH</obj_property>
+   </wvobject>
+   <wvobject type="other" fp_name="/top_tb/monmult_module_inst/mem_b_inst/READ_WIDTH">
+      <obj_property name="ElementShortName">READ_WIDTH</obj_property>
+      <obj_property name="ObjectShortName">READ_WIDTH</obj_property>
+   </wvobject>
+   <wvobject type="other" fp_name="/top_tb/monmult_module_inst/mem_b_inst/CYLCES_TO_WAIT">
+      <obj_property name="ElementShortName">CYLCES_TO_WAIT</obj_property>
+      <obj_property name="ObjectShortName">CYLCES_TO_WAIT</obj_property>
+   </wvobject>
+   <wvobject type="other" fp_name="/top_tb/monmult_module_inst/mem_b_inst/LATENCY">
+      <obj_property name="ElementShortName">LATENCY</obj_property>
+      <obj_property name="ObjectShortName">LATENCY</obj_property>
+   </wvobject>
+   <wvobject type="other" fp_name="/top_tb/monmult_module_inst/mem_b_inst/MEMORY_DEPTH">
+      <obj_property name="ElementShortName">MEMORY_DEPTH</obj_property>
+      <obj_property name="ObjectShortName">MEMORY_DEPTH</obj_property>
+   </wvobject>
+</wave_config>

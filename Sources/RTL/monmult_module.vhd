@@ -52,7 +52,7 @@ entity monmult_module is
 		n				: in std_logic_vector(N_BITS_PER_WORD-1 downto 0);
 		nn0				: in std_logic_vector(N_BITS_PER_WORD-1 downto 0);
 		EoC 			: out std_logic := '0';
-		result			: out std_logic_vector(N_BITS_PER_WORD-1 downto 0)
+		result			: out std_logic_vector(N_BITS_PER_WORD-1 downto 0):=(others=>'0')
 	);
 end monmult_module;
 

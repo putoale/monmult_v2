@@ -72,7 +72,7 @@ architecture Behavioral of tb_mac_ab is
 	           reset : in STD_LOGIC;
 			   start : in std_logic;
 
-			   a : in STD_LOGIC_VECTOR (N_BITS_PER_WORD-1  downto 0);
+			   		a : in STD_LOGIC_VECTOR (N_BITS_PER_WORD-1  downto 0);
 	           b : in STD_LOGIC_VECTOR (N_BITS_PER_WORD-1  downto 0);
 	           t_mac_in : in STD_LOGIC_VECTOR (N_BITS_PER_WORD-1  downto 0);
 	           t_adder_in : in STD_LOGIC_VECTOR (N_BITS_PER_WORD-1  downto 0);
