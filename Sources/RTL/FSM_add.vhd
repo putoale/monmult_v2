@@ -68,12 +68,6 @@ signal i_counter : unsigned (9 downto 0) := (Others =>'0');
 constant DELAY_SUM_3_1 : UNSIGNED (9 downto 0) := to_unsigned((N_WORDS - 4),10);
 
 
------aggiunti da Matteo--------------------------------------------------------
-constant LATENCY: integer:=2;
-
-signal start_counter : integer:=0;
-
--------------------------------------------------------------------------------
 begin
 
 
@@ -110,16 +104,10 @@ begin
 
       when IDLE  =>
 
-        --if start = '1' then
-        --  start_reg <= '1';
-        --end if;
-				if start='1' then
-					start_counter<=start_counter+1;
-					if start_counter = LATENCY -1 then
-						start_counter<=0;
-						start_reg<='1';
-					end if;
-				end if;
+        if start = '1' then
+          start_reg <= '1';
+        end if;
+
         if start_reg = '1' then
 
           if delay_counter < N_WORDS-1 then

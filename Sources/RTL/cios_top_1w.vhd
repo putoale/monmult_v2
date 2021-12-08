@@ -181,34 +181,24 @@ architecture Behavioral of cios_top_1w is
 		 );
 	end component;
 
-
-
-
-
 	------------------------SIGNALS---------------------------------------------
 
 
-	signal	t_mac_in_ab		: std_logic_vector(N_BITS_PER_WORD-1 downto 0);
-	--signal	t_adder_in_ab		: std_logic_vector(N_BITS_PER_WORD-1 downto 0);
-	signal	t_mac_out_ab		: std_logic_vector(N_BITS_PER_WORD-1 downto 0);
-	--signal	c_mac_out_ab		: std_logic_vector(N_BITS_PER_WORD-1 downto 0);
-	signal	c_mac_out_ab		: std_logic_vector(N_BITS_PER_WORD-1 downto 0);
+	signal	t_out_ab		: std_logic_vector(N_BITS_PER_WORD-1 downto 0);
+	signal	c_out_ab		: std_logic_vector(N_BITS_PER_WORD-1 downto 0);
 
 	signal m : std_logic_vector (N_BITS_PER_WORD-1  downto 0);
 
-	signal	t_mac_in_mn		: std_logic_vector(N_BITS_PER_WORD-1 downto 0);
 	signal t_mac_out_mn :  std_logic_vector (N_BITS_PER_WORD-1  downto 0);
-	--signal c_mac_out_mn :  std_logic_vector (N_BITS_PER_WORD-1  downto 0);
 	signal c_out_mn :  std_logic_vector (N_BITS_PER_WORD-1  downto 0);
+	signal t_out_mn :  std_logic_vector (N_BITS_PER_WORD-1  downto 0);
+
 	signal c_in_ab : std_logic_vector (N_BITS_PER_WORD-1 downto 0);
 	signal c_in_mn : std_logic_vector (N_BITS_PER_WORD-1 downto 0);
 	---------------------------------------------------------
 
 	signal c_out :  std_logic_vector (N_BITS_PER_WORD-1 downto 0):=(Others =>'0');
 	signal t_out :  std_logic_vector (N_BITS_PER_WORD-1 downto 0):=(Others =>'0');
-
-	--signal start : std_logic;
-
 
 	signal t_in : std_logic_vector (N_BITS_PER_WORD-1 downto 0);
 	signal n_in : std_logic_vector (N_BITS_PER_WORD-1 downto 0);
@@ -230,10 +220,10 @@ begin
 		start=> start,
 		a=> a,
 		b=> b,
-		t_mac_in=> t_mac_out_mn,
+		t_mac_in=> t_out_mn,
 		t_adder_in=> t_adder,
-		t_mac_out=> t_mac_out_ab,
-		c_mac_out=> c_mac_out_ab
+		t_mac_out=> t_out_ab,
+		c_mac_out=> c_out_ab
 	);
 
 
@@ -250,7 +240,7 @@ begin
 		n	=>n_mac,
 		m	=>m,
 		t_in	=>t_out_mult,
-		t_mac_out	=>t_mac_out_mn,
+		t_mac_out	=>t_out_mn,
 		c_mac_out	=>c_out_mn
 		);
 
@@ -263,7 +253,7 @@ begin
 		clk=>clk,
 		reset=>reset,
 		start=>start,
-		t_in=>t_mac_out_ab,
+		t_in=>t_out_ab,
 		nn0=>nn0,
 		t_out=>t_out_mult,
 		m_out=>m
@@ -279,7 +269,7 @@ begin
 	clk=>			clk,
 	reset=>		reset,
 	start=>		start,
-	c_in_ab=>	c_mac_out_ab,
+	c_in_ab=>	c_out_ab,
 	c_in_mn=>	c_out_mn,
 	c_out=>		open,
 	t_out	=>	t_adder
@@ -288,7 +278,7 @@ begin
 	sub_inst: FSM_sub_v2
 	generic map(
 		N_WORDS=>N_WORDS,
-	 N_BITS_PER_WORD=>N_BITS_PER_WORD
+	 	N_BITS_PER_WORD=>N_BITS_PER_WORD
 	 )
 	port map(
 		clk=>clk,
@@ -296,7 +286,7 @@ begin
 		start=>start,
 		EoC=>EoC,
 		valid_out => valid_out,
-		t_in_mac=>t_mac_out_mn,
+		t_in_mac=>t_out_mn,
 		t_in_add=>t_adder,
 		n_in=>n_sub,
 		mult_result=>result

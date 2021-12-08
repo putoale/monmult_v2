@@ -11,7 +11,7 @@ entity simple_1w_mult is
         a     : in std_logic_vector (N_BITS_PER_WORD-1 downto 0);
         b     : in std_logic_vector (N_BITS_PER_WORD-1 downto 0);
 
-        p_out : out std_logic_vector (N_BITS_PER_WORD-1 downto 0)
+        p_out : out std_logic_vector (N_BITS_PER_WORD-1 downto 0):=(others=>'0')
 
    );
 end simple_1w_mult;

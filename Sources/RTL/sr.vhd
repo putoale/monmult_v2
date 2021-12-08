@@ -18,7 +18,7 @@ entity sr is
 
         ------------- Data --------------
         din   :   IN    STD_LOGIC_VECTOR(SR_WIDTH-1 downto 0);
-        dout  :   OUT   STD_LOGIC_VECTOR(SR_WIDTH-1 downto 0)
+        dout  :   OUT   STD_LOGIC_VECTOR(SR_WIDTH-1 downto 0):=(others=>'0')
         ---------------------------------
 
     );

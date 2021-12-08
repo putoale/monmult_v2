@@ -65,27 +65,6 @@ end FSM_mac_mn;
 
 architecture Behavioral of FSM_mac_mn is
 
-
-	component sr is
-	    Generic(
-	        SR_WIDTH   :   NATURAL   := 8;
-	        SR_DEPTH   :   POSITIVE  := 4;
-	        SR_INIT    :   INTEGER   := 0
-	    );
-	    Port (
-
-	        ---------- Reset/Clock ----------
-	        reset   :   IN  STD_LOGIC;
-	        clk     :   IN  STD_LOGIC;
-	        ---------------------------------
-
-	        ------------- Data --------------
-	        din   :   IN    std_logic_vector(SR_WIDTH-1 downto 0);
-	        dout  :   OUT   std_logic_vector(SR_WIDTH-1 downto 0)
-	        ---------------------------------
-
-	    );
-	end component;
 	component simple_1w_mac is
 	    generic(
 	        N_BITS : positive := 8 --number of bits in a word
@@ -104,7 +83,7 @@ architecture Behavioral of FSM_mac_mn is
 	end component;
 
 	--signals-------------------------------------------------------------------
-	constant LATENCY: integer:=3;
+	constant LATENCY: integer:=1;
 	signal i: integer:=0;
 	signal j: integer:=0;
 
@@ -116,9 +95,9 @@ architecture Behavioral of FSM_mac_mn is
 	signal c_out_dut : std_logic_vector(n'range);
 
 	signal start_reg: std_logic:='0';
-	signal start_reg_reg: std_logic:='0';
 	signal finished: std_logic:='0';
 	signal start_counter : integer:=0;
+	signal start_comp: std_logic:='0';
 	--end signals---------------------------------------------------------------
 begin
 	mac_inst: simple_1w_mac
@@ -136,50 +115,51 @@ begin
 	);
 
 
-
 	c_mac_out<=c_out_dut;
 	t_mac_out<=s_out_dut;
 	FSM_process: process(clk,reset)
 	begin
-		if reset='1' then
-			start_reg_reg<='0';
-			start_reg<='0';
-			n_dut	<=(others=>'0');
-			m_dut	<=(others=>'0');
-			t_in_dut	<=(others=>'0');
-			c_in_dut	<=(others=>'0');
-		elsif rising_edge(clk) then
-			if start= '1' and finished='0' then
 
+		if rising_edge(clk) then
+			if reset='1'   then
+				start_reg<='0';
+				start_comp<='0';
+			
+			end if;
+			if start = '1' then
+				start_reg <= '1';
+			end if;
+			--if start= '1' and finished='0' then
+			if start_reg= '1' then
 				start_counter<=start_counter+1;
 				if start_counter = LATENCY -1 then
 					start_counter<=0;
-					start_reg<='1';
-				end if;
-				if start_reg='1' then
-					j<=j+1;
-					if j=N_WORDS-1 then
-						j<=0;
-						i<=i+1;
-						if i= N_WORDS-1 then
-							i<=0;
-						end if;
-						if i=N_WORDS-1 and j=N_WORDS-1 then
-							finished<='1';
-						end if;
-					end if;
-					n_dut<=n;
-					t_in_dut<=t_in;
-					if j=0 then
-						m_dut<=m;
-						c_in_dut<=(others=>'0');
-					else
-						c_in_dut<=c_out_dut;
-					end if;
-
-					end if;
+					start_comp<='1';
 				end if;
 			end if;
+			if start_comp ='1' then
+				j<=j+1;
+				if j=N_WORDS-1 then
+					j<=0;
+					i<=i+1;
+					if i= N_WORDS-1 then
+						i<=0;
+					end if;
+					if i=N_WORDS-1 and j=N_WORDS-1 then
+						start_reg<='0';
+						start_comp <='0';
+					end if;
+				end if;
+				n_dut<=n;
+				t_in_dut<=t_in;
+				if j=0 then
+					m_dut<=m;
+					c_in_dut<=(others=>'0');
+				else
+					c_in_dut<=c_out_dut;
+				end if;
+			end if;
+		end if;
 	end process;
 
 end Behavioral;

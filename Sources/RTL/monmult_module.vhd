@@ -37,7 +37,7 @@ entity monmult_module is
 		READ_WIDTH: integer :=8;
 		N_BITS_PER_WORD		:integer :=8;
 		N_WORDS				:integer :=4;
-		MEMORY_DEPTH: integer:=16
+		MEMORY_DEPTH: integer:=16         
 
 	);
 	Port (
@@ -60,8 +60,7 @@ end monmult_module;
 architecture Behavioral of monmult_module is
 
 
-	------------------------SIGNALS---------------------------------------------
-
+	------------------------SIGNALS---------------------------------------------N_WORDS
 
 	constant LATENCY_AB:integer:=1;
 	constant LATENCY_N_SUB:integer:=LATENCY_AB +N_WORDS*(N_WORDS-1)+3;
@@ -74,7 +73,7 @@ architecture Behavioral of monmult_module is
 	signal start_b: std_logic;
 	signal start_n_mac: std_logic;
 	signal start_n_sub: std_logic;
-	signal start: std_logic;
+	--signal start: std_logic;
 	signal EoC_sig: std_logic;
 	signal memory_full: std_logic;
 
@@ -164,7 +163,7 @@ begin
 		b=> b_mem,
 		n_mac=> n_mac_mem,
 		n_sub=> n_sub_mem,
-		start=> start,
+		start=> start_modules,
 		nn0=> nn0,
 		result=> result,
 		valid_out => valid_out,
@@ -173,12 +172,12 @@ begin
 
 	mem_a_inst: input_mem_abn
 	generic map(
-		WRITE_WIDTH	=> WRITE_WIDTH,
-		READ_WIDTH	=> READ_WIDTH,
+		WRITE_WIDTH	=> N_BITS_PER_WORD,
+		READ_WIDTH	=> N_BITS_PER_WORD,
 		CYLCES_TO_WAIT	=> 1,
 		LATENCY	=> LATENCY_AB,
 
-		MEMORY_DEPTH	=> MEMORY_DEPTH
+		MEMORY_DEPTH	=> N_WORDS
 	)
 	port map(
 		clk=> clk,
@@ -189,19 +188,19 @@ begin
 		rd_en=> '1',
 		rd_port=> a_mem,
 		start=> start_a,
-		start_in=> start_modules,
+		start_in=> start_mem,
 		EoC_in=>EoC_sig
 
 	);
 
 	mem_b_inst: input_mem_abn
 	generic map(
-		WRITE_WIDTH	=> WRITE_WIDTH,
-		READ_WIDTH	=> READ_WIDTH,
+		WRITE_WIDTH	=> N_BITS_PER_WORD,
+		READ_WIDTH	=> N_BITS_PER_WORD,
 		CYLCES_TO_WAIT	=> N_WORDS,
 		LATENCY	=> LATENCY_AB,
 
-		MEMORY_DEPTH	=> MEMORY_DEPTH
+		MEMORY_DEPTH	=> N_WORDS
 	)
 	port map(
 		clk=> clk,
@@ -212,19 +211,19 @@ begin
 		rd_en=> '1',
 		EoC_in=>EoC_sig,
 		start=> start_b,
-		start_in=> start_modules,
+		start_in=> start_mem,
 
 		rd_port=> b_mem
 	);
 
 	mem_n_mac_inst: input_mem_abn
 	generic map(
-		WRITE_WIDTH	=> WRITE_WIDTH,
-		READ_WIDTH	=> READ_WIDTH,
+		WRITE_WIDTH	=> N_BITS_PER_WORD,
+		READ_WIDTH	=> N_BITS_PER_WORD,
 		CYLCES_TO_WAIT	=> 1,
 		LATENCY	=> LATENCY_N_MAC,
 
-		MEMORY_DEPTH	=> MEMORY_DEPTH
+		MEMORY_DEPTH	=> N_WORDS
 	)
 	port map(
 		clk=> clk,
@@ -235,15 +234,15 @@ begin
 		rd_en=> '1',
 		EoC_in=>EoC_sig,
 		start=> start_n_mac,
-		start_in=> start_modules,
+		start_in=> start_mem,
 
 		rd_port=> n_mac_mem
 	);
 
 	mem_n_sub_inst: input_mem_abn
 	generic map(
-		WRITE_WIDTH	=> WRITE_WIDTH,
-		READ_WIDTH	=> READ_WIDTH,
+		WRITE_WIDTH	=> N_BITS_PER_WORD,
+		READ_WIDTH	=> N_BITS_PER_WORD,
 		CYLCES_TO_WAIT	=> 1,
 		LATENCY	=> LATENCY_N_SUB,
 
@@ -258,7 +257,7 @@ begin
 		rd_en=> '1',
 		EoC_in=>EoC_sig,
 		start=> start_n_sub,
-		start_in=> start_modules,
+		start_in=> start_mem,
 
 		rd_port=> n_sub_mem
 	);
@@ -277,7 +276,7 @@ begin
 		output_start		=> start_mem,
 		output_start_reg		=> start_modules
 		);
-		--start<=start_a and start_b and start_n_mac and start_n_sub;
+		
 		EoC <= EoC_sig;
 	----------------------------------------------------------------------------
 end Behavioral;

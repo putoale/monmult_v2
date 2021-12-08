@@ -53,11 +53,6 @@ architecture Behavioral of FSM_mult is
   signal t_in_reg  : std_logic_vector (N_BITS_PER_WORD-1 downto 0) := (Others =>'0');
 
 
-	---aggiunti da Matteo---------------------------------------------------------
-	constant LATENCY: integer:=2;
-	signal start_counter: integer:=0;
-
-	------------------------------------------------------------------------------
 
 begin
 
@@ -87,16 +82,10 @@ begin
 
     elsif rising_edge(clk) then
 
-      --if start = '1' then -- if start = '1' it's clock 0. Mult should sample first input at clk 1
-      --  start_reg <= '1'; -- register to wait until clk 1 and reg to store if multiplication is still in progress
-      --end if;
-			if start='1' then
-				start_counter<=start_counter+1;
-				if start_counter = LATENCY -1 then
-					start_counter<=0;
-					start_reg<='1';
-				end if;
-			end if;
+      if start = '1' then -- if start = '1' it's clock 0. Mult should sample first input at clk 1
+        start_reg <= '1'; -- register to wait until clk 1 and reg to store if multiplication is still in progress
+      end if;
+
 
       if start_reg = '1' then
 

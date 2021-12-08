@@ -55,7 +55,6 @@ entity input_mem_abn is
 
 		---add start latency
 		start_in: in std_logic:='0';
-
 		EoC_in: in std_logic
   );
 end input_mem_abn;

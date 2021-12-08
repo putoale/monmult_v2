@@ -15,8 +15,8 @@ entity simple_1w_adder is
           a : in std_logic_vector (N_BITS_PER_WORD-1 downto 0);
           b : in std_logic_vector (N_BITS_PER_WORD-1 downto 0);
 
-          s : out std_logic_vector (N_BITS_PER_WORD -1 downto 0);
-          c : out std_logic_vector (N_BITS_PER_WORD -1 downto 0)
+          s : out std_logic_vector (N_BITS_PER_WORD -1 downto 0):=(others=>'0');
+          c : out std_logic_vector (N_BITS_PER_WORD -1 downto 0):=(others=>'0')
      );
 end simple_1w_adder;
 

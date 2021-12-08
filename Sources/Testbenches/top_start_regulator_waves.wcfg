@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="top_tb_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="top_tb" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="0.000 ns"></ZoomStartTime>
+      <ZoomEndTime time="1,000.001 ns"></ZoomEndTime>
+      <Cursor1Time time="323.000 ns"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="235"></NameColumnWidth>
+      <ValueColumnWidth column_width="106"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="14" />
+   <wvobject type="logic" fp_name="/top_tb/monmult_module_inst/regulator_inst/clk">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/top_tb/monmult_module_inst/regulator_inst/reset">
+      <obj_property name="ElementShortName">reset</obj_property>
+      <obj_property name="ObjectShortName">reset</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/top_tb/monmult_module_inst/regulator_inst/in_1">
+      <obj_property name="ElementShortName">in_1</obj_property>
+      <obj_property name="ObjectShortName">in_1</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/top_tb/monmult_module_inst/regulator_inst/in_2">
+      <obj_property name="ElementShortName">in_2</obj_property>
+      <obj_property name="ObjectShortName">in_2</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/top_tb/monmult_module_inst/regulator_inst/in_3">
+      <obj_property name="ElementShortName">in_3</obj_property>
+      <obj_property name="ObjectShortName">in_3</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/top_tb/monmult_module_inst/regulator_inst/in_4">
+      <obj_property name="ElementShortName">in_4</obj_property>
+      <obj_property name="ObjectShortName">in_4</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/top_tb/monmult_module_inst/regulator_inst/EoC">
+      <obj_property name="ElementShortName">EoC</obj_property>
+      <obj_property name="ObjectShortName">EoC</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/top_tb/monmult_module_inst/regulator_inst/output_start">
+      <obj_property name="ElementShortName">output_start</obj_property>
+      <obj_property name="ObjectShortName">output_start</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/top_tb/monmult_module_inst/regulator_inst/output_start_reg">
+      <obj_property name="ElementShortName">output_start_reg</obj_property>
+      <obj_property name="ObjectShortName">output_start_reg</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/top_tb/monmult_module_inst/regulator_inst/flag_1">
+      <obj_property name="ElementShortName">flag_1</obj_property>
+      <obj_property name="ObjectShortName">flag_1</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/top_tb/monmult_module_inst/regulator_inst/flag_2">
+      <obj_property name="ElementShortName">flag_2</obj_property>
+      <obj_property name="ObjectShortName">flag_2</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/top_tb/monmult_module_inst/regulator_inst/flag_3">
+      <obj_property name="ElementShortName">flag_3</obj_property>
+      <obj_property name="ObjectShortName">flag_3</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/top_tb/monmult_module_inst/regulator_inst/flag_4">
+      <obj_property name="ElementShortName">flag_4</obj_property>
+      <obj_property name="ObjectShortName">flag_4</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/top_tb/monmult_module_inst/regulator_inst/output_start_int">
+      <obj_property name="ElementShortName">output_start_int</obj_property>
+      <obj_property name="ObjectShortName">output_start_int</obj_property>
+   </wvobject>
+</wave_config>
