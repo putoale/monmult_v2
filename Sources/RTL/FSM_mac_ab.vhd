@@ -50,16 +50,17 @@ entity FSM_mac_ab is
 		N_BITS_PER_WORD		: integer	:=8
 
 	);
-    Port ( clk : in STD_LOGIC;
-           reset : in STD_LOGIC;
-		   		start : in std_logic;
+    Port ( 
+			clk 	 	: in STD_LOGIC;
+           	reset 	 	: in STD_LOGIC;
+		   	start 	 	: in std_logic;
 
-		   		a : in std_logic_vector (N_BITS_PER_WORD-1  downto 0);
-           b : in std_logic_vector (N_BITS_PER_WORD-1  downto 0);
-           t_mac_in : in std_logic_vector (N_BITS_PER_WORD-1  downto 0);
-           t_adder_in : in std_logic_vector (N_BITS_PER_WORD-1  downto 0);
-           t_mac_out : out std_logic_vector (N_BITS_PER_WORD-1  downto 0):=(others=>'0');
-           c_mac_out : out std_logic_vector (N_BITS_PER_WORD-1  downto 0):=(others=>'0')
+		   	a 	  	 	: in std_logic_vector (N_BITS_PER_WORD-1  downto 0);
+           	b 		 	: in std_logic_vector (N_BITS_PER_WORD-1  downto 0);
+           	t_mac_in 	: in std_logic_vector (N_BITS_PER_WORD-1  downto 0);
+           	t_adder_in 	: in std_logic_vector (N_BITS_PER_WORD-1  downto 0);
+           	t_mac_out 	: out std_logic_vector (N_BITS_PER_WORD-1  downto 0):=(others=>'0');
+           	c_mac_out 	: out std_logic_vector (N_BITS_PER_WORD-1  downto 0):=(others=>'0')
 
 		   );
 

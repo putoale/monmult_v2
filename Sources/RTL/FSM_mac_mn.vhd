@@ -47,16 +47,17 @@ entity FSM_mac_mn is
 		N_BITS_PER_WORD		: integer	:=8
 
 	);
-    Port ( clk : in STD_LOGIC;
-           reset : in STD_LOGIC;
-		   start : in std_logic;  --receive start, wait 2 cycles
+    Port ( 
+			clk : in STD_LOGIC;
+           	reset : in STD_LOGIC;
+		   	start : in std_logic;  --receive start, wait 2 cycles
 
-		   n : in std_logic_vector (N_BITS_PER_WORD-1  downto 0);
-           m : in std_logic_vector (N_BITS_PER_WORD-1  downto 0);
-		   t_in : in std_logic_vector (N_BITS_PER_WORD-1  downto 0);
+		   	n : in std_logic_vector (N_BITS_PER_WORD-1  downto 0);
+           	m : in std_logic_vector (N_BITS_PER_WORD-1  downto 0);
+		   	t_in : in std_logic_vector (N_BITS_PER_WORD-1  downto 0);
 
-           t_mac_out : out std_logic_vector (N_BITS_PER_WORD-1  downto 0):=(others=>'0');
-           c_mac_out : out std_logic_vector (N_BITS_PER_WORD-1  downto 0):=(others=>'0')
+           	t_mac_out : out std_logic_vector (N_BITS_PER_WORD-1  downto 0):=(others=>'0');
+           	c_mac_out : out std_logic_vector (N_BITS_PER_WORD-1  downto 0):=(others=>'0')
 
 		   );
 
@@ -87,12 +88,12 @@ architecture Behavioral of FSM_mac_mn is
 	signal i: integer:=0;
 	signal j: integer:=0;
 
-	signal n_dut : std_logic_vector(n'range);
-	signal m_dut : std_logic_vector(n'range);
-	signal t_in_dut : std_logic_vector(n'range);
-	signal c_in_dut : std_logic_vector(n'range);
-	signal s_out_dut : std_logic_vector(n'range);
-	signal c_out_dut : std_logic_vector(n'range);
+	signal n_dut : std_logic_vector(n'range):= (Others =>'0');
+	signal m_dut : std_logic_vector(n'range):= (Others =>'0');
+	signal t_in_dut : std_logic_vector(n'range):= (Others =>'0');
+	signal c_in_dut : std_logic_vector(n'range):= (Others =>'0');
+	signal s_out_dut : std_logic_vector(n'range):= (Others =>'0');
+	signal c_out_dut : std_logic_vector(n'range):= (Others =>'0');
 
 	signal start_reg: std_logic:='0';
 	signal finished: std_logic:='0';

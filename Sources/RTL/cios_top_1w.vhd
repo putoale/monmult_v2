@@ -37,17 +37,17 @@ entity cios_top_1w is
 		N_WORDS				:integer :=4
 	);
 	Port (
-		clk: in std_logic;
-		reset: in std_logic;
+		clk			:in std_logic;
+		reset		:in std_logic;
 		a			:in std_logic_vector(N_BITS_PER_WORD-1 downto 0);
 		b			:in std_logic_vector(N_BITS_PER_WORD-1 downto 0);
-		n_mac			:in std_logic_vector(N_BITS_PER_WORD-1 downto 0);
-		n_sub			:in std_logic_vector(N_BITS_PER_WORD-1 downto 0);
-		start: in std_logic;
+		n_mac		:in std_logic_vector(N_BITS_PER_WORD-1 downto 0);
+		n_sub		:in std_logic_vector(N_BITS_PER_WORD-1 downto 0);
+		start		:in std_logic;
 
 		nn0			:in std_logic_vector(N_BITS_PER_WORD-1 downto 0);
-		EoC: out std_logic;
-		valid_out : out std_logic := '0';
+		EoC			:out std_logic := '0';
+		valid_out 	:out std_logic := '0';
 		result		:out std_logic_vector(N_BITS_PER_WORD-1 downto 0)
 
 	);
@@ -184,26 +184,26 @@ architecture Behavioral of cios_top_1w is
 	------------------------SIGNALS---------------------------------------------
 
 
-	signal	t_out_ab		: std_logic_vector(N_BITS_PER_WORD-1 downto 0);
-	signal	c_out_ab		: std_logic_vector(N_BITS_PER_WORD-1 downto 0);
+	signal	t_out_ab		: std_logic_vector(N_BITS_PER_WORD-1 downto 0):= (Others =>'0');
+	signal	c_out_ab		: std_logic_vector(N_BITS_PER_WORD-1 downto 0):= (Others =>'0');
 
-	signal m : std_logic_vector (N_BITS_PER_WORD-1  downto 0);
+	signal m : std_logic_vector (N_BITS_PER_WORD-1  downto 0):= (Others =>'0');
 
-	signal t_mac_out_mn :  std_logic_vector (N_BITS_PER_WORD-1  downto 0);
-	signal c_out_mn :  std_logic_vector (N_BITS_PER_WORD-1  downto 0);
-	signal t_out_mn :  std_logic_vector (N_BITS_PER_WORD-1  downto 0);
+	signal t_mac_out_mn :  std_logic_vector (N_BITS_PER_WORD-1  downto 0):= (Others =>'0');
+	signal c_out_mn :  std_logic_vector (N_BITS_PER_WORD-1  downto 0):= (Others =>'0');
+	signal t_out_mn :  std_logic_vector (N_BITS_PER_WORD-1  downto 0):= (Others =>'0');
 
-	signal c_in_ab : std_logic_vector (N_BITS_PER_WORD-1 downto 0);
-	signal c_in_mn : std_logic_vector (N_BITS_PER_WORD-1 downto 0);
+	signal c_in_ab : std_logic_vector (N_BITS_PER_WORD-1 downto 0):= (Others =>'0');
+	signal c_in_mn : std_logic_vector (N_BITS_PER_WORD-1 downto 0):= (Others =>'0');
 	---------------------------------------------------------
 
 	signal c_out :  std_logic_vector (N_BITS_PER_WORD-1 downto 0):=(Others =>'0');
 	signal t_out :  std_logic_vector (N_BITS_PER_WORD-1 downto 0):=(Others =>'0');
 
-	signal t_in : std_logic_vector (N_BITS_PER_WORD-1 downto 0);
-	signal n_in : std_logic_vector (N_BITS_PER_WORD-1 downto 0);
-	signal t_adder: std_logic_vector (N_BITS_PER_WORD-1 downto 0);
-	signal t_out_mult: std_logic_vector (N_BITS_PER_WORD-1 downto 0);
+	signal t_in : std_logic_vector (N_BITS_PER_WORD-1 downto 0):= (Others =>'0');
+	signal n_in : std_logic_vector (N_BITS_PER_WORD-1 downto 0):= (Others =>'0');
+	signal t_adder: std_logic_vector (N_BITS_PER_WORD-1 downto 0):= (Others =>'0');
+	signal t_out_mult: std_logic_vector (N_BITS_PER_WORD-1 downto 0):= (Others =>'0');
 
 	----------------------------------------------------------------------------
 begin

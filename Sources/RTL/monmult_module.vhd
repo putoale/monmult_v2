@@ -33,11 +33,11 @@ use IEEE.STD_LOGIC_1164.ALL;
 
 entity monmult_module is
 	generic (
-		WRITE_WIDTH: integer :=8;
-		READ_WIDTH: integer :=8;
-		N_BITS_PER_WORD		:integer :=8;
-		N_WORDS				:integer :=4;
-		MEMORY_DEPTH: integer:=16         
+		WRITE_WIDTH			: integer :=8;
+		READ_WIDTH			: integer :=8;
+		N_BITS_PER_WORD		: integer :=8;
+		N_WORDS				: integer :=4;
+		MEMORY_DEPTH		: integer:=16
 
 	);
 	Port (

@@ -53,11 +53,11 @@ architecture bench of top_tb is
 	constant	TB_RESET_INIT 	:	STD_LOGIC	:= '1';
 
   -- Generics
-  constant DUT_WRITE_WIDTH : integer := 64;
-  constant DUT_READ_WIDTH : integer := 64;
-  constant DUT_N_BITS_PER_WORD : integer := 64;
+  constant DUT_N_BITS_PER_WORD : integer := 8;
   constant DUT_N_WORDS : integer := 4;
-  constant DUT_MEMORY_DEPTH : integer := 4;
+  constant DUT_WRITE_WIDTH : integer := DUT_N_BITS_PER_WORD;
+  constant DUT_READ_WIDTH : integer := DUT_N_BITS_PER_WORD;
+  constant DUT_MEMORY_DEPTH : integer := DUT_N_WORDS;
 
   --File GENERICS
   constant N_TEST_VECTORS : positive := 2;
@@ -78,17 +78,17 @@ architecture bench of top_tb is
   -- Ports
   signal clk              : std_logic := TB_CLK_INIT;
   signal reset            : std_logic:= TB_RESET_INIT;
-  signal dut_wr_en_a      : std_logic;
-  signal dut_wr_en_b      : std_logic;
-  signal dut_wr_en_n_mac  : std_logic;
-  signal dut_wr_en_n_sub  : std_logic;
-  signal dut_a            : std_logic_vector(DUT_N_BITS_PER_WORD-1 downto 0);
-  signal dut_b            : std_logic_vector(DUT_N_BITS_PER_WORD-1 downto 0);
-  signal dut_n            : std_logic_vector(DUT_N_BITS_PER_WORD-1 downto 0);
-  signal dut_nn0          : std_logic_vector(DUT_N_BITS_PER_WORD-1 downto 0);
+  signal dut_wr_en_a      : std_logic:='0';
+  signal dut_wr_en_b      : std_logic:='0';
+  signal dut_wr_en_n_mac  : std_logic:='0';
+  signal dut_wr_en_n_sub  : std_logic:='0';
+  signal dut_a            : std_logic_vector(DUT_N_BITS_PER_WORD-1 downto 0):= (Others =>'0');
+  signal dut_b            : std_logic_vector(DUT_N_BITS_PER_WORD-1 downto 0):= (Others =>'0');
+  signal dut_n            : std_logic_vector(DUT_N_BITS_PER_WORD-1 downto 0):= (Others =>'0');
+  signal dut_nn0          : std_logic_vector(DUT_N_BITS_PER_WORD-1 downto 0):= (Others =>'0');
   signal dut_EoC          : std_logic := '0';
   signal dut_valid_out    : std_logic := '0';
-  signal dut_result       : std_logic_vector(DUT_N_BITS_PER_WORD-1 downto 0);
+  signal dut_result       : std_logic_vector(DUT_N_BITS_PER_WORD-1 downto 0):= (Others =>'0');
 
   --Other signals
   signal file_read_complete : boolean := false;
@@ -156,13 +156,13 @@ begin
 
 file_proc : process
 
-file        input_file          : text open read_mode is "input_vectors.txt";
-variable    input_line          : line;
+file        input_file            : text open read_mode is "input_vectors_32_4_8.txt";
+variable    input_line            : line;
 variable    slv_a_var             : std_logic_vector(DUT_N_BITS_PER_WORD-1 downto 0) := (Others =>'0');
 variable    slv_b_var             : std_logic_vector(DUT_N_BITS_PER_WORD-1 downto 0) := (Others =>'0');
 variable    slv_n_var             : std_logic_vector(DUT_N_BITS_PER_WORD-1 downto 0) := (Others =>'0');
-variable    slv_nn0_var             : std_logic_vector(DUT_N_BITS_PER_WORD-1 downto 0) := (Others =>'0');
-variable    good_v              : boolean;
+variable    slv_nn0_var           : std_logic_vector(DUT_N_BITS_PER_WORD-1 downto 0) := (Others =>'0');
+variable    good_v                : boolean;
 begin
 
   while not endfile(input_file) loop

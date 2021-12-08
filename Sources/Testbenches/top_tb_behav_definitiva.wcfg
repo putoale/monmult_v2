@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="top_tb_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="top_tb" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="0.000 ns"></ZoomStartTime>
+      <ZoomEndTime time="1,000.001 ns"></ZoomEndTime>
+      <Cursor1Time time="435.185 ns"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="235"></NameColumnWidth>
+      <ValueColumnWidth column_width="90"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="30" />
+   <wvobject type="logic" fp_name="/top_tb/clk">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/top_tb/reset">
+      <obj_property name="ElementShortName">reset</obj_property>
+      <obj_property name="ObjectShortName">reset</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/top_tb/dut_wr_en_a">
+      <obj_property name="ElementShortName">dut_wr_en_a</obj_property>
+      <obj_property name="ObjectShortName">dut_wr_en_a</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/top_tb/dut_wr_en_b">
+      <obj_property name="ElementShortName">dut_wr_en_b</obj_property>
+      <obj_property name="ObjectShortName">dut_wr_en_b</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/top_tb/dut_wr_en_n_mac">
+      <obj_property name="ElementShortName">dut_wr_en_n_mac</obj_property>
+      <obj_property name="ObjectShortName">dut_wr_en_n_mac</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/top_tb/dut_wr_en_n_sub">
+      <obj_property name="ElementShortName">dut_wr_en_n_sub</obj_property>
+      <obj_property name="ObjectShortName">dut_wr_en_n_sub</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/top_tb/dut_a">
+      <obj_property name="ElementShortName">dut_a[7:0]</obj_property>
+      <obj_property name="ObjectShortName">dut_a[7:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/top_tb/dut_b">
+      <obj_property name="ElementShortName">dut_b[7:0]</obj_property>
+      <obj_property name="ObjectShortName">dut_b[7:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/top_tb/dut_n">
+      <obj_property name="ElementShortName">dut_n[7:0]</obj_property>
+      <obj_property name="ObjectShortName">dut_n[7:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/top_tb/dut_nn0">
+      <obj_property name="ElementShortName">dut_nn0[7:0]</obj_property>
+      <obj_property name="ObjectShortName">dut_nn0[7:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/top_tb/dut_EoC">
+      <obj_property name="ElementShortName">dut_EoC</obj_property>
+      <obj_property name="ObjectShortName">dut_EoC</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/top_tb/dut_valid_out">
+      <obj_property name="ElementShortName">dut_valid_out</obj_property>
+      <obj_property name="ObjectShortName">dut_valid_out</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/top_tb/dut_result">
+      <obj_property name="ElementShortName">dut_result[7:0]</obj_property>
+      <obj_property name="ObjectShortName">dut_result[7:0]</obj_property>
+   </wvobject>
+   <wvobject type="other" fp_name="/top_tb/file_read_complete">
+      <obj_property name="ElementShortName">file_read_complete</obj_property>
+      <obj_property name="ObjectShortName">file_read_complete</obj_property>
+   </wvobject>
+   <wvobject type="other" fp_name="/top_tb/writeline_complete">
+      <obj_property name="ElementShortName">writeline_complete</obj_property>
+      <obj_property name="ObjectShortName">writeline_complete</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/top_tb/a_memory">
+      <obj_property name="ElementShortName">a_memory[0:1][3:0][7:0]</obj_property>
+      <obj_property name="ObjectShortName">a_memory[0:1][3:0][7:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/top_tb/b_memory">
+      <obj_property name="ElementShortName">b_memory[0:1][3:0][7:0]</obj_property>
+      <obj_property name="ObjectShortName">b_memory[0:1][3:0][7:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/top_tb/n_memory">
+      <obj_property name="ElementShortName">n_memory[0:1][3:0][7:0]</obj_property>
+      <obj_property name="ObjectShortName">n_memory[0:1][3:0][7:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/top_tb/nn0_memory">
+      <obj_property name="ElementShortName">nn0_memory[0:1][7:0]</obj_property>
+      <obj_property name="ObjectShortName">nn0_memory[0:1][7:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/top_tb/res_memory">
+      <obj_property name="ElementShortName">res_memory[3:0][7:0]</obj_property>
+      <obj_property name="ObjectShortName">res_memory[3:0][7:0]</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+   </wvobject>
+   <wvobject type="other" fp_name="/top_tb/CLK_PERIOD">
+      <obj_property name="ElementShortName">CLK_PERIOD</obj_property>
+      <obj_property name="ObjectShortName">CLK_PERIOD</obj_property>
+   </wvobject>
+   <wvobject type="other" fp_name="/top_tb/RESET_WND">
+      <obj_property name="ElementShortName">RESET_WND</obj_property>
+      <obj_property name="ObjectShortName">RESET_WND</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/top_tb/TB_CLK_INIT">
+      <obj_property name="ElementShortName">TB_CLK_INIT</obj_property>
+      <obj_property name="ObjectShortName">TB_CLK_INIT</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/top_tb/TB_RESET_INIT">
+      <obj_property name="ElementShortName">TB_RESET_INIT</obj_property>
+      <obj_property name="ObjectShortName">TB_RESET_INIT</obj_property>
+   </wvobject>
+   <wvobject type="other" fp_name="/top_tb/DUT_N_BITS_PER_WORD">
+      <obj_property name="ElementShortName">DUT_N_BITS_PER_WORD</obj_property>
+      <obj_property name="ObjectShortName">DUT_N_BITS_PER_WORD</obj_property>
+   </wvobject>
+   <wvobject type="other" fp_name="/top_tb/DUT_N_WORDS">
+      <obj_property name="ElementShortName">DUT_N_WORDS</obj_property>
+      <obj_property name="ObjectShortName">DUT_N_WORDS</obj_property>
+   </wvobject>
+   <wvobject type="other" fp_name="/top_tb/DUT_WRITE_WIDTH">
+      <obj_property name="ElementShortName">DUT_WRITE_WIDTH</obj_property>
+      <obj_property name="ObjectShortName">DUT_WRITE_WIDTH</obj_property>
+   </wvobject>
+   <wvobject type="other" fp_name="/top_tb/DUT_READ_WIDTH">
+      <obj_property name="ElementShortName">DUT_READ_WIDTH</obj_property>
+      <obj_property name="ObjectShortName">DUT_READ_WIDTH</obj_property>
+   </wvobject>
+   <wvobject type="other" fp_name="/top_tb/DUT_MEMORY_DEPTH">
+      <obj_property name="ElementShortName">DUT_MEMORY_DEPTH</obj_property>
+      <obj_property name="ObjectShortName">DUT_MEMORY_DEPTH</obj_property>
+   </wvobject>
+   <wvobject type="other" fp_name="/top_tb/N_TEST_VECTORS">
+      <obj_property name="ElementShortName">N_TEST_VECTORS</obj_property>
+      <obj_property name="ObjectShortName">N_TEST_VECTORS</obj_property>
+   </wvobject>
+</wave_config>

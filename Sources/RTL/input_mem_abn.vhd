@@ -43,19 +43,19 @@ entity input_mem_abn is
 	);
 	Port (
 
-		clk : in std_logic;
-		reset: in std_logic;
-		memory_full: out std_logic:='0';
+		clk 		: in std_logic;
+		reset		: in std_logic;
+		memory_full	: out std_logic:='0';
 
-		wr_en: in std_logic;
-		wr_port:in  std_logic_vector(WRITE_WIDTH-1 downto 0);
-		rd_en:in  std_logic;
-		rd_port: out std_logic_vector(READ_WIDTH-1 downto 0):=(others=>'0');
-		start: out std_logic:='0';
+		wr_en		: in std_logic;
+		wr_port		: in  std_logic_vector(WRITE_WIDTH-1 downto 0);
+		rd_en		: in  std_logic;
+		rd_port		: out std_logic_vector(READ_WIDTH-1 downto 0):=(others=>'0');
+		start		: out std_logic:='0';
 
 		---add start latency
-		start_in: in std_logic:='0';
-		EoC_in: in std_logic
+		start_in	: in std_logic;
+		EoC_in		: in std_logic
   );
 end input_mem_abn;
 
