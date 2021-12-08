@@ -10,13 +10,13 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="302.800 ns"></ZoomStartTime>
-      <ZoomEndTime time="536.401 ns"></ZoomEndTime>
-      <Cursor1Time time="421.000 ns"></Cursor1Time>
+      <ZoomStartTime time="733.840 ns"></ZoomStartTime>
+      <ZoomEndTime time="1,053.233 ns"></ZoomEndTime>
+      <Cursor1Time time="1,000.000 ns"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="235"></NameColumnWidth>
-      <ValueColumnWidth column_width="94"></ValueColumnWidth>
+      <ValueColumnWidth column_width="90"></ValueColumnWidth>
    </column_width_setting>
    <WVObjectSize size="25" />
    <wvobject type="logic" fp_name="/top_tb/clk">
@@ -44,20 +44,20 @@
       <obj_property name="ObjectShortName">dut_wr_en_n_sub</obj_property>
    </wvobject>
    <wvobject type="array" fp_name="/top_tb/dut_a">
-      <obj_property name="ElementShortName">dut_a[63:0]</obj_property>
-      <obj_property name="ObjectShortName">dut_a[63:0]</obj_property>
+      <obj_property name="ElementShortName">dut_a[7:0]</obj_property>
+      <obj_property name="ObjectShortName">dut_a[7:0]</obj_property>
    </wvobject>
    <wvobject type="array" fp_name="/top_tb/dut_b">
-      <obj_property name="ElementShortName">dut_b[63:0]</obj_property>
-      <obj_property name="ObjectShortName">dut_b[63:0]</obj_property>
+      <obj_property name="ElementShortName">dut_b[7:0]</obj_property>
+      <obj_property name="ObjectShortName">dut_b[7:0]</obj_property>
    </wvobject>
    <wvobject type="array" fp_name="/top_tb/dut_n">
-      <obj_property name="ElementShortName">dut_n[63:0]</obj_property>
-      <obj_property name="ObjectShortName">dut_n[63:0]</obj_property>
+      <obj_property name="ElementShortName">dut_n[7:0]</obj_property>
+      <obj_property name="ObjectShortName">dut_n[7:0]</obj_property>
    </wvobject>
    <wvobject type="array" fp_name="/top_tb/dut_nn0">
-      <obj_property name="ElementShortName">dut_nn0[63:0]</obj_property>
-      <obj_property name="ObjectShortName">dut_nn0[63:0]</obj_property>
+      <obj_property name="ElementShortName">dut_nn0[7:0]</obj_property>
+      <obj_property name="ObjectShortName">dut_nn0[7:0]</obj_property>
    </wvobject>
    <wvobject type="logic" fp_name="/top_tb/dut_EoC">
       <obj_property name="ElementShortName">dut_EoC</obj_property>
@@ -68,28 +68,28 @@
       <obj_property name="ObjectShortName">dut_valid_out</obj_property>
    </wvobject>
    <wvobject type="array" fp_name="/top_tb/dut_result">
-      <obj_property name="ElementShortName">dut_result[63:0]</obj_property>
-      <obj_property name="ObjectShortName">dut_result[63:0]</obj_property>
+      <obj_property name="ElementShortName">dut_result[7:0]</obj_property>
+      <obj_property name="ObjectShortName">dut_result[7:0]</obj_property>
    </wvobject>
    <wvobject type="other" fp_name="/top_tb/file_read_complete">
       <obj_property name="ElementShortName">file_read_complete</obj_property>
       <obj_property name="ObjectShortName">file_read_complete</obj_property>
    </wvobject>
    <wvobject type="array" fp_name="/top_tb/a_memory">
-      <obj_property name="ElementShortName">a_memory[0:1][3:0][63:0]</obj_property>
-      <obj_property name="ObjectShortName">a_memory[0:1][3:0][63:0]</obj_property>
+      <obj_property name="ElementShortName">a_memory[0:1][3:0][7:0]</obj_property>
+      <obj_property name="ObjectShortName">a_memory[0:1][3:0][7:0]</obj_property>
    </wvobject>
    <wvobject type="array" fp_name="/top_tb/b_memory">
-      <obj_property name="ElementShortName">b_memory[0:1][3:0][63:0]</obj_property>
-      <obj_property name="ObjectShortName">b_memory[0:1][3:0][63:0]</obj_property>
+      <obj_property name="ElementShortName">b_memory[0:1][3:0][7:0]</obj_property>
+      <obj_property name="ObjectShortName">b_memory[0:1][3:0][7:0]</obj_property>
    </wvobject>
    <wvobject type="array" fp_name="/top_tb/n_memory">
-      <obj_property name="ElementShortName">n_memory[0:1][3:0][63:0]</obj_property>
-      <obj_property name="ObjectShortName">n_memory[0:1][3:0][63:0]</obj_property>
+      <obj_property name="ElementShortName">n_memory[0:1][3:0][7:0]</obj_property>
+      <obj_property name="ObjectShortName">n_memory[0:1][3:0][7:0]</obj_property>
    </wvobject>
    <wvobject type="array" fp_name="/top_tb/nn0_memory">
-      <obj_property name="ElementShortName">nn0_memory[0:1][63:0]</obj_property>
-      <obj_property name="ObjectShortName">nn0_memory[0:1][63:0]</obj_property>
+      <obj_property name="ElementShortName">nn0_memory[0:1][7:0]</obj_property>
+      <obj_property name="ObjectShortName">nn0_memory[0:1][7:0]</obj_property>
    </wvobject>
    <wvobject type="group" fp_name="group366">
       <obj_property name="label">CONSTANTS</obj_property>
@@ -139,12 +139,12 @@
       <obj_property name="label">Mem_a</obj_property>
       <obj_property name="DisplayName">label</obj_property>
       <wvobject type="array" fp_name="/top_tb/monmult_module_inst/mem_a_inst/rd_port">
-         <obj_property name="ElementShortName">rd_port[63:0]</obj_property>
-         <obj_property name="ObjectShortName">rd_port[63:0]</obj_property>
+         <obj_property name="ElementShortName">rd_port[7:0]</obj_property>
+         <obj_property name="ObjectShortName">rd_port[7:0]</obj_property>
       </wvobject>
       <wvobject type="array" fp_name="/top_tb/monmult_module_inst/mem_a_inst/memory">
-         <obj_property name="ElementShortName">memory[3:0][63:0]</obj_property>
-         <obj_property name="ObjectShortName">memory[3:0][63:0]</obj_property>
+         <obj_property name="ElementShortName">memory[3:0][7:0]</obj_property>
+         <obj_property name="ObjectShortName">memory[3:0][7:0]</obj_property>
       </wvobject>
       <wvobject type="logic" fp_name="/top_tb/monmult_module_inst/mem_a_inst/EoC_in">
          <obj_property name="ElementShortName">EoC_in</obj_property>
@@ -163,40 +163,40 @@
       <obj_property name="label">Mem_b</obj_property>
       <obj_property name="DisplayName">label</obj_property>
       <wvobject type="array" fp_name="/top_tb/monmult_module_inst/mem_b_inst/rd_port">
-         <obj_property name="ElementShortName">rd_port[63:0]</obj_property>
-         <obj_property name="ObjectShortName">rd_port[63:0]</obj_property>
+         <obj_property name="ElementShortName">rd_port[7:0]</obj_property>
+         <obj_property name="ObjectShortName">rd_port[7:0]</obj_property>
       </wvobject>
       <wvobject type="array" fp_name="/top_tb/monmult_module_inst/mem_b_inst/memory">
-         <obj_property name="ElementShortName">memory[3:0][63:0]</obj_property>
-         <obj_property name="ObjectShortName">memory[3:0][63:0]</obj_property>
+         <obj_property name="ElementShortName">memory[3:0][7:0]</obj_property>
+         <obj_property name="ObjectShortName">memory[3:0][7:0]</obj_property>
       </wvobject>
    </wvobject>
    <wvobject type="group" fp_name="group626">
       <obj_property name="label">Mem_n_mac</obj_property>
       <obj_property name="DisplayName">label</obj_property>
       <wvobject type="array" fp_name="/top_tb/monmult_module_inst/mem_n_mac_inst/rd_port">
-         <obj_property name="ElementShortName">rd_port[63:0]</obj_property>
-         <obj_property name="ObjectShortName">rd_port[63:0]</obj_property>
+         <obj_property name="ElementShortName">rd_port[7:0]</obj_property>
+         <obj_property name="ObjectShortName">rd_port[7:0]</obj_property>
       </wvobject>
       <wvobject type="array" fp_name="/top_tb/monmult_module_inst/mem_n_mac_inst/memory">
-         <obj_property name="ElementShortName">memory[3:0][63:0]</obj_property>
-         <obj_property name="ObjectShortName">memory[3:0][63:0]</obj_property>
+         <obj_property name="ElementShortName">memory[3:0][7:0]</obj_property>
+         <obj_property name="ObjectShortName">memory[3:0][7:0]</obj_property>
       </wvobject>
    </wvobject>
    <wvobject type="group" fp_name="group629">
       <obj_property name="label">Mem_n_sub</obj_property>
       <obj_property name="DisplayName">label</obj_property>
       <wvobject type="array" fp_name="/top_tb/monmult_module_inst/mem_n_sub_inst/rd_port">
-         <obj_property name="ElementShortName">rd_port[63:0]</obj_property>
-         <obj_property name="ObjectShortName">rd_port[63:0]</obj_property>
+         <obj_property name="ElementShortName">rd_port[7:0]</obj_property>
+         <obj_property name="ObjectShortName">rd_port[7:0]</obj_property>
       </wvobject>
       <wvobject type="array" fp_name="/top_tb/monmult_module_inst/mem_n_sub_inst/memory">
-         <obj_property name="ElementShortName">memory[3:0][63:0]</obj_property>
-         <obj_property name="ObjectShortName">memory[3:0][63:0]</obj_property>
+         <obj_property name="ElementShortName">memory[3:0][7:0]</obj_property>
+         <obj_property name="ObjectShortName">memory[3:0][7:0]</obj_property>
       </wvobject>
    </wvobject>
    <wvobject type="array" fp_name="/top_tb/res_memory">
-      <obj_property name="ElementShortName">res_memory[3:0][63:0]</obj_property>
-      <obj_property name="ObjectShortName">res_memory[3:0][63:0]</obj_property>
+      <obj_property name="ElementShortName">res_memory[3:0][7:0]</obj_property>
+      <obj_property name="ObjectShortName">res_memory[3:0][7:0]</obj_property>
    </wvobject>
 </wave_config>
