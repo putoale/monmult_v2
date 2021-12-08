@@ -1,1 +1,0 @@
-/home/putoale/Documenti/monmult_v2_proj/monmult_v2/monmult_v2.sim/top_sim/behav/xsim/output_results.txt

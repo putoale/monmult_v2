@@ -110,15 +110,15 @@ architecture Behavioral of monmult_module is
 	component start_regulator is
 
 		port(
-				clk		in std_logic;
-				reset	in std_logic;
+				clk	 :	in std_logic;
+				reset :	in std_logic;
 				in_1: in std_logic;
 				in_2: in std_logic;
 				in_3: in std_logic;
 				in_4: in std_logic;
 				EoC: in std_logic;
-				output_start			out std_logic:='0';
-				output_start_reg	out std_logic:='0'
+				output_start	 :		out std_logic:='0';
+				output_start_reg :	out std_logic:='0'
 		);
 	end component;
 

@@ -71,8 +71,10 @@ architecture Behavioral of input_mem_abn is
 	signal initial_counter: integer:=0;
 	signal begin_reading: std_logic:='0';
 	signal start_flag: std_logic:='0';
+	signal start_int : std_logic := '0';
 begin
 	memory_full<=memory_full_int;
+	start <= start_int;
 	process(clk,reset, EoC_in)
 		--variable begin_reading:='0';
 	begin
@@ -87,13 +89,13 @@ begin
 				read_counter<=0;
 				cycle_counter<=0;
 				initial_counter<=0;
-				start_flag:='0';
+				start_flag<='0';
 			end if;
 			--------------------------------------------------------------------------
-			if start='1' then
-				start_flag='1';
+			if start_int='1' then
+				start_flag<='1';
 			end if;
-			start<=memory_full_int;
+			start_int<=memory_full_int;
 			--------------------------------------------------------------------------
 			if begin_reading= '0' and memory_full_int='1' and start_flag='1' then
 				initial_counter<=initial_counter+1;
