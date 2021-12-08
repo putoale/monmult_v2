@@ -1,5 +1,6 @@
 import gmpy2 as g
 import math  as m
+import csv
 
 def n_to_str (num, n_bits_per_word, n_words,base = 2):
     """ This function takes as input a number and returns a string representing
@@ -47,14 +48,14 @@ def send_tv_str_oneline (a,b,n,r,n_bits_per_word,n_words,base=16):
     str_out = a_str + b_str + n_str + nn0_str              # compose output string
     return str_out                                         # return test vector data in a single line separated by spaces
 
-def load_tv_from_file(file_path,n_words,n_bits_per_word,r,base=16,show_nn0 = 1, show_r = 1):
+def load_tv_from_file(file_path,n_words,n_bits_per_word,r,base=16):
     """This function loads test vectors from a file, and return a list of dictionaries with keys:
-    a,b,n,nn0,r,golden_res,module_res (initialized to 0) """
+    a,b,n,nn0,r,golden_res """
 
     tv_list = []
     file_lines =[]
 
-    dict_keys = ['a','b','n','nn0','r']
+    dict_keys = ['a', 'b','n',"n'(0)",'r','n_bit_total','n_bits_per_word','n_words','golden_result']
 
     n_symbols_per_word = (int) (n_bits_per_word / m.log(base,2))
 
@@ -62,13 +63,28 @@ def load_tv_from_file(file_path,n_words,n_bits_per_word,r,base=16,show_nn0 = 1, 
         file_lines = ff.readlines()
     
 
+
     for lin in file_lines.copy():
 
         op_list = lin.split ("  ")
         dict_values_str = [op.replace(" ","").replace("\n","").replace("\r","") for op in op_list] #stripped operators of 1 test vector
         dict_values_int = [int(i,base=base) for i in dict_values_str]
         dict_values_int.append(r)
-        tv_list.append(dict(zip(dict_keys,dict_values_int)))
+        dict_values_str.append(g.digits(r,base))
+
+        dict_temp = dict_values_int.copy()
+        dict_temp.pop(3) #remove nn0 from values
+
+        dict_values_str.append(n_bits_per_word * n_words)
+        dict_values_str.append(n_bits_per_word)
+        dict_values_str.append(n_words)
+
+        golden_res = monmult_int(*dict_temp)
+
+
+        dict_values_str.append(g.digits(golden_res,base))
+
+        tv_list.append(dict(zip(dict_keys,dict_values_str)))
 
     return tv_list
 
@@ -80,5 +96,30 @@ def load_res_from_file(file_path,base = 16):
         file_lines = ff.readlines()
     
     file_lines_stripped = [st.replace(" ","").replace("\n","").replace("\r","") for st in file_lines]
-    results_int = [int(st,base=base) for st in file_lines_stripped]
-    return results_int
+    #results_int = [int(st,base=base) for st in file_lines_stripped]
+    return file_lines_stripped
+
+
+def print_csv_out (file_name, tvv_list):
+    """This function generates a csv output file with all test vectors sent and results"""
+
+    with open(file_name, 'w', newline='') as csvfile:
+        fieldnames = ['a', 'b','n',"n'(0)",'r','n_bit_total','n_bits_per_word','n_words','golden_result','module_result','PASSED']
+        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+        writer.writeheader()
+
+        for elem in tvv_list:
+            writer.writerow(elem)
+
+def test_tv_pass (tv_list):
+    """This function evaluates the pass state of a test vector list
+     and adds a field PASSED to each test vector"""
+
+    for elem in tv_list:
+
+        if elem['module_result'] == elem['golden_result']:
+            pass_status = "YES"
+        else:
+            pass_status = "NO"
+
+        elem.update({'PASSED':pass_status})
