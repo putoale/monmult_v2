@@ -16,24 +16,45 @@ test_vec_256_2 = {
     'r': 0x10000000000000000000000000000000000000000000000000000000000000000
 }
 
+test_vec_32_2 = {
+    'a': 0xabcdef99,
+    'b': 0x9876abed,
+    'n': 0xfde9fde9,
+    'r': 0x100000000
+}
+
+test_vec_32_1 = {
+    'a': 0x12345678,
+    'b': 0x9abcdef1,
+    'n': 0xfde9fde9,
+    'r': 0x100000000
+}
+
 tv_list = [] #list containing test vectors to send to file
 
-tv_list.extend([test_vec_256_1,test_vec_256_2])
-
+#tv_list.extend([test_vec_256_1,test_vec_256_2])
+tv_list.extend([test_vec_32_1,test_vec_32_2])
 
 file_lines =[] #create empty list to send to file
 
-# populate file_lines from tv_list
-for i in tv_list:
-    file_lines.append(tbm.send_tv_str_oneline(*i.values(),64,4,16))
+# populate file_lines from tv_list (256_8_64)
+# for i in tv_list:
+#     file_lines.append(tbm.send_tv_str_oneline(*i.values(),64,4,16))
 
-file_lines[-1] = file_lines[-1][:-2] #remove last \n\r from output
+# populate file_lines from tv_list (16_4_4)
+for i in tv_list:
+    file_lines.append(tbm.send_tv_str_oneline(*i.values(),8,4,16))
+
+if len(file_lines) > 1:
+    file_lines[-1] = file_lines[-1][:-2] #remove last \n\r from output
+else:
+    file_lines[0] = file_lines[0][:-2] #remove last \n\r from output
 
 # find path of file to write to
 import os
 script_dir = os.path.dirname(__file__)
 rel_path = "txt"
-file_name = "input_vectors.txt"
+file_name = "input_vectors_32_4_8.txt"
 complete_path = os.path.join(script_dir,rel_path,file_name)
 
 with open(complete_path,"w") as ff:

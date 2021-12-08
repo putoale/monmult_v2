@@ -1,6 +1,7 @@
 import gmpy2 as g
 import math  as m
 import csv
+import random as rnd
 
 def n_to_str (num, n_bits_per_word, n_words,base = 2):
     """ This function takes as input a number and returns a string representing
@@ -123,3 +124,13 @@ def test_tv_pass (tv_list):
             pass_status = "NO"
 
         elem.update({'PASSED':pass_status})
+
+# def generate_tv (n_bits, n_tests):
+#     """This function generates n test vectors with the specified number of bits"""
+
+#     random_st = rnd.random_state()
+#     r = pow(2,n_bits)
+
+#     for i in range (0,n_tests):
+#         a = g.mpz_random()
+
