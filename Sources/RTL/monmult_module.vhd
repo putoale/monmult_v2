@@ -63,7 +63,7 @@ architecture Behavioral of monmult_module is
 	------------------------SIGNALS---------------------------------------------N_WORDS
 
 	constant LATENCY_AB:integer:=1;
-	constant LATENCY_N_SUB:integer:=LATENCY_AB +N_WORDS*(N_WORDS-1)+3;
+	constant LATENCY_N_SUB:integer:=LATENCY_AB +N_WORDS*(N_WORDS-1)+4;
 	constant LATENCY_N_MAC:integer:=LATENCY_AB+2 ;
 	signal a_mem:std_logic_vector(N_BITS_PER_WORD-1 downto 0);
 	signal b_mem:std_logic_vector(N_BITS_PER_WORD-1 downto 0);
