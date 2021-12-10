@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="top_tb_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="top_tb" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="896.333 ns"></ZoomStartTime>
+      <ZoomEndTime time="1,134.734 ns"></ZoomEndTime>
+      <Cursor1Time time="1,000.000 ns"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="235"></NameColumnWidth>
+      <ValueColumnWidth column_width="86"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="24" />
+   <wave_markers>
+      <marker label="" time="204698" />
+      <marker label="" time="535000" />
+   </wave_markers>
+   <wvobject type="logic" fp_name="/top_tb/clk">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/top_tb/reset">
+      <obj_property name="ElementShortName">reset</obj_property>
+      <obj_property name="ObjectShortName">reset</obj_property>
+   </wvobject>
+   <wvobject fp_name="divider506" type="divider">
+      <obj_property name="label">START</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/start">
+      <obj_property name="ElementShortName">start</obj_property>
+      <obj_property name="ObjectShortName">start</obj_property>
+   </wvobject>
+   <wvobject type="other" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/sub_inst/wait_counter">
+      <obj_property name="ElementShortName">wait_counter</obj_property>
+      <obj_property name="ObjectShortName">wait_counter</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/top_tb/dut_EoC">
+      <obj_property name="ElementShortName">dut_EoC</obj_property>
+      <obj_property name="ObjectShortName">dut_EoC</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/top_tb/dut_valid_out">
+      <obj_property name="ElementShortName">dut_valid_out</obj_property>
+      <obj_property name="ObjectShortName">dut_valid_out</obj_property>
+   </wvobject>
+   <wvobject fp_name="divider507" type="divider">
+      <obj_property name="label">MEM</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+   </wvobject>
+   <wvobject type="group" fp_name="group531">
+      <obj_property name="label">MEM</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject type="array" fp_name="/top_tb/monmult_module_inst/mem_a_inst/rd_port">
+         <obj_property name="DisplayName">label</obj_property>
+         <obj_property name="ElementShortName">rd_port[7:0]</obj_property>
+         <obj_property name="ObjectShortName">rd_port[7:0]</obj_property>
+         <obj_property name="label">rd_port_A[7:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/top_tb/monmult_module_inst/mem_b_inst/rd_port">
+         <obj_property name="DisplayName">label</obj_property>
+         <obj_property name="ElementShortName">rd_port[7:0]</obj_property>
+         <obj_property name="ObjectShortName">rd_port[7:0]</obj_property>
+         <obj_property name="label">rd_port_B[7:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/top_tb/monmult_module_inst/mem_n_mac_inst/rd_port">
+         <obj_property name="DisplayName">label</obj_property>
+         <obj_property name="ElementShortName">rd_port[7:0]</obj_property>
+         <obj_property name="ObjectShortName">rd_port[7:0]</obj_property>
+         <obj_property name="label">rd_port_N_MAC[7:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/top_tb/monmult_module_inst/mem_n_sub_inst/rd_port">
+         <obj_property name="DisplayName">label</obj_property>
+         <obj_property name="ElementShortName">rd_port[7:0]</obj_property>
+         <obj_property name="ObjectShortName">rd_port[7:0]</obj_property>
+         <obj_property name="label">rd_port_N_SUB[7:0]</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="divider511" type="divider">
+      <obj_property name="label">MAC_AB</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+   </wvobject>
+   <wvobject type="group" fp_name="group532">
+      <obj_property name="label">MAC_AB</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject type="array" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/mac_ab_inst/t_in_dut">
+         <obj_property name="ElementShortName">t_in_dut[7:0]</obj_property>
+         <obj_property name="ObjectShortName">t_in_dut[7:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/mac_ab_inst/a_dut">
+         <obj_property name="ElementShortName">a_dut[7:0]</obj_property>
+         <obj_property name="ObjectShortName">a_dut[7:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/mac_ab_inst/b_dut">
+         <obj_property name="ElementShortName">b_dut[7:0]</obj_property>
+         <obj_property name="ObjectShortName">b_dut[7:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/mac_ab_inst/c_in_dut">
+         <obj_property name="ElementShortName">c_in_dut[7:0]</obj_property>
+         <obj_property name="ObjectShortName">c_in_dut[7:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/mac_ab_inst/s_out_dut">
+         <obj_property name="ElementShortName">s_out_dut[7:0]</obj_property>
+         <obj_property name="ObjectShortName">s_out_dut[7:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/mac_ab_inst/c_out_dut">
+         <obj_property name="ElementShortName">c_out_dut[7:0]</obj_property>
+         <obj_property name="ObjectShortName">c_out_dut[7:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/mac_ab_inst/start_reg">
+         <obj_property name="ElementShortName">start_reg</obj_property>
+         <obj_property name="ObjectShortName">start_reg</obj_property>
+      </wvobject>
+      <wvobject type="other" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/mac_ab_inst/i">
+         <obj_property name="ElementShortName">i</obj_property>
+         <obj_property name="ObjectShortName">i</obj_property>
+      </wvobject>
+      <wvobject type="other" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/mac_ab_inst/j">
+         <obj_property name="ElementShortName">j</obj_property>
+         <obj_property name="ObjectShortName">j</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="divider519" type="divider">
+      <obj_property name="label">MULT</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+   </wvobject>
+   <wvobject type="group" fp_name="group534">
+      <obj_property name="label">MULT</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject type="array" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/mult_inst/nn0">
+         <obj_property name="ElementShortName">nn0[7:0]</obj_property>
+         <obj_property name="ObjectShortName">nn0[7:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/mult_inst/a_sig">
+         <obj_property name="ElementShortName">a_sig[7:0]</obj_property>
+         <obj_property name="ObjectShortName">a_sig[7:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/mult_inst/t_out">
+         <obj_property name="ElementShortName">t_out[7:0]</obj_property>
+         <obj_property name="ObjectShortName">t_out[7:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/mult_inst/m_out">
+         <obj_property name="ElementShortName">m_out[7:0]</obj_property>
+         <obj_property name="ObjectShortName">m_out[7:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/mult_inst/start_reg">
+         <obj_property name="ElementShortName">start_reg</obj_property>
+         <obj_property name="ObjectShortName">start_reg</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="divider524" type="divider">
+      <obj_property name="label">MAC_MN</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+   </wvobject>
+   <wvobject type="group" fp_name="group535">
+      <obj_property name="label">MAC_MN</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject type="array" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/mac_mn_inst/t_in_dut">
+         <obj_property name="ElementShortName">t_in_dut[7:0]</obj_property>
+         <obj_property name="ObjectShortName">t_in_dut[7:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/mac_mn_inst/m_dut">
+         <obj_property name="ElementShortName">m_dut[7:0]</obj_property>
+         <obj_property name="ObjectShortName">m_dut[7:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/mac_mn_inst/n_dut">
+         <obj_property name="ElementShortName">n_dut[7:0]</obj_property>
+         <obj_property name="ObjectShortName">n_dut[7:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/mac_mn_inst/c_in_dut">
+         <obj_property name="ElementShortName">c_in_dut[7:0]</obj_property>
+         <obj_property name="ObjectShortName">c_in_dut[7:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/mac_mn_inst/s_out_dut">
+         <obj_property name="ElementShortName">s_out_dut[7:0]</obj_property>
+         <obj_property name="ObjectShortName">s_out_dut[7:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/mac_mn_inst/c_out_dut">
+         <obj_property name="ElementShortName">c_out_dut[7:0]</obj_property>
+         <obj_property name="ObjectShortName">c_out_dut[7:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/mac_mn_inst/start_reg">
+         <obj_property name="ElementShortName">start_reg</obj_property>
+         <obj_property name="ObjectShortName">start_reg</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/mac_mn_inst/start_comp">
+         <obj_property name="ElementShortName">start_comp</obj_property>
+         <obj_property name="ObjectShortName">start_comp</obj_property>
+      </wvobject>
+      <wvobject type="other" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/mac_mn_inst/i">
+         <obj_property name="ElementShortName">i</obj_property>
+         <obj_property name="ObjectShortName">i</obj_property>
+      </wvobject>
+      <wvobject type="other" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/mac_mn_inst/j">
+         <obj_property name="ElementShortName">j</obj_property>
+         <obj_property name="ObjectShortName">j</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="divider536" type="divider">
+      <obj_property name="label">ADD</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/add_inst/a_sig">
+      <obj_property name="ElementShortName">a_sig[7:0]</obj_property>
+      <obj_property name="ObjectShortName">a_sig[7:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/add_inst/b_sig">
+      <obj_property name="ElementShortName">b_sig[7:0]</obj_property>
+      <obj_property name="ObjectShortName">b_sig[7:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/add_inst/c_out">
+      <obj_property name="ElementShortName">c_out[7:0]</obj_property>
+      <obj_property name="ObjectShortName">c_out[7:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/add_inst/t_out">
+      <obj_property name="ElementShortName">t_out[7:0]</obj_property>
+      <obj_property name="ObjectShortName">t_out[7:0]</obj_property>
+   </wvobject>
+   <wvobject type="other" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/add_inst/state">
+      <obj_property name="ElementShortName">state</obj_property>
+      <obj_property name="ObjectShortName">state</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/add_inst/start_reg">
+      <obj_property name="ElementShortName">start_reg</obj_property>
+      <obj_property name="ObjectShortName">start_reg</obj_property>
+   </wvobject>
+   <wvobject fp_name="divider550" type="divider">
+      <obj_property name="label">SUB</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+   </wvobject>
+   <wvobject type="group" fp_name="group549">
+      <obj_property name="label">SUB</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject type="array" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/sub_inst/t_in_sig">
+         <obj_property name="ElementShortName">t_in_sig[7:0]</obj_property>
+         <obj_property name="ObjectShortName">t_in_sig[7:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/sub_inst/n_in_sig">
+         <obj_property name="ElementShortName">n_in_sig[7:0]</obj_property>
+         <obj_property name="ObjectShortName">n_in_sig[7:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/sub_inst/b_in_sig">
+         <obj_property name="ElementShortName">b_in_sig[0:0]</obj_property>
+         <obj_property name="ObjectShortName">b_in_sig[0:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/sub_inst/diff_out_sig">
+         <obj_property name="ElementShortName">diff_out_sig[7:0]</obj_property>
+         <obj_property name="ObjectShortName">diff_out_sig[7:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/sub_inst/b_out_sig">
+         <obj_property name="ElementShortName">b_out_sig[0:0]</obj_property>
+         <obj_property name="ObjectShortName">b_out_sig[0:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/sub_inst/b_out_reg">
+         <obj_property name="ElementShortName">b_out_reg[0:0]</obj_property>
+         <obj_property name="ObjectShortName">b_out_reg[0:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/top_tb/dut_result">
+         <obj_property name="ElementShortName">dut_result[7:0]</obj_property>
+         <obj_property name="ObjectShortName">dut_result[7:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/sub_inst/start_reg">
+         <obj_property name="ElementShortName">start_reg</obj_property>
+         <obj_property name="ObjectShortName">start_reg</obj_property>
+      </wvobject>
+   </wvobject>
+</wave_config>
