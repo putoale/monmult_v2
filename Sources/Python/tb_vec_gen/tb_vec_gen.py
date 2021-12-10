@@ -45,9 +45,9 @@ def send_tv_str_oneline (a,b,n,r,n_bits_per_word,n_words,base=16):
     a_str = n_to_str(a,n_bits_per_word,n_words,base) + '  ' # create string containing "a" operator
     b_str = n_to_str(b,n_bits_per_word,n_words,base) + '  ' # create string containing "b" operator
     n_str = n_to_str(n,n_bits_per_word,n_words,base) + '  ' # create string containing "n"
-    nn0_str = nn[-n_symbols_per_word:] + '\r\n'            # create string containing n'(0)
-    str_out = a_str + b_str + n_str + nn0_str              # compose output string
-    return str_out                                         # return test vector data in a single line separated by spaces
+    nn0_str = nn[-n_symbols_per_word:] + '\r\n'             # create string containing n'(0)
+    str_out = a_str + b_str + n_str + nn0_str.upper()       # compose output string
+    return str_out                                          # return test vector data in a single line separated by spaces
 
 def load_tv_from_file(file_path,n_words,n_bits_per_word,r,base=16):
     """This function loads test vectors from a file, and return a list of dictionaries with keys:
