@@ -121,7 +121,7 @@ begin
 
         if start_reg = '1' then
 
-          if wait_counter = CLK_TO_WAIT - 2 then
+          if wait_counter = CLK_TO_WAIT - 1 then
             wait_counter <= 0;
             state <= SUB_STATE;
 

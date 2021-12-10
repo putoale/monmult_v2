@@ -33,16 +33,18 @@ architecture Behavioral of start_regulator is
 		signal  accept_2: std_logic:='1';
 		signal  accept_3: std_logic:='1';
 		signal accept_4: std_logic:='1';
-		signal output_start_int: std_logic;
-		signal output_start_reg_int: std_logic;
+		signal output_start_int: std_logic:='0';
+		signal output_start_reg_int: std_logic:='0';
+		signal output_start_reg_reg_int: std_logic := '0';
 begin
 	output_start<=output_start_int;
-	output_start_reg<=output_start_reg_int;
+	output_start_reg<=output_start_reg_reg_int;
 	process(clk, reset)
 	begin
 			if rising_edge(clk) then
 				output_start_int<='0';
 				output_start_reg_int<=output_start_int;
+				output_start_reg_reg_int <= output_start_reg_int;
 				if reset='1' or EoC = '1' then
 					flag_1<='0';
 					flag_2<='0';

@@ -75,6 +75,7 @@ architecture Behavioral of monmult_module is
 	signal start_n_sub: std_logic;
 	--signal start: std_logic;
 	signal EoC_sig: std_logic;
+	signal EoC_reg: std_logic := '0';
 	signal memory_full: std_logic;
 
 	signal start_mem: std_logic;
@@ -148,7 +149,7 @@ architecture Behavioral of monmult_module is
 	end component;
 
 begin
-    EoC<=EoC_sig;
+    EoC<=EoC_reg;
 	-------instantiations-------------------------------------------------------
 	inst_cios_1w: cios_top_1w
 	generic map(
@@ -277,6 +278,11 @@ begin
 		output_start_reg		=> start_modules
 		);
 		
-		EoC <= EoC_sig;
+		process(clk)
+		begin
+			if rising_edge(clk) then
+				EoC_reg <= EoC_sig;
+			end if;
+		end process;
 	----------------------------------------------------------------------------
 end Behavioral;

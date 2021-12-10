@@ -74,8 +74,8 @@ architecture Behavioral of input_mem_abn is
 begin
 	memory_full<=memory_full_int;
 	start <= start_int;
+	start_int<=memory_full_int;
 	process(clk,reset, EoC_in)
-		--variable begin_reading:='0';
 	begin
 
 		if rising_edge(clk ) then
@@ -83,52 +83,49 @@ begin
 				memory_full_int<='0';
 				memory<=(others=>(others=>'0'));
 				begin_reading<='0';
-				--begin_reading:='0';
 				write_counter<=0;
 				read_counter<=0;
 				cycle_counter<=0;
 				initial_counter<=0;
 				start_flag<='0';
-			end if;
-			--------------------------------------------------------------------------
-			if start_int='1' then
-				start_flag<='1';
-			end if;
-			start_int<=memory_full_int;
-			--------------------------------------------------------------------------
-			if begin_reading= '0' and memory_full_int='1' and start_flag='1' then
-				initial_counter<=initial_counter+1;
-				if initial_counter = LATENCY-1 then
-					begin_reading<='1';
-					--begin_reading:='0';
-					initial_counter<=0;
+			else
+				--------------------------------------------------------------------------
+				if start_in='1' then --start_int
+					start_flag<='1';
 				end if;
-			end if;
-
-			if wr_en='1'  and memory_full_int = '0' then
-				memory(write_counter)<=wr_port;
-				write_counter<=write_counter+1;
-				if write_counter = MEMORY_DEPTH-1 then
-					write_counter<=0;
-					memory_full_int<='1';
-					else
-					memory_full_int<= '0';
-				end if;
-			end if;
-
-			if rd_en='1' and memory_full_int='1' and begin_reading='1'  then
-				cycle_counter<=cycle_counter+1 ;
-				rd_port<=memory(read_counter);
-				if cycle_counter = CYLCES_TO_WAIT-1 then
-					cycle_counter<=0;
-					read_counter<=read_counter+1;
-					if read_counter = MEMORY_DEPTH-1 then
-						read_counter<=0;
+				--------------------------------------------------------------------------
+				if begin_reading= '0' and (start_in = '1' or  start_flag='1') then
+					initial_counter<=initial_counter+1;
+					if initial_counter = LATENCY-1 then
+						begin_reading<='1';
+						initial_counter<=0;
 					end if;
 				end if;
 
-			end if;
+				if wr_en='1'  and memory_full_int = '0' then
+					memory(write_counter)<=wr_port;
+					write_counter<=write_counter+1;
+					if write_counter = MEMORY_DEPTH-1 then
+						write_counter<=0;
+						memory_full_int<='1';
+						else
+						memory_full_int<= '0';
+					end if;
+				end if;
 
+				if rd_en='1' and memory_full_int='1' and begin_reading='1'  then
+					cycle_counter<=cycle_counter+1 ;
+					rd_port<=memory(read_counter);
+					if cycle_counter = CYLCES_TO_WAIT-1 then
+						cycle_counter<=0;
+						read_counter<=read_counter+1;
+						if read_counter = MEMORY_DEPTH-1 then
+							read_counter<=0;
+						end if;
+					end if;
+
+				end if;
+			end if;
 
 
 

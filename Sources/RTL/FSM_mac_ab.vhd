@@ -191,10 +191,10 @@ port map(
 
 
 	FSM_process: process(clk,reset)
-		variable a_dut_var : std_logic_vector(a'range):=(others=>'0');
-		variable b_dut_var : std_logic_vector(a'range):=(others=>'0');
-		variable t_in_dut_var : std_logic_vector(a'range):=(others=>'0');
-		variable c_in_dut_var : std_logic_vector(a'range):=(others=>'0');
+		--variable a_dut_var : std_logic_vector(a'range):=(others=>'0');
+		--variable b_dut_var : std_logic_vector(a'range):=(others=>'0');
+		--variable t_in_dut_var : std_logic_vector(a'range):=(others=>'0');
+		--variable c_in_dut_var : std_logic_vector(a'range):=(others=>'0');
 
 	begin
 
@@ -230,6 +230,7 @@ port map(
 				end if;
 				if counter = N_WORDS*N_WORDS-1 then
 					counter<=0;
+					counter_mac<=0;--edit
 				end if;
 				j<=j+1;
 				if j=N_WORDS-1 then
@@ -244,10 +245,10 @@ port map(
 					end if;
 				end if;
 					a_dut<=a;
-					a_dut_var:=a;
+					--a_dut_var:=a;
 				if j=0 then
 					b_dut<=b;
-					b_dut_var:=b;
+					--b_dut_var:=b;
 
 					c_in_dut<=(others=>'0');
 				else
@@ -255,14 +256,14 @@ port map(
 				end if;
 				if i=0  then
 					t_in_dut<=(others=>'0');
-					t_in_dut_var:=(others=>'0');
-					c_in_dut<=(others=>'0');
-					c_in_dut_var:=(others=>'0');
+					--t_in_dut_var:=(others=>'0');
+					--c_in_dut<=(others=>'0'); edited by ALE
+					--c_in_dut_var:=(others=>'0');
 				else
 					t_in_dut<=dout_dut;
-					t_in_dut_var:=dout_dut;
-					c_in_dut<=(others=>'0'); --added
-					c_in_dut_var:=(others=>'0');
+					--t_in_dut_var:=dout_dut;
+					--c_in_dut<=(others=>'0'); --added EDITED BY ALE
+					--c_in_dut_var:=(others=>'0');
 				end if;
 
 
