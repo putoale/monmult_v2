@@ -31,10 +31,10 @@ tv_list = []
 #get list of sent test vectors from file
 
 #256 bit, 4 words, 64 bits_per word
-#tv_list.extend(tbm.load_tv_from_file(vec_f_cplt_path_256_4_64,4,64,r_256))
+tv_list.extend(tbm.load_tv_from_file(vec_f_cplt_path_256_4_64,4,64,r_256))
 
 #32 bit, 4 words, 8 bits_per word
-tv_list.extend(tbm.load_tv_from_file(vec_f_cplt_path_32_4_8,4,8,r_32))
+#tv_list.extend(tbm.load_tv_from_file(vec_f_cplt_path_32_4_8,4,8,r_32))
 
 
 #read module results from file
@@ -47,12 +47,13 @@ module_results_list = tbm.load_res_from_file(tv_res_f_cplt_path)
 #add module results to tv_list
 
 #256_4_64 tv
-#for i in range(0,len(tv_list)):
+for i in range(0,len(tv_list)):
     #tv_list[i].update({'module_result':module_results_list_256_4_64[i]})
+    tv_list[i].update({'MODULE_RESULT':module_results_list[i]})
 
 #32_4_8 tv
-for i in range(0,len(tv_list)):
-    tv_list[i].update({'MODULE_RESULT':module_results_list[i]})
+#for i in range(0,len(tv_list)):
+    #tv_list[i].update({'MODULE_RESULT':module_results_list[i]})
 
 #pp.pprint(tv_list,sort_dicts=0)
 
