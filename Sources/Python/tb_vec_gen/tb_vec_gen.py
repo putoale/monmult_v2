@@ -9,7 +9,7 @@ def n_to_str (num, n_bits_per_word, n_words,base = 2):
 
     #create a string and format it in order to have right alignment and zero padding
     n_symbols_per_word = (int) (n_bits_per_word / m.log(base,2))         #compute number of symbols per word (wrt base)
-    bin_num_str = g.digits(num,base).zfill(n_words * n_symbols_per_word) #create complete string
+    bin_num_str = g.digits(num,base).zfill(n_words * n_symbols_per_word).upper() #create complete string
 
     final_str = ''
 
@@ -56,7 +56,7 @@ def load_tv_from_file(file_path,n_words,n_bits_per_word,r,base=16):
     tv_list = []
     file_lines =[]
 
-    dict_keys = ['a', 'b','n',"n'(0)",'r','n_bit_total','n_bits_per_word','n_words','golden_result']
+    dict_keys = ['A', 'B','N',"N'(0)",'R','N BIT TOTAL','N BITS PER WORD','N WORDS','GOLDEN_RESULT']
 
     n_symbols_per_word = (int) (n_bits_per_word / m.log(base,2))
 
@@ -83,7 +83,7 @@ def load_tv_from_file(file_path,n_words,n_bits_per_word,r,base=16):
         golden_res = monmult_int(*dict_temp)
 
 
-        dict_values_str.append(g.digits(golden_res,base))
+        dict_values_str.append(g.digits(golden_res,base).upper())
 
         tv_list.append(dict(zip(dict_keys,dict_values_str)))
 
@@ -105,7 +105,7 @@ def print_csv_out (file_name, tvv_list):
     """This function generates a csv output file with all test vectors sent and results"""
 
     with open(file_name, 'w', newline='') as csvfile:
-        fieldnames = ['a', 'b','n',"n'(0)",'r','n_bit_total','n_bits_per_word','n_words','golden_result','module_result','PASSED']
+        fieldnames = ['A', 'B','N',"N'(0)",'R','N BIT TOTAL','N BITS PER WORD','N WORDS','GOLDEN_RESULT','MODULE_RESULT','PASSED']
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
         writer.writeheader()
 
@@ -116,14 +116,18 @@ def test_tv_pass (tv_list):
     """This function evaluates the pass state of a test vector list
      and adds a field PASSED to each test vector"""
 
+    positive_list = []
+    negative_list = []
     for elem in tv_list:
-
-        if elem['module_result'] == elem['golden_result']:
+        if elem['MODULE_RESULT'].upper() == elem['GOLDEN_RESULT'].upper():
             pass_status = "YES"
+            positive_list.append(elem)
         else:
             pass_status = "NO"
+            negative_list.append(elem)
 
         elem.update({'PASSED':pass_status})
+    return{'POS_tv':positive_list,'NEG_tv':negative_list}
 
 # def generate_tv (n_bits, n_tests):
 #     """This function generates n test vectors with the specified number of bits"""

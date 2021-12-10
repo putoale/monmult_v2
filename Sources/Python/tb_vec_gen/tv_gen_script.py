@@ -1,6 +1,7 @@
 import tb_vec_gen as tbm
 import math as m
 import gmpy2 as g
+import pprint as pp
 
 test_vec_256_1 = {
     'a': 0xe41be5bde54ea01c5fd8132dae3c50bd9f96c5af1324a68d08d978048f69bf76,
@@ -33,7 +34,8 @@ test_vec_32_1 = {
 tv_list = [] #list containing test vectors to send to file
 
 #tv_list.extend([test_vec_256_1,test_vec_256_2])
-tv_list.extend([test_vec_32_1,test_vec_32_2])
+tv_list.extend([test_vec_32_2,test_vec_32_1])
+#tv_list.append(test_vec_32_2)
 
 file_lines =[] #create empty list to send to file
 
