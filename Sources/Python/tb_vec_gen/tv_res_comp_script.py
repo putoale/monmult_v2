@@ -47,19 +47,17 @@ module_results_list = tbm.load_res_from_file(tv_res_f_cplt_path)
 #add module results to tv_list
 
 #256_4_64 tv
-for i in range(0,len(tv_list)):
-    #tv_list[i].update({'module_result':module_results_list_256_4_64[i]})
-    tv_list[i].update({'MODULE_RESULT':module_results_list[i]})
-
-#32_4_8 tv
 #for i in range(0,len(tv_list)):
     #tv_list[i].update({'MODULE_RESULT':module_results_list[i]})
+
+#32_4_8 tv
+for i in range(0,len(tv_list)):
+    tv_list[i].update({'MODULE_RESULT':module_results_list[i]})
 
 #pp.pprint(tv_list,sort_dicts=0)
 
 outcome =  tbm.test_tv_pass(tv_list)
 
-print(len(outcome['POS_tv']),' test PASSED', ',',len(outcome['NEG_tv']),' test FAILED\n\r\n\r')
 
 
 print(len(outcome['POS_tv']),' Positive Tests:')
@@ -69,6 +67,8 @@ print(len(outcome['NEG_tv']),' Negative Tests:')
 pp.pprint(outcome['NEG_tv'],sort_dicts=0)
 
 tbm.print_csv_out(csv_path,tv_list)
+
+print(len(outcome['POS_tv']),' test PASSED', ',',len(outcome['NEG_tv']),' test FAILED\n\r\n\r')
 
 
 #pp.pprint(tv_list,sort_dicts=0)

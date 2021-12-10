@@ -31,10 +31,14 @@ test_vec_32_1 = {
     'r': 0x100000000
 }
 
+tv_256_list = [test_vec_256_1,test_vec_256_2]
+
+tv_32_list = [test_vec_32_1,test_vec_32_2]
+
 tv_list = [] #list containing test vectors to send to file
 
 tv_list.extend([test_vec_256_1,test_vec_256_2])
-#tv_list.extend([test_vec_32_2,test_vec_32_1])
+#tv_list.extend([test_vec_32_2,test_vec_32_2])
 #tv_list.append(test_vec_32_2)
 
 file_lines =[] #create empty list to send to file
@@ -43,7 +47,7 @@ file_lines =[] #create empty list to send to file
 for i in tv_list:
     file_lines.append(tbm.send_tv_str_oneline(*i.values(),64,4,16))
 
-# populate file_lines from tv_list (16_4_8)
+#populate file_lines from tv_list (16_4_8)
 #for i in tv_list:
     #file_lines.append(tbm.send_tv_str_oneline(*i.values(),8,4,16))
 
