@@ -1,64 +1,66 @@
 import os
 import tb_vec_gen as tbm
 import pprint as pp
+import sys
 
 script_dir = os.path.dirname(__file__)
 vec_rel_path = "txt"
+output_base = 16
 
-vec_file_name_256_4_64 = "input_vectors_256_4_64.txt"
-vec_file_name_32_4_8 = "input_vectors_32_4_8.txt"
+# Configs represent strings with the format C1_C2_C3 where C1=N_BITS C2=N_WORDS C3 = N_BITS_PER_WORD
+# You can call this script in two modes:
+#   mode 1: "script --single <config>"  => The script compares the out_results.txt file with the input vector file corresponding to the selected config
+#           and it produces a .csv file with the result.
 
-res_file_name_256_4_64 = "out_results_256_4_64.txt"
-#res_file_name_512_4_128 = "out_results_512_4_128.txt"
-res_file_name = "out_results.txt"
+#   mode 2: "script --multi <*configs>" => The script compares (for each config) the out_results_C1_C2_C3.txt file with the input_vectors_C1_C2_C3.txt file
+#           and it produces a single csv file with all results.
 
-vec_f_cplt_path_256_4_64 = os.path.join(script_dir,vec_rel_path,vec_file_name_256_4_64)
-#vec_f_cplt_path_512_4_128 = os.path.join(script_dir,vec_rel_path,vec_file_name_512_4_128)
-vec_f_cplt_path_32_4_8 = os.path.join(script_dir,vec_rel_path,vec_file_name_32_4_8)
+if len(sys.argv) > 1:
+    if '--single' in sys.argv:
+        mode_flag = 'single'
+        config_list = sys.argv[2]
 
-tv_res_f_cplt_path_256_4_64 = os.path.join(script_dir,vec_rel_path,res_file_name_256_4_64)
-#tv_res_f_cplt_path_512_4_128 = os.path.join(script_dir,vec_rel_path,res_file_name)
-tv_res_f_cplt_path = os.path.join(script_dir,vec_rel_path,res_file_name)
+    elif '--multi' in sys.argv:
+        mode_flag = 'multi'
+        config_list = sys.argv[2:]
 
+    else:
+        mode_flag = 'single'
+        config_list = sys.argv[2]
+else:
+    mode_flag = 'single'
+    config_list = ["256_4_64"] #default configuration
 
-csv_path = os.path.join(script_dir,vec_rel_path,"out_report.csv")
-
-
-r_256 = pow(2,256)
-r_32 = pow(2,32)
 
 tv_list = []
 #get list of sent test vectors from file
 
-#256 bit, 4 words, 64 bits_per word
-tv_list.extend(tbm.load_tv_from_file(vec_f_cplt_path_256_4_64,4,64,r_256))
 
-#32 bit, 4 words, 8 bits_per word
-#tv_list.extend(tbm.load_tv_from_file(vec_f_cplt_path_32_4_8,4,8,r_32))
+for conf in config_list:
+    parsed_conf = [int(i) for i in conf.split("_")]
+    curr_conf_tv_list = []
 
+    curr_conf_vec_file_name = "input_vectors_" + conf + ".txt"
+    curr_conf_vec_file_path = os.path.join(script_dir,vec_rel_path,curr_conf_vec_file_name)
 
-#read module results from file
-#module_results_list_256_4_64 = tbm.load_res_from_file(tv_res_f_cplt_path_256_4_64)
+    #save all read tv into a list
+    curr_conf_tv_list.extend(tbm.load_tv_from_file(curr_conf_vec_file_path,parsed_conf[1],parsed_conf[2],pow(2,parsed_conf[0]),output_base))
+    print(curr_conf_tv_list)
 
-#read module results from file
-module_results_list = tbm.load_res_from_file(tv_res_f_cplt_path)
+    if mode_flag == 'single':
+        res_file_name = 'out_results.txt'
+    else:
+        res_file_name = "out_results_" + conf + ".txt"
+    
+    res_file_path = os.path.join(script_dir,vec_rel_path,res_file_name)
+    curr_conf_results_list = tbm.load_res_from_file(res_file_path,output_base)
 
+    for i in range(0,len(curr_conf_tv_list)):
+        curr_conf_tv_list[i].update({'MODULE_RESULT':curr_conf_results_list[i]})
 
-#add module results to tv_list
-
-#256_4_64 tv
-#for i in range(0,len(tv_list)):
-    #tv_list[i].update({'MODULE_RESULT':module_results_list[i]})
-
-#32_4_8 tv
-for i in range(0,len(tv_list)):
-    tv_list[i].update({'MODULE_RESULT':module_results_list[i]})
-
-#pp.pprint(tv_list,sort_dicts=0)
+    tv_list.extend(curr_conf_tv_list)
 
 outcome =  tbm.test_tv_pass(tv_list)
-
-
 
 print(len(outcome['POS_tv']),' Positive Tests:')
 pp.pprint(outcome['POS_tv'],sort_dicts=0)
@@ -66,9 +68,7 @@ pp.pprint(outcome['POS_tv'],sort_dicts=0)
 print(len(outcome['NEG_tv']),' Negative Tests:')
 pp.pprint(outcome['NEG_tv'],sort_dicts=0)
 
+csv_path = os.path.join(script_dir,vec_rel_path,"out_report.csv")
 tbm.print_csv_out(csv_path,tv_list)
 
 print(len(outcome['POS_tv']),' test PASSED', ',',len(outcome['NEG_tv']),' test FAILED\n\r\n\r')
-
-
-#pp.pprint(tv_list,sort_dicts=0)

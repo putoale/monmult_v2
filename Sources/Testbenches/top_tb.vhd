@@ -53,14 +53,16 @@ architecture bench of top_tb is
 	constant	TB_RESET_INIT 	:	STD_LOGIC	:= '1';
 
   -- Generics
-  constant DUT_N_BITS_PER_WORD : integer := 64;
-  constant DUT_N_WORDS : integer := 4;
+  constant DUT_N_BITS_PER_WORD : integer := 32;
+  constant DUT_N_WORDS : integer := 8;
   constant DUT_WRITE_WIDTH : integer := DUT_N_BITS_PER_WORD;
   constant DUT_READ_WIDTH : integer := DUT_N_BITS_PER_WORD;
   constant DUT_MEMORY_DEPTH : integer := DUT_N_WORDS;
 
   --File GENERICS
-  constant N_TEST_VECTORS : positive := 2;
+  constant N_TEST_VECTORS   : positive := 2;
+  constant INPUT_FILE_NAME  : string := "input_vectors_256_8_32.txt";
+  constant OUTPUT_FILE_NAME : string := "out_results.txt";
 
   --Types
     --array of N_WORDS to store an operand (e.g. to store "a")
@@ -156,7 +158,8 @@ begin
 
 file_proc : process
 
-file        input_file            : text open read_mode is "input_vectors_256_4_64.txt";
+--file        input_file            : text open read_mode is "input_vectors_256_4_64.txt";
+file        input_file            : text open read_mode is INPUT_FILE_NAME;
 variable    input_line            : line;
 variable    slv_a_var             : std_logic_vector(DUT_N_BITS_PER_WORD-1 downto 0) := (Others =>'0');
 variable    slv_b_var             : std_logic_vector(DUT_N_BITS_PER_WORD-1 downto 0) := (Others =>'0');
@@ -286,7 +289,8 @@ end process;
 --------------------- output file write process------------------
 file_write_proc: process
 
-file      output_file : text open write_mode is "output_results.txt";         
+--file      output_file : text open write_mode is "output_results.txt";         
+file      output_file : text open write_mode is OUTPUT_FILE_NAME;         
 variable  output_line : line;                             
 
 begin
