@@ -10,13 +10,13 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="0.000 ns"></ZoomStartTime>
-      <ZoomEndTime time="1,000.001 ns"></ZoomEndTime>
-      <Cursor1Time time="214.333 ns"></Cursor1Time>
+      <ZoomStartTime time="954.867 ns"></ZoomStartTime>
+      <ZoomEndTime time="1,195.668 ns"></ZoomEndTime>
+      <Cursor1Time time="995.000 ns"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="235"></NameColumnWidth>
-      <ValueColumnWidth column_width="78"></ValueColumnWidth>
+      <ValueColumnWidth column_width="74"></ValueColumnWidth>
    </column_width_setting>
    <WVObjectSize size="25" />
    <wvobject type="logic" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/sub_inst/clk">
@@ -30,6 +30,8 @@
    <wvobject type="logic" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/sub_inst/start">
       <obj_property name="ElementShortName">start</obj_property>
       <obj_property name="ObjectShortName">start</obj_property>
+      <obj_property name="CustomSignalColor">#FF0080</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
    </wvobject>
    <wvobject type="logic" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/sub_inst/EoC">
       <obj_property name="ElementShortName">EoC</obj_property>
@@ -60,12 +62,12 @@
       <obj_property name="ObjectShortName">state</obj_property>
    </wvobject>
    <wvobject type="array" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/sub_inst/diff_out_temp">
-      <obj_property name="ElementShortName">diff_out_temp[0:3][7:0]</obj_property>
-      <obj_property name="ObjectShortName">diff_out_temp[0:3][7:0]</obj_property>
+      <obj_property name="ElementShortName">diff_out_temp[0:7][7:0]</obj_property>
+      <obj_property name="ObjectShortName">diff_out_temp[0:7][7:0]</obj_property>
    </wvobject>
    <wvobject type="array" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/sub_inst/t_out_temp">
-      <obj_property name="ElementShortName">t_out_temp[0:3][7:0]</obj_property>
-      <obj_property name="ObjectShortName">t_out_temp[0:3][7:0]</obj_property>
+      <obj_property name="ElementShortName">t_out_temp[0:7][7:0]</obj_property>
+      <obj_property name="ObjectShortName">t_out_temp[0:7][7:0]</obj_property>
    </wvobject>
    <wvobject type="logic" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/sub_inst/start_reg">
       <obj_property name="ElementShortName">start_reg</obj_property>

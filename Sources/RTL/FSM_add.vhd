@@ -160,13 +160,17 @@ begin
           a_sig <= c_in_ab;
           state <= SUM_1;
         end if;
+        
+        if delay_counter = 0 then
 
-        if i_counter < N_WORDS-1 then
-          i_counter <= i_counter + 1;
-        else
-          i_counter <= (Others => '0');
-          start_reg <= '0';
-          state     <= IDLE;
+          if i_counter < N_WORDS-1 then
+            i_counter <= i_counter + 1;
+          else
+            i_counter <= (Others => '0');
+            start_reg <= '0';
+            state     <= IDLE;
+          end if;
+          
         end if;
 
     end case;

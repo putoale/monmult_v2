@@ -36,8 +36,8 @@ entity monmult_module is
 		WRITE_WIDTH			: integer :=8;
 		READ_WIDTH			: integer :=8;
 		N_BITS_PER_WORD		: integer :=8;
-		N_WORDS				: integer :=4;
-		MEMORY_DEPTH		: integer:=16
+		N_WORDS				: integer :=8;
+		MEMORY_DEPTH		: integer:=8
 
 	);
 	Port (

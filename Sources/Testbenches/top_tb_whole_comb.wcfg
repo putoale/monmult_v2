@@ -11,14 +11,14 @@
    </db_ref_list>
    <zoom_setting>
       <ZoomStartTime time="0.000 ns"></ZoomStartTime>
-      <ZoomEndTime time="1,000.001 ns"></ZoomEndTime>
-      <Cursor1Time time="435.000 ns"></Cursor1Time>
+      <ZoomEndTime time="5,000.001 ns"></ZoomEndTime>
+      <Cursor1Time time="5,000.000 ns"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="235"></NameColumnWidth>
-      <ValueColumnWidth column_width="86"></ValueColumnWidth>
+      <ValueColumnWidth column_width="78"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="24" />
+   <WVObjectSize size="19" />
    <wave_markers>
       <marker label="" time="200334" />
       <marker label="" time="543334" />
@@ -38,6 +38,8 @@
    <wvobject type="logic" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/start">
       <obj_property name="ElementShortName">start</obj_property>
       <obj_property name="ObjectShortName">start</obj_property>
+      <obj_property name="CustomSignalColor">#FF0000</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
    </wvobject>
    <wvobject type="other" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/sub_inst/wait_counter">
       <obj_property name="ElementShortName">wait_counter</obj_property>
@@ -60,26 +62,26 @@
       <obj_property name="DisplayName">label</obj_property>
       <wvobject type="array" fp_name="/top_tb/monmult_module_inst/mem_a_inst/rd_port">
          <obj_property name="DisplayName">label</obj_property>
-         <obj_property name="ElementShortName">rd_port[63:0]</obj_property>
-         <obj_property name="ObjectShortName">rd_port[63:0]</obj_property>
+         <obj_property name="ElementShortName">rd_port[7:0]</obj_property>
+         <obj_property name="ObjectShortName">rd_port[7:0]</obj_property>
          <obj_property name="label">rd_port_A[7:0]</obj_property>
       </wvobject>
       <wvobject type="array" fp_name="/top_tb/monmult_module_inst/mem_b_inst/rd_port">
          <obj_property name="DisplayName">label</obj_property>
-         <obj_property name="ElementShortName">rd_port[63:0]</obj_property>
-         <obj_property name="ObjectShortName">rd_port[63:0]</obj_property>
+         <obj_property name="ElementShortName">rd_port[7:0]</obj_property>
+         <obj_property name="ObjectShortName">rd_port[7:0]</obj_property>
          <obj_property name="label">rd_port_B[7:0]</obj_property>
       </wvobject>
       <wvobject type="array" fp_name="/top_tb/monmult_module_inst/mem_n_mac_inst/rd_port">
          <obj_property name="DisplayName">label</obj_property>
-         <obj_property name="ElementShortName">rd_port[63:0]</obj_property>
-         <obj_property name="ObjectShortName">rd_port[63:0]</obj_property>
+         <obj_property name="ElementShortName">rd_port[7:0]</obj_property>
+         <obj_property name="ObjectShortName">rd_port[7:0]</obj_property>
          <obj_property name="label">rd_port_N_MAC[7:0]</obj_property>
       </wvobject>
       <wvobject type="array" fp_name="/top_tb/monmult_module_inst/mem_n_sub_inst/rd_port">
          <obj_property name="DisplayName">label</obj_property>
-         <obj_property name="ElementShortName">rd_port[63:0]</obj_property>
-         <obj_property name="ObjectShortName">rd_port[63:0]</obj_property>
+         <obj_property name="ElementShortName">rd_port[7:0]</obj_property>
+         <obj_property name="ObjectShortName">rd_port[7:0]</obj_property>
          <obj_property name="label">rd_port_N_SUB[7:0]</obj_property>
       </wvobject>
    </wvobject>
@@ -92,32 +94,38 @@
       <obj_property name="DisplayName">label</obj_property>
       <obj_property name="isExpanded"></obj_property>
       <wvobject type="array" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/mac_ab_inst/t_in_dut">
-         <obj_property name="ElementShortName">t_in_dut[63:0]</obj_property>
-         <obj_property name="ObjectShortName">t_in_dut[63:0]</obj_property>
+         <obj_property name="ElementShortName">t_in_dut[7:0]</obj_property>
+         <obj_property name="ObjectShortName">t_in_dut[7:0]</obj_property>
+         <obj_property name="CustomSignalColor">#FF00FF</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
       </wvobject>
       <wvobject type="array" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/mac_ab_inst/a_dut">
-         <obj_property name="ElementShortName">a_dut[63:0]</obj_property>
-         <obj_property name="ObjectShortName">a_dut[63:0]</obj_property>
-         <obj_property name="CustomSignalColor">#0000FF</obj_property>
+         <obj_property name="ElementShortName">a_dut[7:0]</obj_property>
+         <obj_property name="ObjectShortName">a_dut[7:0]</obj_property>
+         <obj_property name="CustomSignalColor">#00FF00</obj_property>
          <obj_property name="UseCustomSignalColor">true</obj_property>
       </wvobject>
       <wvobject type="array" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/mac_ab_inst/b_dut">
-         <obj_property name="ElementShortName">b_dut[63:0]</obj_property>
-         <obj_property name="ObjectShortName">b_dut[63:0]</obj_property>
-         <obj_property name="CustomSignalColor">#0000FF</obj_property>
+         <obj_property name="ElementShortName">b_dut[7:0]</obj_property>
+         <obj_property name="ObjectShortName">b_dut[7:0]</obj_property>
+         <obj_property name="CustomSignalColor">#00FF00</obj_property>
          <obj_property name="UseCustomSignalColor">true</obj_property>
       </wvobject>
       <wvobject type="array" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/mac_ab_inst/c_in_dut">
-         <obj_property name="ElementShortName">c_in_dut[63:0]</obj_property>
-         <obj_property name="ObjectShortName">c_in_dut[63:0]</obj_property>
+         <obj_property name="ElementShortName">c_in_dut[7:0]</obj_property>
+         <obj_property name="ObjectShortName">c_in_dut[7:0]</obj_property>
       </wvobject>
       <wvobject type="array" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/mac_ab_inst/s_out_dut">
-         <obj_property name="ElementShortName">s_out_dut[63:0]</obj_property>
-         <obj_property name="ObjectShortName">s_out_dut[63:0]</obj_property>
+         <obj_property name="ElementShortName">s_out_dut[7:0]</obj_property>
+         <obj_property name="ObjectShortName">s_out_dut[7:0]</obj_property>
+         <obj_property name="CustomSignalColor">#FF00FF</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
       </wvobject>
       <wvobject type="array" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/mac_ab_inst/c_out_dut">
-         <obj_property name="ElementShortName">c_out_dut[63:0]</obj_property>
-         <obj_property name="ObjectShortName">c_out_dut[63:0]</obj_property>
+         <obj_property name="ElementShortName">c_out_dut[7:0]</obj_property>
+         <obj_property name="ObjectShortName">c_out_dut[7:0]</obj_property>
+         <obj_property name="CustomSignalColor">#FF00FF</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
       </wvobject>
       <wvobject type="logic" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/mac_ab_inst/start_reg">
          <obj_property name="ElementShortName">start_reg</obj_property>
@@ -149,20 +157,20 @@
       <obj_property name="DisplayName">label</obj_property>
       <obj_property name="isExpanded"></obj_property>
       <wvobject type="array" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/mult_inst/nn0">
-         <obj_property name="ElementShortName">nn0[63:0]</obj_property>
-         <obj_property name="ObjectShortName">nn0[63:0]</obj_property>
+         <obj_property name="ElementShortName">nn0[7:0]</obj_property>
+         <obj_property name="ObjectShortName">nn0[7:0]</obj_property>
       </wvobject>
       <wvobject type="array" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/mult_inst/a_sig">
-         <obj_property name="ElementShortName">a_sig[63:0]</obj_property>
-         <obj_property name="ObjectShortName">a_sig[63:0]</obj_property>
+         <obj_property name="ElementShortName">a_sig[7:0]</obj_property>
+         <obj_property name="ObjectShortName">a_sig[7:0]</obj_property>
       </wvobject>
       <wvobject type="array" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/mult_inst/t_out">
-         <obj_property name="ElementShortName">t_out[63:0]</obj_property>
-         <obj_property name="ObjectShortName">t_out[63:0]</obj_property>
+         <obj_property name="ElementShortName">t_out[7:0]</obj_property>
+         <obj_property name="ObjectShortName">t_out[7:0]</obj_property>
       </wvobject>
       <wvobject type="array" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/mult_inst/m_out">
-         <obj_property name="ElementShortName">m_out[63:0]</obj_property>
-         <obj_property name="ObjectShortName">m_out[63:0]</obj_property>
+         <obj_property name="ElementShortName">m_out[7:0]</obj_property>
+         <obj_property name="ObjectShortName">m_out[7:0]</obj_property>
       </wvobject>
       <wvobject type="logic" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/mult_inst/start_reg">
          <obj_property name="ElementShortName">start_reg</obj_property>
@@ -178,34 +186,34 @@
       <obj_property name="DisplayName">label</obj_property>
       <obj_property name="isExpanded"></obj_property>
       <wvobject type="array" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/mac_mn_inst/t_in_dut">
-         <obj_property name="ElementShortName">t_in_dut[63:0]</obj_property>
-         <obj_property name="ObjectShortName">t_in_dut[63:0]</obj_property>
+         <obj_property name="ElementShortName">t_in_dut[7:0]</obj_property>
+         <obj_property name="ObjectShortName">t_in_dut[7:0]</obj_property>
       </wvobject>
       <wvobject type="array" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/mac_mn_inst/m_dut">
-         <obj_property name="ElementShortName">m_dut[63:0]</obj_property>
-         <obj_property name="ObjectShortName">m_dut[63:0]</obj_property>
-         <obj_property name="CustomSignalColor">#00FFFF</obj_property>
+         <obj_property name="ElementShortName">m_dut[7:0]</obj_property>
+         <obj_property name="ObjectShortName">m_dut[7:0]</obj_property>
+         <obj_property name="CustomSignalColor">#00FF00</obj_property>
          <obj_property name="UseCustomSignalColor">true</obj_property>
       </wvobject>
       <wvobject type="array" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/mac_mn_inst/n_dut">
-         <obj_property name="ElementShortName">n_dut[63:0]</obj_property>
-         <obj_property name="ObjectShortName">n_dut[63:0]</obj_property>
-         <obj_property name="CustomSignalColor">#0000FF</obj_property>
+         <obj_property name="ElementShortName">n_dut[7:0]</obj_property>
+         <obj_property name="ObjectShortName">n_dut[7:0]</obj_property>
+         <obj_property name="CustomSignalColor">#00FF00</obj_property>
          <obj_property name="UseCustomSignalColor">true</obj_property>
       </wvobject>
       <wvobject type="array" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/mac_mn_inst/c_in_dut">
-         <obj_property name="ElementShortName">c_in_dut[63:0]</obj_property>
-         <obj_property name="ObjectShortName">c_in_dut[63:0]</obj_property>
+         <obj_property name="ElementShortName">c_in_dut[7:0]</obj_property>
+         <obj_property name="ObjectShortName">c_in_dut[7:0]</obj_property>
       </wvobject>
       <wvobject type="array" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/mac_mn_inst/s_out_dut">
-         <obj_property name="ElementShortName">s_out_dut[63:0]</obj_property>
-         <obj_property name="ObjectShortName">s_out_dut[63:0]</obj_property>
-         <obj_property name="CustomSignalColor">#FF00FF</obj_property>
+         <obj_property name="ElementShortName">s_out_dut[7:0]</obj_property>
+         <obj_property name="ObjectShortName">s_out_dut[7:0]</obj_property>
+         <obj_property name="CustomSignalColor">#800080</obj_property>
          <obj_property name="UseCustomSignalColor">true</obj_property>
       </wvobject>
       <wvobject type="array" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/mac_mn_inst/c_out_dut">
-         <obj_property name="ElementShortName">c_out_dut[63:0]</obj_property>
-         <obj_property name="ObjectShortName">c_out_dut[63:0]</obj_property>
+         <obj_property name="ElementShortName">c_out_dut[7:0]</obj_property>
+         <obj_property name="ObjectShortName">c_out_dut[7:0]</obj_property>
       </wvobject>
       <wvobject type="logic" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/mac_mn_inst/start_reg">
          <obj_property name="ElementShortName">start_reg</obj_property>
@@ -228,29 +236,38 @@
       <obj_property name="label">ADD</obj_property>
       <obj_property name="DisplayName">label</obj_property>
    </wvobject>
-   <wvobject type="array" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/add_inst/a_sig">
-      <obj_property name="ElementShortName">a_sig[63:0]</obj_property>
-      <obj_property name="ObjectShortName">a_sig[63:0]</obj_property>
-   </wvobject>
-   <wvobject type="array" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/add_inst/b_sig">
-      <obj_property name="ElementShortName">b_sig[63:0]</obj_property>
-      <obj_property name="ObjectShortName">b_sig[63:0]</obj_property>
-   </wvobject>
-   <wvobject type="array" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/add_inst/c_out">
-      <obj_property name="ElementShortName">c_out[63:0]</obj_property>
-      <obj_property name="ObjectShortName">c_out[63:0]</obj_property>
-   </wvobject>
-   <wvobject type="array" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/add_inst/t_out">
-      <obj_property name="ElementShortName">t_out[63:0]</obj_property>
-      <obj_property name="ObjectShortName">t_out[63:0]</obj_property>
-   </wvobject>
-   <wvobject type="other" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/add_inst/state">
-      <obj_property name="ElementShortName">state</obj_property>
-      <obj_property name="ObjectShortName">state</obj_property>
-   </wvobject>
-   <wvobject type="logic" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/add_inst/start_reg">
-      <obj_property name="ElementShortName">start_reg</obj_property>
-      <obj_property name="ObjectShortName">start_reg</obj_property>
+   <wvobject type="group" fp_name="group1051">
+      <obj_property name="label">ADD</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject type="array" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/add_inst/a_sig">
+         <obj_property name="ElementShortName">a_sig[7:0]</obj_property>
+         <obj_property name="ObjectShortName">a_sig[7:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/add_inst/b_sig">
+         <obj_property name="ElementShortName">b_sig[7:0]</obj_property>
+         <obj_property name="ObjectShortName">b_sig[7:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/add_inst/c_out">
+         <obj_property name="ElementShortName">c_out[7:0]</obj_property>
+         <obj_property name="ObjectShortName">c_out[7:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/add_inst/t_out">
+         <obj_property name="ElementShortName">t_out[7:0]</obj_property>
+         <obj_property name="ObjectShortName">t_out[7:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/add_inst/delay_counter">
+         <obj_property name="ElementShortName">delay_counter[9:0]</obj_property>
+         <obj_property name="ObjectShortName">delay_counter[9:0]</obj_property>
+      </wvobject>
+      <wvobject type="other" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/add_inst/state">
+         <obj_property name="ElementShortName">state</obj_property>
+         <obj_property name="ObjectShortName">state</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/add_inst/start_reg">
+         <obj_property name="ElementShortName">start_reg</obj_property>
+         <obj_property name="ObjectShortName">start_reg</obj_property>
+      </wvobject>
    </wvobject>
    <wvobject fp_name="divider550" type="divider">
       <obj_property name="label">SUB</obj_property>
@@ -261,20 +278,20 @@
       <obj_property name="DisplayName">label</obj_property>
       <obj_property name="isExpanded"></obj_property>
       <wvobject type="array" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/sub_inst/t_in_sig">
-         <obj_property name="ElementShortName">t_in_sig[63:0]</obj_property>
-         <obj_property name="ObjectShortName">t_in_sig[63:0]</obj_property>
+         <obj_property name="ElementShortName">t_in_sig[7:0]</obj_property>
+         <obj_property name="ObjectShortName">t_in_sig[7:0]</obj_property>
       </wvobject>
       <wvobject type="array" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/sub_inst/n_in_sig">
-         <obj_property name="ElementShortName">n_in_sig[63:0]</obj_property>
-         <obj_property name="ObjectShortName">n_in_sig[63:0]</obj_property>
+         <obj_property name="ElementShortName">n_in_sig[7:0]</obj_property>
+         <obj_property name="ObjectShortName">n_in_sig[7:0]</obj_property>
       </wvobject>
       <wvobject type="array" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/sub_inst/b_in_sig">
          <obj_property name="ElementShortName">b_in_sig[0:0]</obj_property>
          <obj_property name="ObjectShortName">b_in_sig[0:0]</obj_property>
       </wvobject>
       <wvobject type="array" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/sub_inst/diff_out_sig">
-         <obj_property name="ElementShortName">diff_out_sig[63:0]</obj_property>
-         <obj_property name="ObjectShortName">diff_out_sig[63:0]</obj_property>
+         <obj_property name="ElementShortName">diff_out_sig[7:0]</obj_property>
+         <obj_property name="ObjectShortName">diff_out_sig[7:0]</obj_property>
       </wvobject>
       <wvobject type="array" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/sub_inst/b_out_sig">
          <obj_property name="ElementShortName">b_out_sig[0:0]</obj_property>
@@ -285,8 +302,8 @@
          <obj_property name="ObjectShortName">b_out_reg[0:0]</obj_property>
       </wvobject>
       <wvobject type="array" fp_name="/top_tb/dut_result">
-         <obj_property name="ElementShortName">dut_result[63:0]</obj_property>
-         <obj_property name="ObjectShortName">dut_result[63:0]</obj_property>
+         <obj_property name="ElementShortName">dut_result[7:0]</obj_property>
+         <obj_property name="ObjectShortName">dut_result[7:0]</obj_property>
       </wvobject>
       <wvobject type="logic" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/sub_inst/start_reg">
          <obj_property name="ElementShortName">start_reg</obj_property>

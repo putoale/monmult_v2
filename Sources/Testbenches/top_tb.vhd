@@ -45,7 +45,7 @@ architecture bench of top_tb is
   end component;
 
   -- Clock period
-  constant CLK_PERIOD : time  := 10 ns;
+  constant CLK_PERIOD : time  := 1 ns; --edited to try many test vectors
   constant RESET_WND	:	TIME	:= 10*CLK_PERIOD;
 
   -- TB Initialiazations
@@ -53,15 +53,15 @@ architecture bench of top_tb is
 	constant	TB_RESET_INIT 	:	STD_LOGIC	:= '1';
 
   -- Generics
-  constant DUT_N_BITS_PER_WORD : integer := 32;
+  constant DUT_N_BITS_PER_WORD : integer := 8;
   constant DUT_N_WORDS : integer := 8;
   constant DUT_WRITE_WIDTH : integer := DUT_N_BITS_PER_WORD;
   constant DUT_READ_WIDTH : integer := DUT_N_BITS_PER_WORD;
   constant DUT_MEMORY_DEPTH : integer := DUT_N_WORDS;
 
   --File GENERICS
-  constant N_TEST_VECTORS   : positive := 2;
-  constant INPUT_FILE_NAME  : string := "input_vectors_256_8_32.txt";
+  constant N_TEST_VECTORS   : positive := 11;
+  constant INPUT_FILE_NAME  : string := "input_vectors_64_8_8.txt";
   constant OUTPUT_FILE_NAME : string := "out_results.txt";
 
   --Types

@@ -2,6 +2,7 @@ import gmpy2 as g
 import math  as m
 import csv
 import random as rnd
+import pprint as pp
 
 def n_to_str (num, n_bits_per_word, n_words,base = 2):
     """ This function takes as input a number and returns a string representing
@@ -58,7 +59,7 @@ def load_tv_from_file(file_path,n_words,n_bits_per_word,r,base=16):
 
     dict_keys = ['A', 'B','N',"N'(0)",'R','N BIT TOTAL','N BITS PER WORD','N WORDS','GOLDEN_RESULT']
 
-    n_symbols_per_word = (int) (n_bits_per_word / m.log(base,2))
+    n_symbols = (int) ( (n_bits_per_word*n_words) / m.log(base,2))
 
     with open(file_path,"r") as ff:
         file_lines = ff.readlines()
@@ -83,21 +84,23 @@ def load_tv_from_file(file_path,n_words,n_bits_per_word,r,base=16):
         golden_res = monmult_int(*dict_temp)
 
 
-        dict_values_str.append(g.digits(golden_res,base).upper())
+        dict_values_str.append(g.digits(golden_res,base).zfill(n_symbols).upper())
 
         tv_list.append(dict(zip(dict_keys,dict_values_str)))
 
     return tv_list
 
 
-def load_res_from_file(file_path,base = 16):
+def load_res_from_file(file_path,n_bits,base = 16):
     """This function reads the results of the vhdl module from a file and returns them in a list"""
+
+    n_symbols = (int) (n_bits / m.log(base,2))
 
     with open(file_path,"r") as ff:
         file_lines = ff.readlines()
     
-    file_lines_stripped = [st.replace(" ","").replace("\n","").replace("\r","") for st in file_lines]
-    #results_int = [int(st,base=base) for st in file_lines_stripped]
+    file_lines_stripped = [st.replace(" ","").replace("\n","").replace("\r","").zfill(n_symbols) for st in file_lines]
+
     return file_lines_stripped
 
 
@@ -129,12 +132,37 @@ def test_tv_pass (tv_list):
         elem.update({'PASSED':pass_status})
     return{'POS_tv':positive_list,'NEG_tv':negative_list}
 
-# def generate_tv (n_bits, n_tests):
-#     """This function generates n test vectors with the specified number of bits"""
+def generate_tv (n_bits, n_tests):
+    """This function generates n test vectors with the specified number of bits"""
+    generated_tv = []
+    dict_keys = ['a','b','n','r','n_bits']
+    r = pow(2,n_bits)
+    random_st = g.random_state()
+    valid = 0
 
-#     random_st = rnd.random_state()
-#     r = pow(2,n_bits)
+    for i in range (0,n_tests):
 
-#     for i in range (0,n_tests):
-#         a = g.mpz_random()
+        while(valid == 0):
+            dict_values = []
+
+            n = g.mpz_rrandomb(random_st,n_bits)
+
+            if g.f_mod(n,2) == 0:
+                n-=1
+
+            a = g.f_mod(g.mpz_rrandomb(random_st,n_bits),n)
+            b = g.f_mod(g.mpz_rrandomb(random_st,n_bits),n)
+
+            valid = (g.mul(a,b) < g.mul(n,r))
+
+        dict_values.extend((a,b,n,r,n_bits))
+        generated_tv.append(dict(zip(dict_keys,dict_values)))
+        valid = 0
+
+
+        #pp.pprint(dict_values)
+    
+    return generated_tv
+
+
 

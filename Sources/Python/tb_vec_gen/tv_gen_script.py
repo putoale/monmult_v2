@@ -26,6 +26,14 @@ test_vec_256_2 = {
     'n_bits':256
 }
 
+test_vec_64_1 = {
+    'a' : 0xAABBCCDDEEFF1122,
+    'b' : 0x1122334455667788,
+    'n' : 0xFEF93EAFAEF9FFA9,
+    'r' : 0x10000000000000000,
+    'n_bits' : 64
+}
+
 test_vec_32_2 = {
     'a': 0xabcdef99,
     'b': 0x9876abed,
@@ -42,7 +50,9 @@ test_vec_32_1 = {
     'n_bits':32
 }
 
-all_tv = [test_vec_256_1,test_vec_256_2,test_vec_32_1,test_vec_32_2] #list with all test vectors
+all_tv = [test_vec_256_1,test_vec_256_2,test_vec_32_1,test_vec_32_2,test_vec_64_1] #list with all test vectors
+
+all_tv.extend(tbm.generate_tv(64,10))
 
 # you can call this script specifying a configuration. E.g. "python3 script 256_4_64 256_8_32 32_4_8" will print all 256 bits tv with 4 words and
 # 64 bits per word, in a file named "input_vectors_256_4_64" and so on...
@@ -51,7 +61,8 @@ all_tv = [test_vec_256_1,test_vec_256_2,test_vec_32_1,test_vec_32_2] #list with 
 if len(sys.argv) > 1:
     tv_config_list = sys.argv[1:]
 else:
-    tv_config_list = ["256_4_64","256_8_32","32_4_8"] #default configurations
+    #tv_config_list = ["256_4_64","256_8_32","32_4_8"] #default configurations
+    tv_config_list = ["64_8_8"]
 
 
 tv_list = [] #list containing test vectors to send to file (At the moment it's populated but not used)
@@ -81,3 +92,5 @@ for tv_conf in tv_config_list:
     file_path = os.path.join(script_dir,rel_path,file_name)
     with open(file_path,"w") as ff:
         ff.writelines(file_lines)
+
+    print("written ",len(tv_list),"test vectors to file ",file_path)
