@@ -138,21 +138,20 @@ def generate_tv (n_bits, n_tests):
     dict_keys = ['a','b','n','r','n_bits']
     r = pow(2,n_bits)
     random_st = g.random_state()
-    a = 0
-    b = 0
-    n = 0
     valid = 0
 
     for i in range (0,n_tests):
 
         while(valid == 0):
             dict_values = []
-            a = g.mpz_rrandomb(random_st,n_bits)
-            b = g.mpz_rrandomb(random_st,n_bits)
+
             n = g.mpz_rrandomb(random_st,n_bits)
 
             if g.f_mod(n,2) == 0:
                 n-=1
+
+            a = g.f_mod(g.mpz_rrandomb(random_st,n_bits),n)
+            b = g.f_mod(g.mpz_rrandomb(random_st,n_bits),n)
 
             valid = (g.mul(a,b) < g.mul(n,r))
 
