@@ -29,7 +29,7 @@ if len(sys.argv) > 1:
         config_list = sys.argv[2]
 else:
     mode_flag = 'single'
-    config_list = ["256_4_64"] #default configuration
+    config_list = ["64_8_8"] #default configuration
 
 
 tv_list = []
@@ -53,7 +53,7 @@ for conf in config_list:
         res_file_name = "out_results_" + conf + ".txt"
     
     res_file_path = os.path.join(script_dir,vec_rel_path,res_file_name)
-    curr_conf_results_list = tbm.load_res_from_file(res_file_path,output_base)
+    curr_conf_results_list = tbm.load_res_from_file(res_file_path,parsed_conf[0],output_base)
 
     for i in range(0,len(curr_conf_tv_list)):
         curr_conf_tv_list[i].update({'MODULE_RESULT':curr_conf_results_list[i]})
