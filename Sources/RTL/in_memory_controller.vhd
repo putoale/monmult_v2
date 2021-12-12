@@ -53,7 +53,7 @@ architecture Behavioral of in_mem_controller is
   constant MEMORY_DEPTH : integer := N_BITS_TOTAL / WRITE_WIDTH;
   --assuming here READ_WIDTH to be lower than WRITE_WIDTH, since this is an input memory
   constant READ_SLOTS : integer := N_BITS_TOTAL/READ_WIDTH;
-  type memory_type is array (MEMORY_DEPTH - 1 downto 0) of std_logic_vector(READ_WIDTH - 1 downto 0);
+  type memory_type is array (MEMORY_DEPTH - 1 downto 0) of std_logic_vector(WRITE_WIDTH - 1 downto 0);
   signal memory : memory_type;
   ------------------------------------------------------------------------------
   signal write_counter : integer range 0 to MEMORY_DEPTH - 1 := 0;

@@ -34,7 +34,7 @@ architecture behavioral of tb_mem_controller is
   constant memory_depth : integer :=n_bits_total / write_width;
 
   constant clk_period : time :=10 ns;
-  signal   clk        : std_logic;
+  signal   clk        : std_logic:='0';
   signal   reset      : std_logic;
   signal   out_ready  : std_logic;
   signal   wr_en      : std_logic;
@@ -81,24 +81,30 @@ begin
 
   process is
   begin
+	wr_en<='0';
     reset<= '1' ;
-    wait for clk_period*10;
+    wait for clk_period*3;
     reset<='0';
-    wr_en<='0';
-    
-    
-    for i in 0 to memory_depth-1  loop 
-      wr_en<='1';
-      j<= memory_depth -1 - i;
-      wr_port <= in_vector((write_width-1)*(i+1 ) downto i*write_width);
-      end loop;
-    wait;
 
-    if out_ready='1' then  
-      for i in 0 to memory_depth-1 then  
-        out_vector<= rd_port
+    EoC_in<='1';
+    wait for clk_period*2;
+    EoC_in <='0';
+    wait for clk_period*2;
+
+    for i in 0 to memory_depth-1  loop
+      wr_en<='1';
+      wr_port <= in_vector((write_width)*(i+1 )-1 downto i*write_width);
+      wait until rising_edge(clk);
+    end loop;
+
+		wr_en<='0';
+    if out_ready='1' then
+      for i in 0 to memory_depth-1 loop
+        out_vector((read_width)*(i+1 ) -1  downto i*read_width) <= rd_port ;
+		wait for clk_period;
       end loop;
-  
+    end if;
+    wait;
         end process;
 
 end architecture behavioral;
