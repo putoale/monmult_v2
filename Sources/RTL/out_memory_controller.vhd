@@ -21,18 +21,12 @@
 library IEEE;
   use IEEE.STD_LOGIC_1164.all;
 
-  -- Uncomment the following library declaration if using
-  -- arithmetic functions with Signed or Unsigned values
   use IEEE.NUMERIC_STD.all;
 
--- Uncomment the following library declaration if instantiating
--- any Xilinx leaf cells in this code.
---library UNISIM;
---use UNISIM.VComponents.all;
 
 entity out_mem_controller is
   generic (
-    write_width : integer := 64; 
+    write_width : integer := 64;
     read_width  : integer := 16;  --write_width must be a multiple of read_width. since this is an output controller
 
     n_bits_total : integer := 256
@@ -89,42 +83,38 @@ begin
       out_valid<='0'; --unless overriden later
       EoC_out<='0';
       -----------------------reading phase--------------------------------------
-        if (memory_full = '1' and read_complete = '0' and write_complete= '1')  then  
-          rd_port<=memory(read_counter);
+        if (memory_full = '1' and read_complete = '0' and write_complete= '1')  then
+
+        if read_counter >= memory_depth then
+    		read_counter<=0;
+        	read_complete<='1';
+        	EoC_out<='1';
+		else
+		  rd_port<=memory(read_counter);
           read_counter<=read_counter+1;
           out_valid<='1';
-          
-          if read_counter = memory_depth-1 then  
-            read_counter<=0;
-            read_complete<='1';
-            EoC_out<='1';
-          end if;
-        end if;
 
+        end if;
+	end if;
           --------------------------------------------------------------------------
 
              ------------------------------writing phase-------------------------------
         if (wr_en = '1' and memory_full = '0') then
-    
-          if (write_counter >= memory_depth) then
-            write_counter  <= 0;
-            write_complete <= '1';
-            
-          else 
+
             write_counter <= write_counter + write_bigness;
-            
               preparing_wr : for i in 0 to write_bigness - 1 loop
-                memory(write_counter +write_bigness -1 - i)<= wr_port(read_width  * (i + 1) - 1  downto read_width * i);
+                --memory(write_counter +write_bigness -1 - i)<= wr_port(read_width  * (i + 1) - 1  downto read_width * i);
+				memory(write_counter + i)<= wr_port(read_width  * (i + 1) - 1  downto read_width * i);
             end loop;
-            
+    	end if;
+	    --------------------------------------------------------------------------
         end if;
-
-        --------------------------------------------------------------------------
-
-          end if;
-
-          end if;
-      end if;
+		  if (write_counter >= memory_depth) then
+		    write_counter  <= 0;
+		    write_complete <= '1';
+		    memory_full<='1';
+		  end if;
+    end if;
 
   end process;
 

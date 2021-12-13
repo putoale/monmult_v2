@@ -13,9 +13,9 @@ architecture behavioral of tb_out_mem_controller is
   component out_mem_controller is
     generic (
       write_width : integer := 16;
-      read_width  : integer := 64;
+      read_width  : integer := 8;
 
-      n_bits_total : integer := 256
+      n_bits_total : integer := 64
     );
     port (
       clk       : in    std_logic;
@@ -32,7 +32,8 @@ architecture behavioral of tb_out_mem_controller is
   constant write_width  : integer := 16;
   constant read_width   : integer := 8;
   constant n_bits_total : integer := 64;
-  constant memory_depth : integer :=n_bits_total / write_width;
+  constant memory_depth : integer :=n_bits_total / read_width;
+  constant write_bigness: integer :=write_width/read_width;
   ---------------------------------------------------------------------------
 
 
@@ -95,7 +96,7 @@ begin
     wait for clk_period*2;
     wait until rising_edge(clk);
 
-    for i in 0 to memory_depth-1  loop
+    for i in 0 to (memory_depth/write_bigness)-1  loop
       wr_en<='1';
       wr_port <= in_vector((write_width)*(i+1 )-1 downto i*write_width);
       wait until rising_edge(clk);

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="tb_out_mem_controller_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="tb_out_mem_controller" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="0.000 ns"></ZoomStartTime>
+      <ZoomEndTime time="1,107.001 ns"></ZoomEndTime>
+      <Cursor1Time time="215.000 ns"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="309"></NameColumnWidth>
+      <ValueColumnWidth column_width="151"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="24" />
+   <wvobject type="logic" fp_name="/tb_out_mem_controller/clk">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_out_mem_controller/reset">
+      <obj_property name="ElementShortName">reset</obj_property>
+      <obj_property name="ObjectShortName">reset</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_out_mem_controller/out_valid">
+      <obj_property name="ElementShortName">out_valid</obj_property>
+      <obj_property name="ObjectShortName">out_valid</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_out_mem_controller/wr_en">
+      <obj_property name="ElementShortName">wr_en</obj_property>
+      <obj_property name="ObjectShortName">wr_en</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_out_mem_controller/wr_port">
+      <obj_property name="ElementShortName">wr_port[15:0]</obj_property>
+      <obj_property name="ObjectShortName">wr_port[15:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_out_mem_controller/rd_port">
+      <obj_property name="ElementShortName">rd_port[7:0]</obj_property>
+      <obj_property name="ObjectShortName">rd_port[7:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_out_mem_controller/eoc_out">
+      <obj_property name="ElementShortName">eoc_out</obj_property>
+      <obj_property name="ObjectShortName">eoc_out</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_out_mem_controller/eoc_in">
+      <obj_property name="ElementShortName">eoc_in</obj_property>
+      <obj_property name="ObjectShortName">eoc_in</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_out_mem_controller/inst/write_complete">
+      <obj_property name="ElementShortName">write_complete</obj_property>
+      <obj_property name="ObjectShortName">write_complete</obj_property>
+   </wvobject>
+   <wvobject type="other" fp_name="/tb_out_mem_controller/inst/write_counter">
+      <obj_property name="ElementShortName">write_counter</obj_property>
+      <obj_property name="ObjectShortName">write_counter</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_out_mem_controller/inst/read_complete">
+      <obj_property name="ElementShortName">read_complete</obj_property>
+      <obj_property name="ObjectShortName">read_complete</obj_property>
+   </wvobject>
+   <wvobject type="other" fp_name="/tb_out_mem_controller/inst/read_counter">
+      <obj_property name="ElementShortName">read_counter</obj_property>
+      <obj_property name="ObjectShortName">read_counter</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_out_mem_controller/inst/memory_full">
+      <obj_property name="ElementShortName">memory_full</obj_property>
+      <obj_property name="ObjectShortName">memory_full</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_out_mem_controller/inst/memory">
+      <obj_property name="ElementShortName">memory[7:0][7:0]</obj_property>
+      <obj_property name="ObjectShortName">memory[7:0][7:0]</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_out_mem_controller/in_vector">
+      <obj_property name="ElementShortName">in_vector[63:0]</obj_property>
+      <obj_property name="ObjectShortName">in_vector[63:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_out_mem_controller/in_vector_one">
+      <obj_property name="ElementShortName">in_vector_one[31:0]</obj_property>
+      <obj_property name="ObjectShortName">in_vector_one[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_out_mem_controller/in_vector_two">
+      <obj_property name="ElementShortName">in_vector_two[31:0]</obj_property>
+      <obj_property name="ObjectShortName">in_vector_two[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_out_mem_controller/out_vector">
+      <obj_property name="ElementShortName">out_vector[63:0]</obj_property>
+      <obj_property name="ObjectShortName">out_vector[63:0]</obj_property>
+   </wvobject>
+   <wvobject type="other" fp_name="/tb_out_mem_controller/j">
+      <obj_property name="ElementShortName">j</obj_property>
+      <obj_property name="ObjectShortName">j</obj_property>
+   </wvobject>
+   <wvobject type="other" fp_name="/tb_out_mem_controller/write_width">
+      <obj_property name="ElementShortName">write_width</obj_property>
+      <obj_property name="ObjectShortName">write_width</obj_property>
+   </wvobject>
+   <wvobject type="other" fp_name="/tb_out_mem_controller/read_width">
+      <obj_property name="ElementShortName">read_width</obj_property>
+      <obj_property name="ObjectShortName">read_width</obj_property>
+   </wvobject>
+   <wvobject type="other" fp_name="/tb_out_mem_controller/n_bits_total">
+      <obj_property name="ElementShortName">n_bits_total</obj_property>
+      <obj_property name="ObjectShortName">n_bits_total</obj_property>
+   </wvobject>
+   <wvobject type="other" fp_name="/tb_out_mem_controller/memory_depth">
+      <obj_property name="ElementShortName">memory_depth</obj_property>
+      <obj_property name="ObjectShortName">memory_depth</obj_property>
+   </wvobject>
+   <wvobject type="other" fp_name="/tb_out_mem_controller/clk_period">
+      <obj_property name="ElementShortName">clk_period</obj_property>
+      <obj_property name="ObjectShortName">clk_period</obj_property>
+   </wvobject>
+</wave_config>
