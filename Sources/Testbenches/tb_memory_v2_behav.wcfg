@@ -10,85 +10,221 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="0.000 ns"></ZoomStartTime>
-      <ZoomEndTime time="1,000.000 ns"></ZoomEndTime>
-      <Cursor1Time time="1,000.000 ns"></Cursor1Time>
+      <ZoomStartTime time="264.060 ns"></ZoomStartTime>
+      <ZoomEndTime time="485.461 ns"></ZoomEndTime>
+      <Cursor1Time time="434.660 ns"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="276"></NameColumnWidth>
-      <ValueColumnWidth column_width="108"></ValueColumnWidth>
+      <ValueColumnWidth column_width="104"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="18" />
-   <wvobject type="logic" fp_name="/tb_memory_v2/mem_inst/clk">
-      <obj_property name="ElementShortName">clk</obj_property>
-      <obj_property name="ObjectShortName">clk</obj_property>
+   <WVObjectSize size="4" />
+   <wvobject type="group" fp_name="group67">
+      <obj_property name="label">MEMORY_TOP</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject type="logic" fp_name="/tb_memory_v2/mem_inst/clk">
+         <obj_property name="ElementShortName">clk</obj_property>
+         <obj_property name="ObjectShortName">clk</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_memory_v2/mem_inst/reset">
+         <obj_property name="ElementShortName">reset</obj_property>
+         <obj_property name="ObjectShortName">reset</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_memory_v2/mem_inst/memory_full">
+         <obj_property name="ElementShortName">memory_full</obj_property>
+         <obj_property name="ObjectShortName">memory_full</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_memory_v2/mem_inst/wr_en">
+         <obj_property name="ElementShortName">wr_en</obj_property>
+         <obj_property name="ObjectShortName">wr_en</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_memory_v2/mem_inst/wr_port">
+         <obj_property name="ElementShortName">wr_port[15:0]</obj_property>
+         <obj_property name="ObjectShortName">wr_port[15:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_memory_v2/mem_inst/rd_en">
+         <obj_property name="ElementShortName">rd_en</obj_property>
+         <obj_property name="ObjectShortName">rd_en</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_memory_v2/mem_inst/rd_port">
+         <obj_property name="ElementShortName">rd_port[63:0]</obj_property>
+         <obj_property name="ObjectShortName">rd_port[63:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_memory_v2/mem_inst/start">
+         <obj_property name="ElementShortName">start</obj_property>
+         <obj_property name="ObjectShortName">start</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_memory_v2/mem_inst/start_in">
+         <obj_property name="ElementShortName">start_in</obj_property>
+         <obj_property name="ObjectShortName">start_in</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_memory_v2/mem_inst/EoC_in">
+         <obj_property name="ElementShortName">EoC_in</obj_property>
+         <obj_property name="ObjectShortName">EoC_in</obj_property>
+      </wvobject>
    </wvobject>
-   <wvobject type="logic" fp_name="/tb_memory_v2/mem_inst/reset">
-      <obj_property name="ElementShortName">reset</obj_property>
-      <obj_property name="ObjectShortName">reset</obj_property>
+   <wvobject type="group" fp_name="group88">
+      <obj_property name="label">CONTROLLER</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject type="logic" fp_name="/tb_memory_v2/mem_inst/controller_inst/clk">
+         <obj_property name="ElementShortName">clk</obj_property>
+         <obj_property name="ObjectShortName">clk</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_memory_v2/mem_inst/controller_inst/reset">
+         <obj_property name="ElementShortName">reset</obj_property>
+         <obj_property name="ObjectShortName">reset</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_memory_v2/mem_inst/controller_inst/out_valid">
+         <obj_property name="ElementShortName">out_valid</obj_property>
+         <obj_property name="ObjectShortName">out_valid</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_memory_v2/mem_inst/controller_inst/wr_en">
+         <obj_property name="ElementShortName">wr_en</obj_property>
+         <obj_property name="ObjectShortName">wr_en</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_memory_v2/mem_inst/controller_inst/wr_port">
+         <obj_property name="ElementShortName">wr_port[15:0]</obj_property>
+         <obj_property name="ObjectShortName">wr_port[15:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_memory_v2/mem_inst/controller_inst/rd_port">
+         <obj_property name="ElementShortName">rd_port[63:0]</obj_property>
+         <obj_property name="ObjectShortName">rd_port[63:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_memory_v2/mem_inst/controller_inst/eoc_in">
+         <obj_property name="ElementShortName">eoc_in</obj_property>
+         <obj_property name="ObjectShortName">eoc_in</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_memory_v2/mem_inst/controller_inst/memory">
+         <obj_property name="ElementShortName">memory[15:0][15:0]</obj_property>
+         <obj_property name="ObjectShortName">memory[15:0][15:0]</obj_property>
+      </wvobject>
+      <wvobject type="other" fp_name="/tb_memory_v2/mem_inst/controller_inst/write_counter">
+         <obj_property name="ElementShortName">write_counter</obj_property>
+         <obj_property name="ObjectShortName">write_counter</obj_property>
+      </wvobject>
+      <wvobject type="other" fp_name="/tb_memory_v2/mem_inst/controller_inst/read_counter">
+         <obj_property name="ElementShortName">read_counter</obj_property>
+         <obj_property name="ObjectShortName">read_counter</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_memory_v2/mem_inst/controller_inst/write_complete">
+         <obj_property name="ElementShortName">write_complete</obj_property>
+         <obj_property name="ObjectShortName">write_complete</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_memory_v2/mem_inst/controller_inst/read_complete">
+         <obj_property name="ElementShortName">read_complete</obj_property>
+         <obj_property name="ObjectShortName">read_complete</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_memory_v2/mem_inst/controller_inst/memory_full">
+         <obj_property name="ElementShortName">memory_full</obj_property>
+         <obj_property name="ObjectShortName">memory_full</obj_property>
+      </wvobject>
    </wvobject>
-   <wvobject type="logic" fp_name="/tb_memory_v2/mem_inst/memory_full">
-      <obj_property name="ElementShortName">memory_full</obj_property>
-      <obj_property name="ObjectShortName">memory_full</obj_property>
+   <wvobject type="group" fp_name="group113">
+      <obj_property name="label">MEMORY_INST</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject type="logic" fp_name="/tb_memory_v2/mem_inst/memory_inst/clk">
+         <obj_property name="ElementShortName">clk</obj_property>
+         <obj_property name="ObjectShortName">clk</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_memory_v2/mem_inst/memory_inst/reset">
+         <obj_property name="ElementShortName">reset</obj_property>
+         <obj_property name="ObjectShortName">reset</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_memory_v2/mem_inst/memory_inst/memory_full">
+         <obj_property name="ElementShortName">memory_full</obj_property>
+         <obj_property name="ObjectShortName">memory_full</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_memory_v2/mem_inst/memory_inst/wr_en">
+         <obj_property name="ElementShortName">wr_en</obj_property>
+         <obj_property name="ObjectShortName">wr_en</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_memory_v2/mem_inst/memory_inst/wr_port">
+         <obj_property name="ElementShortName">wr_port[63:0]</obj_property>
+         <obj_property name="ObjectShortName">wr_port[63:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_memory_v2/mem_inst/memory_inst/rd_en">
+         <obj_property name="ElementShortName">rd_en</obj_property>
+         <obj_property name="ObjectShortName">rd_en</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_memory_v2/mem_inst/memory_inst/rd_port">
+         <obj_property name="ElementShortName">rd_port[63:0]</obj_property>
+         <obj_property name="ObjectShortName">rd_port[63:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_memory_v2/mem_inst/memory_inst/start">
+         <obj_property name="ElementShortName">start</obj_property>
+         <obj_property name="ObjectShortName">start</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_memory_v2/mem_inst/memory_inst/start_in">
+         <obj_property name="ElementShortName">start_in</obj_property>
+         <obj_property name="ObjectShortName">start_in</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_memory_v2/mem_inst/memory_inst/EoC_in">
+         <obj_property name="ElementShortName">EoC_in</obj_property>
+         <obj_property name="ObjectShortName">EoC_in</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_memory_v2/mem_inst/memory_inst/memory">
+         <obj_property name="ElementShortName">memory[3:0][63:0]</obj_property>
+         <obj_property name="ObjectShortName">memory[3:0][63:0]</obj_property>
+      </wvobject>
+      <wvobject type="other" fp_name="/tb_memory_v2/mem_inst/memory_inst/write_counter">
+         <obj_property name="ElementShortName">write_counter</obj_property>
+         <obj_property name="ObjectShortName">write_counter</obj_property>
+      </wvobject>
+      <wvobject type="other" fp_name="/tb_memory_v2/mem_inst/memory_inst/read_counter">
+         <obj_property name="ElementShortName">read_counter</obj_property>
+         <obj_property name="ObjectShortName">read_counter</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_memory_v2/mem_inst/memory_inst/memory_full_int">
+         <obj_property name="ElementShortName">memory_full_int</obj_property>
+         <obj_property name="ObjectShortName">memory_full_int</obj_property>
+      </wvobject>
+      <wvobject type="other" fp_name="/tb_memory_v2/mem_inst/memory_inst/cycle_counter">
+         <obj_property name="ElementShortName">cycle_counter</obj_property>
+         <obj_property name="ObjectShortName">cycle_counter</obj_property>
+      </wvobject>
+      <wvobject type="other" fp_name="/tb_memory_v2/mem_inst/memory_inst/initial_counter">
+         <obj_property name="ElementShortName">initial_counter</obj_property>
+         <obj_property name="ObjectShortName">initial_counter</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_memory_v2/mem_inst/memory_inst/begin_reading">
+         <obj_property name="ElementShortName">begin_reading</obj_property>
+         <obj_property name="ObjectShortName">begin_reading</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_memory_v2/mem_inst/memory_inst/start_flag">
+         <obj_property name="ElementShortName">start_flag</obj_property>
+         <obj_property name="ObjectShortName">start_flag</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_memory_v2/mem_inst/memory_inst/start_int">
+         <obj_property name="ElementShortName">start_int</obj_property>
+         <obj_property name="ObjectShortName">start_int</obj_property>
+      </wvobject>
    </wvobject>
-   <wvobject type="logic" fp_name="/tb_memory_v2/mem_inst/wr_en">
-      <obj_property name="ElementShortName">wr_en</obj_property>
-      <obj_property name="ObjectShortName">wr_en</obj_property>
-   </wvobject>
-   <wvobject type="array" fp_name="/tb_memory_v2/mem_inst/wr_port">
-      <obj_property name="ElementShortName">wr_port[7:0]</obj_property>
-      <obj_property name="ObjectShortName">wr_port[7:0]</obj_property>
-   </wvobject>
-   <wvobject type="logic" fp_name="/tb_memory_v2/mem_inst/rd_en">
-      <obj_property name="ElementShortName">rd_en</obj_property>
-      <obj_property name="ObjectShortName">rd_en</obj_property>
-   </wvobject>
-   <wvobject type="array" fp_name="/tb_memory_v2/mem_inst/rd_port">
-      <obj_property name="ElementShortName">rd_port[15:0]</obj_property>
-      <obj_property name="ObjectShortName">rd_port[15:0]</obj_property>
-   </wvobject>
-   <wvobject type="logic" fp_name="/tb_memory_v2/mem_inst/start">
-      <obj_property name="ElementShortName">start</obj_property>
-      <obj_property name="ObjectShortName">start</obj_property>
-   </wvobject>
-   <wvobject type="logic" fp_name="/tb_memory_v2/mem_inst/start_in">
-      <obj_property name="ElementShortName">start_in</obj_property>
-      <obj_property name="ObjectShortName">start_in</obj_property>
-   </wvobject>
-   <wvobject type="logic" fp_name="/tb_memory_v2/mem_inst/EoC_in">
-      <obj_property name="ElementShortName">EoC_in</obj_property>
-      <obj_property name="ObjectShortName">EoC_in</obj_property>
-   </wvobject>
-   <wvobject type="array" fp_name="/tb_memory_v2/mem_inst/rd_port_controller">
-      <obj_property name="ElementShortName">rd_port_controller[15:0]</obj_property>
-      <obj_property name="ObjectShortName">rd_port_controller[15:0]</obj_property>
-   </wvobject>
-   <wvobject type="logic" fp_name="/tb_memory_v2/mem_inst/out_valid_controller">
-      <obj_property name="ElementShortName">out_valid_controller</obj_property>
-      <obj_property name="ObjectShortName">out_valid_controller</obj_property>
-   </wvobject>
-   <wvobject type="other" fp_name="/tb_memory_v2/mem_inst/WRITE_WIDTH">
-      <obj_property name="ElementShortName">WRITE_WIDTH</obj_property>
-      <obj_property name="ObjectShortName">WRITE_WIDTH</obj_property>
-   </wvobject>
-   <wvobject type="other" fp_name="/tb_memory_v2/mem_inst/READ_WIDTH">
-      <obj_property name="ElementShortName">READ_WIDTH</obj_property>
-      <obj_property name="ObjectShortName">READ_WIDTH</obj_property>
-   </wvobject>
-   <wvobject type="other" fp_name="/tb_memory_v2/mem_inst/CYLCES_TO_WAIT">
-      <obj_property name="ElementShortName">CYLCES_TO_WAIT</obj_property>
-      <obj_property name="ObjectShortName">CYLCES_TO_WAIT</obj_property>
-   </wvobject>
-   <wvobject type="other" fp_name="/tb_memory_v2/mem_inst/LATENCY">
-      <obj_property name="ElementShortName">LATENCY</obj_property>
-      <obj_property name="ObjectShortName">LATENCY</obj_property>
-   </wvobject>
-   <wvobject type="other" fp_name="/tb_memory_v2/mem_inst/N_BITS_TOTAL">
-      <obj_property name="ElementShortName">N_BITS_TOTAL</obj_property>
-      <obj_property name="ObjectShortName">N_BITS_TOTAL</obj_property>
-   </wvobject>
-   <wvobject type="other" fp_name="/tb_memory_v2/mem_inst/MEMORY_DEPTH">
-      <obj_property name="ElementShortName">MEMORY_DEPTH</obj_property>
-      <obj_property name="ObjectShortName">MEMORY_DEPTH</obj_property>
+   <wvobject type="group" fp_name="group68">
+      <obj_property name="label">CONSTANTS</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject type="other" fp_name="/tb_memory_v2/mem_inst/WRITE_WIDTH">
+         <obj_property name="ElementShortName">WRITE_WIDTH</obj_property>
+         <obj_property name="ObjectShortName">WRITE_WIDTH</obj_property>
+      </wvobject>
+      <wvobject type="other" fp_name="/tb_memory_v2/mem_inst/READ_WIDTH">
+         <obj_property name="ElementShortName">READ_WIDTH</obj_property>
+         <obj_property name="ObjectShortName">READ_WIDTH</obj_property>
+      </wvobject>
+      <wvobject type="other" fp_name="/tb_memory_v2/mem_inst/CYLCES_TO_WAIT">
+         <obj_property name="ElementShortName">CYLCES_TO_WAIT</obj_property>
+         <obj_property name="ObjectShortName">CYLCES_TO_WAIT</obj_property>
+      </wvobject>
+      <wvobject type="other" fp_name="/tb_memory_v2/mem_inst/LATENCY">
+         <obj_property name="ElementShortName">LATENCY</obj_property>
+         <obj_property name="ObjectShortName">LATENCY</obj_property>
+      </wvobject>
+      <wvobject type="other" fp_name="/tb_memory_v2/mem_inst/N_BITS_TOTAL">
+         <obj_property name="ElementShortName">N_BITS_TOTAL</obj_property>
+         <obj_property name="ObjectShortName">N_BITS_TOTAL</obj_property>
+      </wvobject>
    </wvobject>
 </wave_config>

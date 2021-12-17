@@ -3,142 +3,40 @@
    <wave_state>
    </wave_state>
    <db_ref_list>
-      <db_ref path="top_tb_behav.wdb" id="1">
+      <db_ref path="tb_memory_v2_behav.wdb" id="1">
          <top_modules>
-            <top_module name="top_tb" />
+            <top_module name="tb_memory_v2" />
          </top_modules>
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="432.160 ns"></ZoomStartTime>
-      <ZoomEndTime time="657.161 ns"></ZoomEndTime>
+      <ZoomStartTime time="0.000 ns"></ZoomStartTime>
+      <ZoomEndTime time="1,000.000 ns"></ZoomEndTime>
       <Cursor1Time time="535.000 ns"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="276"></NameColumnWidth>
-      <ValueColumnWidth column_width="112"></ValueColumnWidth>
+      <ValueColumnWidth column_width="108"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="30" />
-   <wvobject type="logic" fp_name="/top_tb/clk">
-      <obj_property name="ElementShortName">clk</obj_property>
-      <obj_property name="ObjectShortName">clk</obj_property>
-   </wvobject>
-   <wvobject type="logic" fp_name="/top_tb/reset">
-      <obj_property name="ElementShortName">reset</obj_property>
-      <obj_property name="ObjectShortName">reset</obj_property>
-   </wvobject>
-   <wvobject type="logic" fp_name="/top_tb/monmult_module_inst/inst_cios_1w/mac_mn_inst/start">
-      <obj_property name="ElementShortName">start</obj_property>
-      <obj_property name="ObjectShortName">start</obj_property>
-      <obj_property name="CustomSignalColor">#FF0000</obj_property>
-      <obj_property name="UseCustomSignalColor">true</obj_property>
-   </wvobject>
-   <wvobject type="logic" fp_name="/top_tb/monmult_module_inst/mem_a_inst/EoC_in">
-      <obj_property name="ElementShortName">EoC_in</obj_property>
-      <obj_property name="ObjectShortName">EoC_in</obj_property>
-   </wvobject>
-   <wvobject type="logic" fp_name="/top_tb/monmult_module_inst/mem_a_inst/start_in">
-      <obj_property name="ElementShortName">start_in</obj_property>
-      <obj_property name="ObjectShortName">start_in</obj_property>
-   </wvobject>
+   <WVObjectSize size="5" />
    <wvobject fp_name="divider703" type="divider">
       <obj_property name="label">MEM_A</obj_property>
       <obj_property name="DisplayName">label</obj_property>
-   </wvobject>
-   <wvobject type="array" fp_name="/top_tb/monmult_module_inst/mem_a_inst/wr_port">
-      <obj_property name="ElementShortName">wr_port[7:0]</obj_property>
-      <obj_property name="ObjectShortName">wr_port[7:0]</obj_property>
-   </wvobject>
-   <wvobject type="logic" fp_name="/top_tb/monmult_module_inst/mem_a_inst/wr_en">
-      <obj_property name="ElementShortName">wr_en</obj_property>
-      <obj_property name="ObjectShortName">wr_en</obj_property>
-   </wvobject>
-   <wvobject type="logic" fp_name="/top_tb/monmult_module_inst/mem_a_inst/memory_full">
-      <obj_property name="ElementShortName">memory_full</obj_property>
-      <obj_property name="ObjectShortName">memory_full</obj_property>
-   </wvobject>
-   <wvobject type="array" fp_name="/top_tb/monmult_module_inst/mem_a_inst/rd_port">
-      <obj_property name="ElementShortName">rd_port[7:0]</obj_property>
-      <obj_property name="ObjectShortName">rd_port[7:0]</obj_property>
-   </wvobject>
-   <wvobject type="other" fp_name="/top_tb/monmult_module_inst/mem_a_inst/write_counter">
-      <obj_property name="ElementShortName">write_counter</obj_property>
-      <obj_property name="ObjectShortName">write_counter</obj_property>
-   </wvobject>
-   <wvobject type="other" fp_name="/top_tb/monmult_module_inst/mem_a_inst/read_counter">
-      <obj_property name="ElementShortName">read_counter</obj_property>
-      <obj_property name="ObjectShortName">read_counter</obj_property>
    </wvobject>
    <wvobject fp_name="divider704" type="divider">
       <obj_property name="label">MEM_B</obj_property>
       <obj_property name="DisplayName">label</obj_property>
    </wvobject>
-   <wvobject type="array" fp_name="/top_tb/monmult_module_inst/mem_b_inst/wr_port">
-      <obj_property name="ElementShortName">wr_port[7:0]</obj_property>
-      <obj_property name="ObjectShortName">wr_port[7:0]</obj_property>
-   </wvobject>
-   <wvobject type="logic" fp_name="/top_tb/monmult_module_inst/mem_b_inst/wr_en">
-      <obj_property name="ElementShortName">wr_en</obj_property>
-      <obj_property name="ObjectShortName">wr_en</obj_property>
-   </wvobject>
-   <wvobject type="logic" fp_name="/top_tb/monmult_module_inst/mem_b_inst/memory_full">
-      <obj_property name="ElementShortName">memory_full</obj_property>
-      <obj_property name="ObjectShortName">memory_full</obj_property>
-   </wvobject>
-   <wvobject type="array" fp_name="/top_tb/monmult_module_inst/mem_b_inst/rd_port">
-      <obj_property name="ElementShortName">rd_port[7:0]</obj_property>
-      <obj_property name="ObjectShortName">rd_port[7:0]</obj_property>
-   </wvobject>
    <wvobject fp_name="divider705" type="divider">
       <obj_property name="label">MEM_N_MAC</obj_property>
       <obj_property name="DisplayName">label</obj_property>
-   </wvobject>
-   <wvobject type="array" fp_name="/top_tb/monmult_module_inst/mem_n_mac_inst/wr_port">
-      <obj_property name="ElementShortName">wr_port[7:0]</obj_property>
-      <obj_property name="ObjectShortName">wr_port[7:0]</obj_property>
-   </wvobject>
-   <wvobject type="logic" fp_name="/top_tb/monmult_module_inst/mem_n_mac_inst/wr_en">
-      <obj_property name="ElementShortName">wr_en</obj_property>
-      <obj_property name="ObjectShortName">wr_en</obj_property>
-   </wvobject>
-   <wvobject type="logic" fp_name="/top_tb/monmult_module_inst/mem_n_mac_inst/memory_full">
-      <obj_property name="ElementShortName">memory_full</obj_property>
-      <obj_property name="ObjectShortName">memory_full</obj_property>
-   </wvobject>
-   <wvobject type="array" fp_name="/top_tb/monmult_module_inst/mem_n_mac_inst/rd_port">
-      <obj_property name="ElementShortName">rd_port[7:0]</obj_property>
-      <obj_property name="ObjectShortName">rd_port[7:0]</obj_property>
    </wvobject>
    <wvobject fp_name="divider706" type="divider">
       <obj_property name="label">MEM_N_SUB</obj_property>
       <obj_property name="DisplayName">label</obj_property>
    </wvobject>
-   <wvobject type="array" fp_name="/top_tb/monmult_module_inst/mem_n_sub_inst/wr_port">
-      <obj_property name="ElementShortName">wr_port[7:0]</obj_property>
-      <obj_property name="ObjectShortName">wr_port[7:0]</obj_property>
-   </wvobject>
-   <wvobject type="logic" fp_name="/top_tb/monmult_module_inst/mem_n_sub_inst/wr_en">
-      <obj_property name="ElementShortName">wr_en</obj_property>
-      <obj_property name="ObjectShortName">wr_en</obj_property>
-   </wvobject>
-   <wvobject type="logic" fp_name="/top_tb/monmult_module_inst/mem_n_sub_inst/memory_full">
-      <obj_property name="ElementShortName">memory_full</obj_property>
-      <obj_property name="ObjectShortName">memory_full</obj_property>
-   </wvobject>
-   <wvobject type="array" fp_name="/top_tb/monmult_module_inst/mem_n_sub_inst/rd_port">
-      <obj_property name="ElementShortName">rd_port[7:0]</obj_property>
-      <obj_property name="ObjectShortName">rd_port[7:0]</obj_property>
-   </wvobject>
    <wvobject fp_name="divider720" type="divider">
       <obj_property name="label">REGULATOR</obj_property>
       <obj_property name="DisplayName">label</obj_property>
-   </wvobject>
-   <wvobject type="logic" fp_name="/top_tb/monmult_module_inst/regulator_inst/output_start">
-      <obj_property name="ElementShortName">output_start</obj_property>
-      <obj_property name="ObjectShortName">output_start</obj_property>
-   </wvobject>
-   <wvobject type="logic" fp_name="/top_tb/monmult_module_inst/regulator_inst/output_start_reg">
-      <obj_property name="ElementShortName">output_start_reg</obj_property>
-      <obj_property name="ObjectShortName">output_start_reg</obj_property>
    </wvobject>
 </wave_config>

@@ -16,8 +16,8 @@ entity input_mem_v2 is
 		READ_WIDTH: integer :=8;   --assuming READ_WIDTH=WRITE_WIDT, for now
 		CYLCES_TO_WAIT: integer:=4;   --goes from 1 for a to and entire N_WORDS for b
 		LATENCY			: integer :=4; 		--goes from 1 to what needed
-		N_BITS_TOTAL	: integer :=64;
-		MEMORY_DEPTH: integer:=16
+		N_BITS_TOTAL	: integer :=64
+		--MEMORY_DEPTH: integer:=16
 		--FULL_READ_NUMBER: integer := 4
 	);
 	Port (
@@ -89,7 +89,7 @@ architecture Behavioral of input_mem_v2 is
 	  );
 	end component;
 
-
+	constant MEMORY_DEPTH_MEM : integer :=N_BITS_TOTAL/READ_WIDTH;
 	signal rd_port_controller: std_logic_vector(READ_WIDTH-1 downto 0);
 	signal out_valid_controller: std_logic;
 begin
@@ -116,7 +116,7 @@ begin
 		READ_WIDTH=>READ_WIDTH,
 		CYLCES_TO_WAIT =>CYLCES_TO_WAIT,
 		LATENCY=>LATENCY,
-		MEMORY_DEPTH=>MEMORY_DEPTH
+		MEMORY_DEPTH=>MEMORY_DEPTH_MEM
 	)
 	port map(
 

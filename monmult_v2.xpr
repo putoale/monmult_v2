@@ -49,7 +49,7 @@
     <Option Name="SimulatorGccVersionActiveHdl" Val="6.2.0"/>
     <Option Name="TargetLanguage" Val="VHDL"/>
     <Option Name="BoardPart" Val=""/>
-    <Option Name="ActiveSimSet" Val="mem_TB"/>
+    <Option Name="ActiveSimSet" Val="top_sim"/>
     <Option Name="DefaultLib" Val="xil_defaultlib"/>
     <Option Name="ProjectType" Val="Default"/>
     <Option Name="IPOutputRepo" Val="$PCACHEDIR/ip"/>
@@ -62,7 +62,7 @@
     <Option Name="IPStaticSourceDir" Val="$PIPUSERFILESDIR/ipstatic"/>
     <Option Name="EnableBDX" Val="FALSE"/>
     <Option Name="DSABoardId" Val="basys3"/>
-    <Option Name="WTXSimLaunchSim" Val="587"/>
+    <Option Name="WTXSimLaunchSim" Val="635"/>
     <Option Name="WTModelSimLaunchSim" Val="0"/>
     <Option Name="WTQuestaLaunchSim" Val="0"/>
     <Option Name="WTIesLaunchSim" Val="0"/>
@@ -571,6 +571,7 @@
       </Config>
     </FileSet>
     <FileSet Name="top_v2_sim" Type="SimulationSrcs" RelSrcDir="$PSRCDIR/top_v2_sim" RelGenDir="$PGENDIR/top_v2_sim">
+      <Filter Type="Srcs"/>
       <File Path="$PPRDIR/Sources/Testbenches/top_tb_v2.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>

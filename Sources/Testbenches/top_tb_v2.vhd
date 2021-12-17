@@ -16,7 +16,7 @@ architecture bench of top_tb_v2 is
       EXTERNAL_WIDTH : integer;
       N_BITS_PER_WORD : integer;
       N_WORDS : integer;
-      MEMORY_DEPTH : integer;
+     -- MEMORY_DEPTH : integer;
 	  N_BITS_TOTAL: integer
     );
       port (
@@ -28,7 +28,7 @@ architecture bench of top_tb_v2 is
 
       wr_en_n_mac : in std_logic;
       wr_en_n_sub : in std_logic;
-
+	  wr_en_nn0	: in std_logic;
       a : in std_logic_vector(EXTERNAL_WIDTH-1 downto 0);
 
       b : in std_logic_vector(EXTERNAL_WIDTH-1 downto 0);
@@ -87,6 +87,7 @@ architecture bench of top_tb_v2 is
   signal dut_wr_en_b      : std_logic:='0';
   signal dut_wr_en_n_mac  : std_logic:='0';
   signal dut_wr_en_n_sub  : std_logic:='0';
+  signal dut_wr_en_nn0    : std_logic:='0';
   signal dut_a            : std_logic_vector(DUT_N_BITS_PER_WORD-1 downto 0):= (Others =>'0');
   signal dut_b            : std_logic_vector(DUT_N_BITS_PER_WORD-1 downto 0):= (Others =>'0');
   signal dut_n            : std_logic_vector(DUT_N_BITS_PER_WORD-1 downto 0):= (Others =>'0');
@@ -122,7 +123,7 @@ begin
       INTERNAL_WIDTH => DUT_INTERNAL_WIDTH,
       N_BITS_PER_WORD => DUT_N_BITS_PER_WORD,
       N_WORDS => DUT_N_WORDS,
-      MEMORY_DEPTH => dut_MEMORY_DEPTH,
+      --MEMORY_DEPTH => dut_MEMORY_DEPTH,
 	  N_BITS_TOTAL => dut_N_BITS_TOTAL
     )
     port map (
@@ -132,7 +133,8 @@ begin
       wr_en_b => dut_wr_en_b,
       wr_en_n_mac => dut_wr_en_n_mac,
       wr_en_n_sub => dut_wr_en_n_sub,
-      a => dut_a,
+	  wr_en_nn0=> dut_wr_en_nn0,
+	  a => dut_a,
       b => dut_b,
       n => dut_n,
       nn0 => dut_nn0,

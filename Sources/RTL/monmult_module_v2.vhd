@@ -50,6 +50,7 @@ entity monmult_module_v2 is
 		wr_en_b			: in std_logic;
 		wr_en_n_mac		: in std_logic;
 		wr_en_n_sub		: in std_logic;
+		wr_en_nn0		: in std_logic;
 		a				: in std_logic_vector(EXTERNAL_WIDTH-1 downto 0);
 		b				: in std_logic_vector(EXTERNAL_WIDTH-1 downto 0);
 		n				: in std_logic_vector(EXTERNAL_WIDTH-1 downto 0);
@@ -68,14 +69,17 @@ architecture Behavioral of monmult_module_v2 is
 	constant LATENCY_AB:integer:=1;
 	constant LATENCY_N_SUB:integer:=LATENCY_AB +N_WORDS*(N_WORDS-1)+4;
 	constant LATENCY_N_MAC:integer:=LATENCY_AB+2 ;
-	signal a_mem:std_logic_vector(EXTERNAL_WIDTH-1 downto 0);
-	signal b_mem:std_logic_vector(EXTERNAL_WIDTH-1 downto 0);
-	signal n_mac_mem:std_logic_vector(EXTERNAL_WIDTH-1 downto 0);
-	signal n_sub_mem:std_logic_vector(EXTERNAL_WIDTH-1 downto 0);
+	signal a_mem:std_logic_vector(INTERNAL_WIDTH-1 downto 0);
+	signal b_mem:std_logic_vector(INTERNAL_WIDTH-1 downto 0);
+	signal n_mac_mem:std_logic_vector(INTERNAL_WIDTH-1 downto 0);
+	signal n_sub_mem:std_logic_vector(INTERNAL_WIDTH-1 downto 0);
+	signal nn0_mem: std_logic_vector(INTERNAL_WIDTH-1 downto 0);
 	signal start_a: std_logic;
 	signal start_b: std_logic;
 	signal start_n_mac: std_logic;
 	signal start_n_sub: std_logic;
+	signal start_nn0: std_logic;
+
 	--signal start: std_logic;
 	signal EoC_sig: std_logic;
 	signal EoC_reg: std_logic := '0';
@@ -84,7 +88,7 @@ architecture Behavioral of monmult_module_v2 is
 	signal start_mem: std_logic;
 	signal start_modules: std_logic;
 
-	signal result_sub: std_logic_vector(EXTERNAL_WIDTH-1 downto 0);
+	signal result_sub: std_logic_vector(INTERNAL_WIDTH-1 downto 0);
 	signal valid_out_sub: std_logic;
 	----------------------------------------------------------------------------
 	component cios_top_1w is
@@ -129,8 +133,8 @@ architecture Behavioral of monmult_module_v2 is
 			WRITE_WIDTH: integer:=8;
 			READ_WIDTH: integer :=8;   --assuming READ_WIDTH=WRITE_WIDT, for now
 			CYLCES_TO_WAIT: integer:=4;   --goes from 1 for a to and entire N_WORDS for b
-			LATENCY			: integer :=4; 		--goes from 1 to what needed
-			MEMORY_DEPTH: integer:=16
+			LATENCY			: integer :=4;		--goes from 1 to what needed
+			N_BITS_TOTAL	: integer :=64
 		);
 		Port (
 
@@ -186,7 +190,7 @@ begin
 		n_mac=> n_mac_mem,
 		n_sub=> n_sub_mem,
 		start=> start_modules,
-		nn0=> nn0,
+		nn0=> nn0_mem,
 		result=> result_sub,
 		valid_out => valid_out_sub,
 		EoC=>EoC_sig
@@ -198,8 +202,8 @@ begin
 		READ_WIDTH	=> INTERNAL_WIDTH,
 		CYLCES_TO_WAIT	=> 1,
 		LATENCY	=> LATENCY_AB,
-
-		MEMORY_DEPTH	=> N_WORDS
+		N_BITS_TOTAL=>N_BITS_TOTAL
+		--MEMORY_DEPTH	=> N_WORDS
 	)
 	port map(
 		clk=> clk,
@@ -221,8 +225,9 @@ begin
 		READ_WIDTH	=> INTERNAL_WIDTH,
 		CYLCES_TO_WAIT	=> N_WORDS,
 		LATENCY	=> LATENCY_AB,
+		N_BITS_TOTAL=>N_BITS_TOTAL
 
-		MEMORY_DEPTH	=> N_WORDS
+		--MEMORY_DEPTH	=> N_WORDS
 	)
 	port map(
 		clk=> clk,
@@ -244,8 +249,9 @@ begin
 		READ_WIDTH	=> INTERNAL_WIDTH,
 		CYLCES_TO_WAIT	=> 1,
 		LATENCY	=> LATENCY_N_MAC,
+		N_BITS_TOTAL=>N_BITS_TOTAL
 
-		MEMORY_DEPTH	=> N_WORDS
+		--MEMORY_DEPTH	=> N_WORDS
 	)
 	port map(
 		clk=> clk,
@@ -267,8 +273,9 @@ begin
 		READ_WIDTH	=> INTERNAL_WIDTH,
 		CYLCES_TO_WAIT	=> 1,
 		LATENCY	=> LATENCY_N_SUB,
+		N_BITS_TOTAL=>N_BITS_TOTAL
 
-		MEMORY_DEPTH	=> MEMORY_DEPTH
+		--MEMORY_DEPTH	=> MEMORY_DEPTH
 	)
 	port map(
 		clk=> clk,
@@ -283,7 +290,29 @@ begin
 
 		rd_port=> n_sub_mem
 	);
+	mem_nn0_inst: input_mem_v2
+	generic map(
+		WRITE_WIDTH	=> EXTERNAL_WIDTH,
+		READ_WIDTH	=> INTERNAL_WIDTH,
+		CYLCES_TO_WAIT	=> 1,
+		LATENCY	=> 1,
+		N_BITS_TOTAL=>INTERNAL_WIDTH
 
+		--MEMORY_DEPTH	=> MEMORY_DEPTH
+	)
+	port map(
+		clk=> clk,
+		reset=> reset,
+		memory_full=> memory_full,
+		wr_en=> wr_en_nn0,
+		wr_port=> nn0,
+		rd_en=> '1',
+		EoC_in=>EoC_sig,
+		start=> start_n_sub,
+		start_in=> start_mem,
+
+		rd_port=> nn0_mem
+	);
 	output_controller_inst: out_mem_controller
 
 	generic map (
@@ -301,6 +330,7 @@ begin
 	  EoC_out 		=> EoC,
 	  eoc_in		=> EoC_sig
 	  );
+
 
 
 	regulator_inst: start_regulator
