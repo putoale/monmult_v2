@@ -34,6 +34,23 @@ test_vec_256_3 = {
     'n_bits':256
 }
 
+#test_vec_512_1 = {
+#	'a' : 0x 91942cebf5038fd6692568fc18014529 d527f6e2eae2ca7adc83a73e4398416b a139cbd0f1b1a7171f60e7b6bbd08646 1460d8d3eebc517c5ca407d38ec7b31,
+#	'b' : 0x 86c345f271827b60c4df90e44ef9e8af ce5b6364efb558aee9ff7aaed0538a21 4b5cfb536cc005243cf7838b5ac5b7ca c8f49ecdbc137f2635f71ce640a303bc,
+#	'n' : 0x c2b4f82ee693407aa871d788f2d87429 8cefb19c4a396e671b6e9beef6ac8974 7f6de818d6d7d6e19a71940f6b5084b5 73fb0f65712f41da7a73891399729741,
+#	'r' : 0x1 00000000000000000000000000000000 00000000000000000000000000000000 00000000000000000000000000000000 00000000000000000000000000000000,
+#	'n_bits' : 512
+#
+#}
+
+test_vec_512_2 = {
+	'a' : 0x ,
+	'b' : 0x ,
+	'n' : 0x ,
+	'r' : 0x1 00000000000000000000000000000000 00000000000000000000000000000000 00000000000000000000000000000000 00000000000000000000000000000000,
+	'n_bits' : 512
+
+}
 test_vec_64_1 = {
     'a' : 0xAABBCCDDEEFF1122,
     'b' : 0x1122334455667788,
@@ -90,7 +107,7 @@ for tv_conf in tv_config_list:
             tv_list.append(i_copy)
             i_copy.pop('n_bits')
             curr_conf_list.append(i_copy)
-    
+
     #once tv_list is populated write test_vectors on files (one per config):
     file_name  = "input_vectors_" + tv_conf + ".txt"
 
