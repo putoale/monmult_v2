@@ -26,6 +26,14 @@ test_vec_256_2 = {
     'n_bits':256
 }
 
+test_vec_256_3 = {
+    'a': 0xb071fcf379e962002c54d59662641609f870ddfb50601d5e2da14f6de24da602,
+    'b': 0xfa5cdcb31e308c75ddfb1f57812e4c1cf20dc45cabef6b25ea9b707e6e0bc147,
+    'n': 0xa8c219a6b9410befd065464c689949dd21bed322a0851311b10b84f1ba87eccd,
+    'r': 0x10000000000000000000000000000000000000000000000000000000000000000,
+    'n_bits':256
+}
+
 test_vec_64_1 = {
     'a' : 0xAABBCCDDEEFF1122,
     'b' : 0x1122334455667788,
@@ -50,7 +58,7 @@ test_vec_32_1 = {
     'n_bits':32
 }
 
-all_tv = [test_vec_256_1,test_vec_256_2,test_vec_32_1,test_vec_32_2,test_vec_64_1] #list with all test vectors
+all_tv = [test_vec_256_1,test_vec_256_2,test_vec_256_3,test_vec_32_1,test_vec_32_2,test_vec_64_1] #list with all test vectors
 
 all_tv.extend(tbm.generate_tv(64,10))
 
@@ -61,8 +69,8 @@ all_tv.extend(tbm.generate_tv(64,10))
 if len(sys.argv) > 1:
     tv_config_list = sys.argv[1:]
 else:
-    #tv_config_list = ["256_4_64","256_8_32","32_4_8"] #default configurations
-    tv_config_list = ["64_8_8"]
+    tv_config_list = ["256_4_64","256_8_32"] #default configurations
+    #tv_config_list = ["64_8_8"]
 
 
 tv_list = [] #list containing test vectors to send to file (At the moment it's populated but not used)
@@ -93,4 +101,4 @@ for tv_conf in tv_config_list:
     with open(file_path,"w") as ff:
         ff.writelines(file_lines)
 
-    print("written ",len(tv_list),"test vectors to file ",file_path)
+    print("written ",len(curr_conf_list),"test vectors to file ",file_path)
