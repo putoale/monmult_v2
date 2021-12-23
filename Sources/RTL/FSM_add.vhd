@@ -168,6 +168,7 @@ begin
           else
             i_counter <= (Others => '0');
             start_reg <= '0';
+            delay_counter <= (Others => '0');
             state     <= IDLE;
           end if;
           
