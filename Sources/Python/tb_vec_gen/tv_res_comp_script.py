@@ -29,7 +29,7 @@ if len(sys.argv) > 1:
         config_list = sys.argv[2]
 else:
     mode_flag = 'single'
-    config_list = ["256_8_32"] #default configuration
+    config_list = ["512_16_32"] #default configuration
 
 
 tv_list = []
