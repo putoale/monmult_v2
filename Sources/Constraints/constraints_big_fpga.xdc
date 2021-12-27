@@ -1,2 +1,6 @@
-set_property CLOCK_DEDICATED_ROUTE FALSE [get_nets clk_IBUF] 
-
+set_property CLOCK_DEDICATED_ROUTE FALSE [get_nets clk_IBUF]
+set_property PACKAGE_PIN R3 [get_ports clk]
+set_property IOSTANDARD LVDS_25 [get_ports clk]
+#set_property PACKAGE_PIN P3 [get_ports SYSCLK_N]
+#set_property IOSTANDARD LVDS_25 [get_ports SYSCLK_N]
+create_clock -name clk -period 15.00 [get_ports clk]
