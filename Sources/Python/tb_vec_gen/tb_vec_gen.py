@@ -4,9 +4,9 @@ import csv
 import random as rnd
 import pprint as pp
 
-def n_to_str (num, n_bits_per_word, n_words,base = 2):
+def n_to_str (num, n_bits_per_word, n_words,base = 16):
     """ This function takes as input a number and returns a string representing
-    the number separated (with spaces) into n_words of n_bits_per word each"""
+    the number separated (with spaces) into n_words of n_bits_per_word each"""
 
     #create a string and format it in order to have right alignment and zero padding
     n_symbols_per_word = (int) (n_bits_per_word / m.log(base,2))         #compute number of symbols per word (wrt base)
@@ -158,11 +158,12 @@ def generate_tv (n_bits, n_tests):
         dict_values.extend((a,b,n,r,n_bits))
         generated_tv.append(dict(zip(dict_keys,dict_values)))
         valid = 0
-
-
-        #pp.pprint(dict_values)
     
     return generated_tv
 
-
+def CIOS_monmult (a,b,n,r,n_words,n_bits_per_word,base = 16):
+    """This function executes the CIOS algorithm on the input test vector, and prints the intermediate results"""
+    n_symbols_per_word = (int) (n_bits_per_word / m.log(base,2)) #compute number of symbols per word wrt base argument
+    nn = g.digits(g.invert(-n,r),base).zfill(n_symbols_per_word*n_words) # compute n'
+    nn0 = nn[-n_symbols_per_word:]
 
