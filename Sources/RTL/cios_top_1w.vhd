@@ -56,7 +56,7 @@ end cios_top_1w;
 architecture Behavioral of cios_top_1w is
 	component FSM_add is
 		Generic(
-	              N_WORDS         : POSITIVE range 4 to 512 := 4;
+	              N_WORDS         : POSITIVE := 4;
 	              N_BITS_PER_WORD : POSITIVE range 8 to 64  := 32
 	    );
 	    Port (
@@ -127,7 +127,7 @@ architecture Behavioral of cios_top_1w is
 	end component;
 	component FSM_mult is
 		Generic (
-                  N_WORDS           : POSITIVE range 4 to 512 := 4;
+                  N_WORDS           : POSITIVE range 4 to 8192 := 4;
                   N_BITS_PER_WORD   : POSITIVE range 8 to 64  := 32
         );
         Port (
@@ -154,7 +154,7 @@ architecture Behavioral of cios_top_1w is
 	component FSM_sub_v2 is
 		Generic(
 				  N_BITS_PER_WORD : POSITIVE range 8 to 64 := 32;
-				  N_WORDS : POSITIVE range 4 to 512 := 4
+				  N_WORDS : POSITIVE range 4 to 8192 := 4
 		);
 		Port (
 				--------------------- Clk / Reset------------------

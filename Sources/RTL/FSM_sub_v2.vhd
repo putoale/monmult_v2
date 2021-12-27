@@ -6,7 +6,7 @@ entity FSM_sub_v2 is
   Generic(
             --! Number of bits per word
             N_BITS_PER_WORD : POSITIVE range 8 to 64 := 32;
-            N_WORDS : POSITIVE range 4 to 512 := 4
+            N_WORDS : POSITIVE range 4 to 8192 := 4
   );
   Port (
           --------------------- Clk / Reset------------------

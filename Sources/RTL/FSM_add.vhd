@@ -5,7 +5,7 @@ use IEEE.NUMERIC_STD.ALL;
 
 entity FSM_add is
   Generic(
-            N_WORDS         : POSITIVE range 4 to 512 := 4;
+            N_WORDS         : POSITIVE range 4 to 8192 := 4;
             N_BITS_PER_WORD : POSITIVE range 8 to 64  := 32
   );
   Port (
@@ -160,7 +160,7 @@ begin
           a_sig <= c_in_ab;
           state <= SUM_1;
         end if;
-        
+
         if delay_counter = 0 then
 
           if i_counter < N_WORDS-1 then
@@ -171,7 +171,7 @@ begin
             delay_counter <= (Others => '0');
             state     <= IDLE;
           end if;
-          
+
         end if;
 
     end case;

@@ -33,11 +33,11 @@ use IEEE.STD_LOGIC_1164.ALL;
 
 entity monmult_module is
 	generic (
-		WRITE_WIDTH			: integer :=16;
-		READ_WIDTH			: integer :=16;
-		N_BITS_PER_WORD		: integer :=16;
-		N_WORDS				: integer :=16;
-		MEMORY_DEPTH		: integer:=16
+		WRITE_WIDTH			: integer :=8;
+		READ_WIDTH			: integer :=8;
+		N_BITS_PER_WORD		: integer :=8;
+		N_WORDS				: integer :=8192;
+		MEMORY_DEPTH		: integer:=8192
 
 	);
 	Port (
@@ -183,7 +183,7 @@ begin
 	port map(
 		clk=> clk,
 		reset=> reset,
-		memory_full=> memory_full,
+		memory_full=> open,
 		wr_en=> wr_en_a,
 		wr_port=> a,
 		rd_en=> '1',
@@ -206,7 +206,7 @@ begin
 	port map(
 		clk=> clk,
 		reset=> reset,
-		memory_full=> memory_full,
+		memory_full=> open,
 		wr_en=> wr_en_b,
 		wr_port=> b,
 		rd_en=> '1',
@@ -229,7 +229,7 @@ begin
 	port map(
 		clk=> clk,
 		reset=> reset,
-		memory_full=> memory_full,
+		memory_full=> open,
 		wr_en=> wr_en_n_mac,
 		wr_port=> n,
 		rd_en=> '1',
@@ -252,7 +252,7 @@ begin
 	port map(
 		clk=> clk,
 		reset=> reset,
-		memory_full=> memory_full,
+		memory_full=> open,
 		wr_en=> wr_en_n_sub,
 		wr_port=> n,
 		rd_en=> '1',
@@ -277,7 +277,7 @@ begin
 		output_start		=> start_mem,
 		output_start_reg		=> start_modules
 		);
-		
+
 		process(clk)
 		begin
 			if rising_edge(clk) then

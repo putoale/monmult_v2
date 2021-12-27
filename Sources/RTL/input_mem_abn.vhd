@@ -38,7 +38,7 @@ entity input_mem_abn is
 		CYLCES_TO_WAIT: integer:=4;   --goes from 1 for a to and entire N_WORDS for b
 		LATENCY			: integer :=4; 		--goes from 1 to what needed
 		--INPUT_VS_OUTPUT: string:="INPUT";
-		MEMORY_DEPTH: integer:=16
+		MEMORY_DEPTH: integer range 4 to 8192:=16
 		--FULL_READ_NUMBER: integer := 4
 	);
 	Port (
