@@ -5,7 +5,7 @@ use IEEE.NUMERIC_STD.ALL;
 entity FSM_mult is
   Generic (
             N_WORDS           : POSITIVE range 4 to 8192 := 4;
-            N_BITS_PER_WORD   : POSITIVE range 8 to 64  := 32
+            N_BITS_PER_WORD   : POSITIVE range 8 to 128  := 32
   );
   Port (
         ----------------------CLK AND RESET PORTS------------------
