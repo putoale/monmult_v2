@@ -60,7 +60,7 @@ architecture bench of top_tb is
   constant DUT_MEMORY_DEPTH : integer := DUT_N_WORDS;
 
   --File GENERICS
-  constant N_TEST_VECTORS   : positive := 2;
+  constant N_TEST_VECTORS   : positive := 22;
   constant INPUT_FILE_NAME  : string := "input_vectors_32_4_8.txt";
   constant OUTPUT_FILE_NAME : string := "out_results.txt";
 
