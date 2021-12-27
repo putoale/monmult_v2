@@ -4,7 +4,8 @@ import pprint as pp
 import sys
 
 script_dir = os.path.dirname(__file__)
-vec_rel_path = "txt"
+vec_rel_path = "../../../monmult_v2.sim/top_sim/behav/xsim"
+vec_rel_path_csv = "txt"
 output_base = 16
 
 # Configs represent strings with the format C1_C2_C3 where C1=N_BITS C2=N_WORDS C3 = N_BITS_PER_WORD
@@ -68,7 +69,7 @@ pp.pprint(outcome['POS_tv'],sort_dicts=0)
 print(len(outcome['NEG_tv']),' Negative Tests:')
 pp.pprint(outcome['NEG_tv'],sort_dicts=0)
 
-csv_path = os.path.join(script_dir,vec_rel_path,"out_report.csv")
+csv_path = os.path.join(script_dir,vec_rel_path_csv,"out_report.csv")
 tbm.print_csv_out(csv_path,tv_list)
 
 print(len(outcome['POS_tv']),' test PASSED', ',',len(outcome['NEG_tv']),' test FAILED\n\r\n\r')

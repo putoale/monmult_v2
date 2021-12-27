@@ -161,9 +161,69 @@ def generate_tv (n_bits, n_tests):
     
     return generated_tv
 
+def CIOS_add_1w (a_i,b_i,n_bits_per_word,base=16):
+    """ This function takes two 1word numbers and returns a tuple with 2 words (carry and sum)"""
+    sum = a_i + b_i
+    sum_arr = [int(i,base) for i in n_to_str(sum,n_bits_per_word,2,base=base).split(" ")]
+    return (sum_arr[0],sum_arr[1])
+
+def CIOS_mac_1w (a_i,b_i,t_i,c_i,n_bits_per_word,base =16):
+    """ This function takes as inputs 4 1-word numbers (a_i,b_i,c_i,t_i)and returns t_i + (a_i*b_i) + c_i in
+    two words (c,s)"""
+
+    mac = t_i + g.mul(a_i,b_i) + c_i
+    mac_arr = [int(i,base) for i in n_to_str(mac,n_bits_per_word,2,base=base).split(" ")]
+
+    return (mac_arr[0],mac_arr[1])
+
+
 def CIOS_monmult (a,b,n,r,n_words,n_bits_per_word,base = 16):
     """This function executes the CIOS algorithm on the input test vector, and prints the intermediate results"""
-    n_symbols_per_word = (int) (n_bits_per_word / m.log(base,2)) #compute number of symbols per word wrt base argument
-    nn = g.digits(g.invert(-n,r),base).zfill(n_symbols_per_word*n_words) # compute n'
-    nn0 = nn[-n_symbols_per_word:]
 
+
+    n_symbols_per_word = (int) (n_bits_per_word / m.log(base,2)) #compute number of symbols per word wrt base argument
+    nn_str = g.digits(g.invert(-n,r),base).zfill(n_symbols_per_word*n_words) # compute n'
+    nn0 = int(nn_str[-n_symbols_per_word:],base)
+
+    a_str = n_to_str(a,n_bits_per_word,n_words,base=base)
+    b_str = n_to_str(b,n_bits_per_word,n_words,base=base)
+    n_str = n_to_str(n,n_bits_per_word,n_words,base=base)
+
+    a_arr = [int(i,base) for i in a_str.split(" ")]
+    b_arr = [int(i,base) for i in b_str.split(" ")]
+    n_arr = [int(i,base) for i in n_str.split(" ")]
+
+    a_arr.reverse()
+    b_arr.reverse()
+    n_arr.reverse()
+
+    t_arr = [[0 for col in range(n_words+2)] for row in range(n_words)]
+
+
+    for i in range (n_words):
+        c = 0
+        for j in range (n_words):
+            (c,s) = CIOS_mac_1w(a_arr[j],b_arr[i],t_arr[i][j],c,n_bits_per_word,base=base)
+            t_arr[i][j] = s
+        
+        (c,s) = CIOS_add_1w(t_arr[i][n_words],c,n_bits_per_word,base=base)
+        t_arr[i][n_words] = s
+        t_arr[i][n_words+1] = c
+        c = 0
+        m_i = int(n_to_str(g.mul(t_arr[i][0],nn0),n_bits_per_word,n_words,base=base).split(" ")[-1],base)
+        (c,s) = CIOS_mac_1w(m_i,n_arr[0],t_arr[i][0],0,n_bits_per_word,base=base)
+
+        for j in range(1,n_words):
+            (c,s) = CIOS_mac_1w(m_i,n_arr[j],t_arr[i][j],c,n_bits_per_word,base=base)
+            t_arr[i][j-1] = s
+
+        (c,s) = CIOS_add_1w(t_arr[i][n_words],c,n_bits_per_word,base=base)
+        t_arr[i][n_words-1] = s
+        t_arr[i][n_words] = t_arr[i][n_words+1] + c
+        if i < n_words-1:
+            t_arr[i+1][:] = t_arr[i][:]
+    
+    t_arr_str = [[g.digits(i,base).zfill(n_symbols_per_word)for i in sub] for sub in t_arr]
+
+    return(t_arr_str)
+        

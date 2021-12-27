@@ -108,7 +108,7 @@ test_vec_32_1 = {
 
 all_tv = [test_vec_256_1,test_vec_256_2,test_vec_256_3,test_vec_256_4,test_vec_256_5,test_vec_512_1,test_vec_512_2,test_vec_512_3,test_vec_512_4,test_vec_32_1,test_vec_32_2,test_vec_64_1] #list with all test vectors
 
-all_tv.extend(tbm.generate_tv(32,10))
+all_tv.extend(tbm.generate_tv(32,20))
 
 # you can call this script specifying a configuration. E.g. "python3 script 256_4_64 256_8_32 32_4_8" will print all 256 bits tv with 4 words and
 # 64 bits per word, in a file named "input_vectors_256_4_64" and so on...
@@ -117,7 +117,7 @@ all_tv.extend(tbm.generate_tv(32,10))
 if len(sys.argv) > 1:
     tv_config_list = sys.argv[1:]
 else:
-    tv_config_list = ["32_4_8"] #default configurations
+    tv_config_list = ["32_4_8","64_4_16"] #default configurations
     #tv_config_list = ["64_8_8"]
 
 
