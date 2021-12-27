@@ -60,7 +60,7 @@ architecture Behavioral of FSM_sub_v2 is
 
   signal start_reg : std_logic := '0';
 
-  signal read_counter  : natural range 0 to N_WORDS-1 := 0;
+  signal read_counter  : natural range 0 to N_WORDS := 0;
   signal write_counter : natural range 0 to N_WORDS-1 := 0;
 
   signal wait_counter  : natural range 0 to CLK_TO_WAIT-1 := 0;
@@ -136,19 +136,30 @@ begin
 
         if read_counter = 0 then
           b_in_sig <= (Others =>'0');
-        else
+        elsif read_counter < N_WORDS then
           b_in_sig <= b_out_sig;
           diff_out_temp (read_counter-1)<= diff_out_sig;
+        else
+          b_in_sig <= b_out_sig;
         end if;
 
           t_in_sig   <= t_in_mac;
-          t_out_temp (read_counter) <= t_in_mac;
-          n_in_sig <= n_in;
+          if read_counter < N_WORDS then
+            t_out_temp (read_counter) <= t_in_mac;
+            n_in_sig <= n_in;
+          end if;
 
           if read_counter = N_WORDS-1 then
-            read_counter <= 0;
             t_in_sig <= t_in_add;
             t_out_temp (read_counter) <= t_in_add;
+            read_counter <= read_counter + 1;
+          elsif read_counter = N_WORDS then
+            read_counter <= 0;
+            n_in_sig <= (Others => '0');
+            t_in_sig <= t_in_add;
+
+            diff_out_temp(diff_out_temp'high) <= diff_out_sig; -- save last sub
+
             state <= COMPARE_STATE;
           else
             read_counter <= read_counter + 1;
@@ -161,7 +172,7 @@ begin
 
       when COMPARE_STATE=>
         --last operation completed, you can read result and borrow to understand which result to send
-        diff_out_temp(diff_out_temp'high) <= diff_out_sig; -- save last sub
+        --diff_out_temp(diff_out_temp'high) <= diff_out_sig; -- save last sub
         b_out_reg <= b_out_sig;
 
         if (write_counter = 0 and b_out_sig = "0") or (write_counter /= 0 and b_out_reg = "0") then
