@@ -178,7 +178,8 @@ def CIOS_mac_1w (a_i,b_i,t_i,c_i,n_bits_per_word,base =16):
 
 
 def CIOS_monmult (a,b,n,r,n_words,n_bits_per_word,base = 16):
-    """This function executes the CIOS algorithm on the input test vector, and prints the intermediate results"""
+    """This function executes the CIOS algorithm on the input test vector, and prints the intermediate results (no subtractor).
+    Notice that result is given with LSB on the left"""
 
 
     n_symbols_per_word = (int) (n_bits_per_word / m.log(base,2)) #compute number of symbols per word wrt base argument
@@ -224,6 +225,7 @@ def CIOS_monmult (a,b,n,r,n_words,n_bits_per_word,base = 16):
             t_arr[i+1][:] = t_arr[i][:]
     
     t_arr_str = [[g.digits(i,base).zfill(n_symbols_per_word)for i in sub] for sub in t_arr]
+    t_arr_str.insert(0,[0 for i in range(n_words+2)]) #values are shown with inverted endianness LSB first
 
     return(t_arr_str)
         
