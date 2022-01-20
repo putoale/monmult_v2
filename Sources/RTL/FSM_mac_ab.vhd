@@ -1,46 +1,21 @@
-----------------------------------------------------------------------------------
--- Company:
--- Engineer:
---
--- Create Date: 11/21/2021 07:09:07 PM
--- Design Name:
--- Module Name: FSM_mac_ab - Behavioral
--- Project Name:
--- Target Devices:
--- Tool Versions:
--- Description:
---
--- Dependencies:
---
--- Revision:
--- Revision 0.01 - File Created
--- Additional Comments:
---
-----------------------------------------------------------------------------------
 
 
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
-
--- Uncomment the following library declaration if using
--- arithmetic functions with Signed or std_logic_vector values
 use IEEE.NUMERIC_STD.ALL;
 
--- Uncomment the following library declaration if instantiating
--- any Xilinx leaf cells in this code.
---library UNISIM;
---use UNISIM.VComponents.all;
 --------------------------------------------------------------------------------
---this FSM:  (i=N_WORDS, j=N_WORDS)
---starts at cycle 0
---reads a every cycle
---reads b every cycle
---reads t = 0 for i=0
---reads t = t_mac_in for i>=1, j<N_WORDS
---reads t = t_adder_in for i>=1, j=N_WORDS
+--!this FSM uses two counters i and j both going from 0 to N_WORDS-1 and are used to control what to expose at the output at every cycle
+--!this FSM:
+--!starts at cycle 0
+--!reads a every cycle
+--!reads b every cycle
+--!reads t = 0 for i=0
+--!reads t = t_mac_in for i>=1, j<N_WORDS
+--!reads t = t_adder_in for i>=1, j=N_WORDS
 
-
---cout is brought to the output everytime, adder has to sample the correct one
+--!if N_WORDS>4, a shift register is added in order to take into account the delay between the clock mac_mn exposes its t output and mac_ab reads it
+--!cout is brought to the output everytime, adder has to sample the correct one
 
 
 --------------------------------------------------------------------------------
@@ -50,9 +25,11 @@ entity FSM_mac_ab is
 		N_BITS_PER_WORD		: integer	:=8
 
 	);
-    Port ( 
+    Port (
+
 			clk 	 	: in STD_LOGIC;
            	reset 	 	: in STD_LOGIC;
+
 		   	start 	 	: in std_logic;
 
 		   	a 	  	 	: in std_logic_vector (N_BITS_PER_WORD-1  downto 0);
@@ -107,29 +84,32 @@ architecture Behavioral of FSM_mac_ab is
 	    );
 	end component;
 
-	--signals-------------------------------------------------------------------
+	----------------------start signals-----------------------------------------
 
-	signal i: integer:=0;
-	signal j: integer:=0;
+	signal i: integer:=0;--! coarse counter
+	signal j: integer:=0;--! fine counter
 
 	signal sr_in: std_logic_vector(t_adder_in'range);
-	signal a_dut : std_logic_vector(a'range):=(others=>'0');
-	signal b_dut : std_logic_vector(a'range):=(others=>'0');
-	signal t_in_dut : std_logic_vector(a'range):=(others=>'0');
-	signal c_in_dut : std_logic_vector(a'range):=(others=>'0');
-	signal s_out_dut : std_logic_vector(a'range):=(others=>'0');
-	signal c_out_dut : std_logic_vector(a'range):=(others=>'0');
-	signal	din_dut		: std_logic_vector(t_mac_in'range);
-	signal	dout_dut	: std_logic_vector(t_mac_in'range);
+	----------------------------------------------------------------------------
+	signal a_dut : std_logic_vector(a'range):=(others=>'0');--! wrapper signal for the combinatorial mac module
+	signal b_dut : std_logic_vector(a'range):=(others=>'0');--! wrapper signal for the combinatorial mac module
+	signal t_in_dut : std_logic_vector(a'range):=(others=>'0');--! wrapper signal for the combinatorial mac module
+	signal c_in_dut : std_logic_vector(a'range):=(others=>'0');--! wrapper signal for the combinatorial mac module
+	signal s_out_dut : std_logic_vector(a'range):=(others=>'0');--! wrapper signal for the combinatorial mac module
+	signal c_out_dut : std_logic_vector(a'range):=(others=>'0');--! wrapper signal for the combinatorial mac module
+	----------------------------------------------------------------------------
+	----------------------------------------------------------------------------
+	signal	din_dut		: std_logic_vector(t_mac_in'range);--! wrapper signal for the sr
+	signal	dout_dut	: std_logic_vector(t_mac_in'range);--! wrapper signal for the sr
+	----------------------------------------------------------------------------
 	signal counter : integer :=0;
 	signal start_reg: std_logic;
-	signal finished : std_logic:='0';
 
 
-	signal send_t_mac_in: std_logic:='0';
-	signal send_t_adder: std_logic:='0';
+	signal send_t_mac_in: std_logic:='0';	--! controls when the sr needs to store the mac_mn output
+	signal send_t_adder: std_logic:='0';	--! controls when the sr needs to store the adder output
 	signal counter_mac: integer:=0;
-	--end signals---------------------------------------------------------------
+	----------------------------end signals-------------------------------------
 begin
 mac_inst: simple_1w_mac
 generic map(
@@ -146,9 +126,11 @@ port map(
 	);
 
 
-      din_dut<=	(others=>'0') when send_t_mac_in ='0' and send_t_adder ='0' else
-                        t_mac_in when send_t_mac_in='1'   else
-                        t_adder_in when send_t_adder='1';
+	  din_dut<=	(others=>'0') when send_t_mac_in ='0' and send_t_adder ='0' else
+	                    t_mac_in when send_t_mac_in='1'   else
+	                    t_adder_in when send_t_adder='1';
+	----------------------------------------------------------------------------
+	--SR generated only if N_WORDS>4
 	generate_sr: if N_WORDS > 4 generate
 		sr_inst: sr
 		generic map(
@@ -161,14 +143,12 @@ port map(
 		  reset   => reset,
 		  clk     => clk,
 		  ---------------------------------
-
-
 		  ------------- Data --------------
 		  din   =>	din_dut,
 		  dout  =>	dout_dut
 		  ---------------------------------
 		);
-
+		----------------------------------------------------------------------------
 		--din_dut<=	(others=>'0') when send_t_mac_in ='0' and send_t_adder ='0' else
 		--					t_mac_in when send_t_mac_in='1'   else
 		--					t_adder_in when send_t_adder='1';
@@ -176,12 +156,10 @@ port map(
 		--parola al clock0, dal clock 4 legge s-1 volte mn e una volta adder
 									-----------------------------------------------------------------------------\
 	end generate;
-	---DATAFLOW ASSIGNMENT--------------------------------------------------------
+	------------------------DATAFLOW ASSIGNMENT---------------------------------
 
-	generate_wire:if N_WORDS=4 generate   -- wire only generated if there is no sr
-		--dout_dut<=	(others=>'0') when i=0 else
-		--			t_mac_in when i/=0 and j/=N_WORDS-1 else
-		--			t_adder_in when i/=0 and j=N_WORDS-1;
+	generate_wire:if N_WORDS=4 generate	-- wire only generated if there is no sr
+
 		dout_dut<=din_dut;
 	end generate;
 --------------------------------------------------------------------------------
@@ -191,21 +169,10 @@ port map(
 
 
 	FSM_process: process(clk,reset)
-		--variable a_dut_var : std_logic_vector(a'range):=(others=>'0');
-		--variable b_dut_var : std_logic_vector(a'range):=(others=>'0');
-		--variable t_in_dut_var : std_logic_vector(a'range):=(others=>'0');
-		--variable c_in_dut_var : std_logic_vector(a'range):=(others=>'0');
-
 	begin
-
-
-
 		if rising_edge(clk) then
 			if reset='1'   then
-				--a_dut	<=(others=>'0');
-				--b_dut	<=(others=>'0');
-				--t_in_dut	<=(others=>'0');
-				--c_in_dut	<=(others=>'0');
+
 				start_reg<='0';
 
 			end if;
@@ -216,10 +183,9 @@ port map(
 
 			send_t_mac_in<='0';  --unless overwritten later
 			send_t_adder<='0';
-			--if start_reg= '1' and finished='0' then
 				if start_reg= '1' or start='1'  then
-				counter<=counter+1 ;  --for some reason it is 1 clock forward wrt j
-				if counter >= 4 -1  then
+				counter<=counter+1 ;
+				if counter >= 3  then
 					counter_mac<=counter_mac+1;
 					send_t_mac_in<='1';
 					if counter_mac= N_WORDS-1 then
@@ -230,7 +196,7 @@ port map(
 				end if;
 				if counter = N_WORDS*N_WORDS-1 then
 					counter<=0;
-					counter_mac<=0;--edit
+					counter_mac<=0;
 				end if;
 				j<=j+1;
 				if j=N_WORDS-1 then
@@ -245,10 +211,8 @@ port map(
 					end if;
 				end if;
 					a_dut<=a;
-					--a_dut_var:=a;
 				if j=0 then
 					b_dut<=b;
-					--b_dut_var:=b;
 
 					c_in_dut<=(others=>'0');
 				else
@@ -256,14 +220,10 @@ port map(
 				end if;
 				if i=0  then
 					t_in_dut<=(others=>'0');
-					--t_in_dut_var:=(others=>'0');
-					--c_in_dut<=(others=>'0'); edited by ALE
-					--c_in_dut_var:=(others=>'0');
+
 				else
 					t_in_dut<=dout_dut;
-					--t_in_dut_var:=dout_dut;
-					--c_in_dut<=(others=>'0'); --added EDITED BY ALE
-					--c_in_dut_var:=(others=>'0');
+
 				end if;
 
 
