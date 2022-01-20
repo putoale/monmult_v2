@@ -1,45 +1,21 @@
-----------------------------------------------------------------------------------
--- Company:
--- Engineer:
---
--- Create Date: 11/21/2021 07:09:07 PM
--- Design Name:
--- Module Name: input_mem - Behavioral
--- Project Name:
--- Target Devices:
--- Tool Versions:
--- Description:
---
--- Dependencies:
---
--- Revision:
--- Revision 0.01 - File Created
--- Additional Comments:
---
-----------------------------------------------------------------------------------
-
 
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 
--- Uncomment the following library declaration if using
--- arithmetic functions with Signed or Unsigned values
 use IEEE.NUMERIC_STD.ALL;
-
--- Uncomment the following library declaration if instantiating
--- any Xilinx leaf cells in this code.
---library UNISIM;
---use UNISIM.VComponents.all;
+--!this module takes care of storing the entire input vector, and exposes the rigth word at the output at each cycle
+--!this module will be istantiated three times:
+--! * for the input a, which exposes one word per cycle
+--! * for the input b, which expses one word every N_WORDS cycles
+--! * for the input n, which exposes one word per cycle but with an initial delay
 
 entity input_mem_abn is
 	generic(
 		WRITE_WIDTH: integer:=8;
-		READ_WIDTH: integer :=8;   --assuming READ_WIDTH=WRITE_WIDT, for now
-		CYLCES_TO_WAIT: integer:=4;   --goes from 1 for a to and entire N_WORDS for b
-		LATENCY			: integer :=4; 		--goes from 1 to what needed
-		--INPUT_VS_OUTPUT: string:="INPUT";
-		MEMORY_DEPTH: integer range 4 to 8192:=16
-		--FULL_READ_NUMBER: integer := 4
+		READ_WIDTH: integer :=8;   					--!In this implementation, READ_WIDTH=WRITE_WIDTH
+		CYLCES_TO_WAIT: integer:=4;					--!after the first word has been exposed, after how many cycles the next word will be exposed
+		LATENCY			: integer :=4; 				--!Initial time to wait after receving start_in before exposing the first word
+		MEMORY_DEPTH: integer range 4 to 8192:=16	--!in this implementation, is equal to TOT_BITS/WRITE_WIDTH
 	);
 	Port (
 
@@ -47,15 +23,15 @@ entity input_mem_abn is
 		reset		: in std_logic;
 		memory_full	: out std_logic:='0';
 
-		wr_en		: in std_logic;
-		wr_port		: in  std_logic_vector(WRITE_WIDTH-1 downto 0);
-		rd_en		: in  std_logic;
-		rd_port		: out std_logic_vector(READ_WIDTH-1 downto 0):=(others=>'0');
-		start		: out std_logic:='0';
+		wr_en		: in std_logic;													--!has to be kept high while writing
+		wr_port		: in  std_logic_vector(WRITE_WIDTH-1 downto 0);					--!accepts one word at a time, loaded by the testbench
+		rd_en		: in  std_logic;												--!has to be kept high while reading
+		rd_port		: out std_logic_vector(READ_WIDTH-1 downto 0):=(others=>'0');	--!exposes one word at a time, at the right cycle
+		start		: out std_logic:='0';											--!unused in this implementation
 
 		---add start latency
-		start_in	: in std_logic;
-		EoC_in		: in std_logic
+		start_in	: in std_logic;													--!this notifies the memory that all memories are full and ready to start providing data
+		EoC_in		: in std_logic													--!End of Conversion input to notify the memory that the content of the memory can be reset on order to be ready for another computation
   );
 end input_mem_abn;
 
@@ -79,6 +55,7 @@ begin
 	begin
 
 		if rising_edge(clk ) then
+			---------------------RESET-----------------------------------
 			if reset = '1' or EoC_in = '1' then
 				memory_full_int<='0';
 				memory<=(others=>(others=>'0'));
@@ -88,12 +65,13 @@ begin
 				cycle_counter<=0;
 				initial_counter<=0;
 				start_flag<='0';
+			--------------------------------------------------------------------------
 			else
-				--------------------------------------------------------------------------
-				if start_in='1' then --start_int
+
+				if start_in='1' then
 					start_flag<='1';
 				end if;
-				--------------------------------------------------------------------------
+				---------------INITIAL WAITING TIME------------------------------
 				if begin_reading= '0' and (start_in = '1' or  start_flag='1') then
 					initial_counter<=initial_counter+1;
 					if initial_counter = LATENCY-1 then
@@ -101,7 +79,10 @@ begin
 						initial_counter<=0;
 					end if;
 				end if;
+				----------------------------------------------------------------
 
+				----------------WRITE PROCESS---------------------------------
+				--in this implementation, the memory is completely written BEFORE it can be read
 				if wr_en='1'  and memory_full_int = '0' then
 					memory(write_counter)<=wr_port;
 					write_counter<=write_counter+1;
@@ -112,7 +93,10 @@ begin
 						memory_full_int<= '0';
 					end if;
 				end if;
+				----------------------------------------------------------------
 
+				----------------READ PROCESS---------------------------------
+				--this process takes care of exposing the right word at the right cycle
 				if rd_en='1' and memory_full_int='1' and begin_reading='1'  then
 					cycle_counter<=cycle_counter+1 ;
 					rd_port<=memory(read_counter);
@@ -123,7 +107,7 @@ begin
 							read_counter<=0;
 						end if;
 					end if;
-
+					----------------------------------------------------------------
 				end if;
 			end if;
 
