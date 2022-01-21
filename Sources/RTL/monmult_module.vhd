@@ -224,7 +224,7 @@ begin
 		CYLCES_TO_WAIT	=> 1,
 		LATENCY	=> LATENCY_N_SUB,
 
-		MEMORY_DEPTH	=> MEMORY_DEPTH
+		MEMORY_DEPTH	=> N_WORDS
 	)
 	port map(
 		clk=> clk,

@@ -2,10 +2,10 @@
 library IEEE;
     use IEEE.STD_LOGIC_1164.ALL;
     use IEEE.NUMERIC_STD.ALL;
-
+	--! this shift register is put inside of mac_ab in order to buffer its t input
 entity sr is
     Generic(
-        SR_WIDTH   :   NATURAL   := 8;
+        SR_WIDTH   :   NATURAL   := 8;	
         SR_DEPTH   :   POSITIVE  := 4;
         SR_INIT    :   INTEGER   := 0
     );
@@ -25,33 +25,19 @@ entity sr is
 end sr;
 
 architecture Behavioral of sr is
-
-    ----------------------- Constants Declaration -------------------------
-
-    ----- Initialization in SLV ----
     constant   INIT_SLV :    STD_LOGIC_VECTOR(SR_WIDTH-1 downto 0) := std_logic_vector(to_unsigned(SR_INIT,SR_WIDTH));
-    ---------------------------------
-
-    ----------------------------------------------------------------------
 
 
 
-    -------------------------- Types Declaration --------------------------
 
-    ------------ Memory  ------------
+
     type    MEM_ARRAY_TYPE  is  array(0 TO SR_DEPTH-1) of STD_LOGIC_VECTOR(SR_WIDTH-1 downto 0);
-    ---------------------------------
-
-    ----------------------------------------------------------------------
 
 
-    ------------------------- Signal Declaration -------------------------
 
-    ------------ Memory  ------------
+
     signal  mem   :   MEM_ARRAY_TYPE := ( Others  => INIT_SLV);
-    ---------------------------------
 
-    ----------------------------------------------------------------------
 
 
 begin

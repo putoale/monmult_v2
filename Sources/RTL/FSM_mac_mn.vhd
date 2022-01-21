@@ -1,44 +1,18 @@
-----------------------------------------------------------------------------------
--- Company:
--- Engineer:
---
--- Create Date: 11/21/2021 07:09:07 PM
--- Design Name:
--- Module Name: FSM_mac_ab - Behavioral
--- Project Name:
--- Target Devices:
--- Tool Versions:
--- Description:
---
--- Dependencies:
---
--- Revision:
--- Revision 0.01 - File Created
--- Additional Comments:
---
-----------------------------------------------------------------------------------
 
 
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 
--- Uncomment the following library declaration if using
--- arithmetic functions with Signed or std_logic_vector values
 use IEEE.NUMERIC_STD.ALL;
 
--- Uncomment the following library declaration if instantiating
--- any Xilinx leaf cells in this code.
---library UNISIM;
---use UNISIM.VComponents.all;
---------------------------------------------------------------------------------
---this FSM:  (i=N_WORDS, j=N_WORDS)
---starts at cycle 0
---reads n every cycle  (equivalent to a)
---reads m every cycle with j=0	(equivalent to b)
---reads t  coming from multiplier, which registers the value of mac_ab
+--!this FSM uses two counters i and j both going from 0 to N_WORDS-1 and are used to control what to expose at the output at every cycle
+--!this FSM:
+--!starts at cycle 0
+--!reads n every cycle  (n is equivalent to a in mac_ab)
+--!reads m every cycle with j=0	(m is equivalent to b in mac_ab)
+--!reads t from multiplier. the multiplier has registered  the t value of mac_ab, to give a 1 cycle delay
 
---cout is brought to the output everytime, adder has to sample the correct one
-
+--!cout is brought to the output everytime, adder has to sample it at the correct clock cycle
 
 --------------------------------------------------------------------------------
 entity FSM_mac_mn is
@@ -47,11 +21,11 @@ entity FSM_mac_mn is
 		N_BITS_PER_WORD		: integer	:=8
 
 	);
-    Port ( 
+    Port (
 			clk : in STD_LOGIC;
            	reset : in STD_LOGIC;
-		   	start : in std_logic;  --receive start, wait 2 cycles
-
+		   	start : in std_logic;  --! indicates that memories are full and computation is going to start, can be one or more cycles long
+			
 		   	n : in std_logic_vector (N_BITS_PER_WORD-1  downto 0);
            	m : in std_logic_vector (N_BITS_PER_WORD-1  downto 0);
 		   	t_in : in std_logic_vector (N_BITS_PER_WORD-1  downto 0);
@@ -83,23 +57,23 @@ architecture Behavioral of FSM_mac_mn is
 	    );
 	end component;
 
-	--signals-------------------------------------------------------------------
-	constant LATENCY: integer:=1;
-	signal i: integer:=0;
-	signal j: integer:=0;
+	---------------------------signals------------------------------------------
+	constant LATENCY: integer:=1;  --!clock cycles to wait after having received start
+	signal i: integer:=0;			--!counter, cfr mac_ab
+	signal j: integer:=0;			--!counter, cfr mac_ab
 
-	signal n_dut : std_logic_vector(n'range):= (Others =>'0');
-	signal m_dut : std_logic_vector(n'range):= (Others =>'0');
-	signal t_in_dut : std_logic_vector(n'range):= (Others =>'0');
-	signal c_in_dut : std_logic_vector(n'range):= (Others =>'0');
-	signal s_out_dut : std_logic_vector(n'range):= (Others =>'0');
-	signal c_out_dut : std_logic_vector(n'range):= (Others =>'0');
+	signal n_dut : std_logic_vector(n'range):= (Others =>'0');--! wrapper signal for the combinatorial mac module
+	signal m_dut : std_logic_vector(n'range):= (Others =>'0');--! wrapper signal for the combinatorial mac module
+	signal t_in_dut : std_logic_vector(n'range):= (Others =>'0');--! wrapper signal for the combinatorial mac module
+	signal c_in_dut : std_logic_vector(n'range):= (Others =>'0');--! wrapper signal for the combinatorial mac module
+	signal s_out_dut : std_logic_vector(n'range):= (Others =>'0');--! wrapper signal for the combinatorial mac module
+	signal c_out_dut : std_logic_vector(n'range):= (Others =>'0');--! wrapper signal for the combinatorial mac module
 
-	signal start_reg: std_logic:='0';
-	signal finished: std_logic:='0';
-	signal start_counter : integer:=0;
-	signal start_comp: std_logic:='0';
-	--end signals---------------------------------------------------------------
+	signal start_reg: std_logic:='0';		--is kept high from when start arrives to when reset arrives
+	signal finished: std_logic:='0';	--!unused in this implementation
+	signal start_counter : integer:=0; --!counts up to LATENCY, and measures time before computation begins
+	signal start_comp: std_logic:='0'; --! start computation, goes to one after LATENCY cycles have passed
+	------------------------end signals-----------------------------------------
 begin
 	mac_inst: simple_1w_mac
 	generic map(
@@ -118,6 +92,7 @@ begin
 
 	c_mac_out<=c_out_dut;
 	t_mac_out<=s_out_dut;
+
 	FSM_process: process(clk,reset)
 	begin
 
@@ -125,12 +100,11 @@ begin
 			if reset='1'   then
 				start_reg<='0';
 				start_comp<='0';
-			
+
 			end if;
 			if start = '1' then
 				start_reg <= '1';
 			end if;
-			--if start= '1' and finished='0' then
 			if start_reg= '1' then
 				start_counter<=start_counter+1;
 				if start_counter = LATENCY -1 then

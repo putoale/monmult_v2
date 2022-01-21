@@ -49,9 +49,9 @@ architecture Behavioral of FSM_mac_ab is
 
 	component sr is
 	    Generic(
-	        SR_WIDTH   :   NATURAL   := 8;
-	        SR_DEPTH   :   POSITIVE  := 4;
-	        SR_INIT    :   INTEGER   := 0
+	        SR_WIDTH   :   NATURAL   := 8;	--!width, in bits, of the read port of the sr
+	        SR_DEPTH   :   POSITIVE  := 4;	--! number of words that the sr stores
+	        SR_INIT    :   INTEGER   := 0	--!initialization values of the flip-flops inside the sr
 	    );
 	    Port (
 
@@ -149,12 +149,7 @@ port map(
 		  ---------------------------------
 		);
 		----------------------------------------------------------------------------
-		--din_dut<=	(others=>'0') when send_t_mac_in ='0' and send_t_adder ='0' else
-		--					t_mac_in when send_t_mac_in='1'   else
-		--					t_adder_in when send_t_adder='1';
-		--din_dut viene caricato a partire dal clock 4 assumendo che jloopab legga la prima
-		--parola al clock0, dal clock 4 legge s-1 volte mn e una volta adder
-									-----------------------------------------------------------------------------\
+
 	end generate;
 	------------------------DATAFLOW ASSIGNMENT---------------------------------
 
@@ -162,10 +157,10 @@ port map(
 
 		dout_dut<=din_dut;
 	end generate;
---------------------------------------------------------------------------------
 
 	c_mac_out<=c_out_dut;
 	t_mac_out<=s_out_dut;
+	--------------------------------------------------------------------------------
 
 
 	FSM_process: process(clk,reset)

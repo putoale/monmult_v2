@@ -1,35 +1,6 @@
-----------------------------------------------------------------------------------
--- Company:
--- Engineer:
---
--- Create Date: 11/21/2021 07:09:07 PM
--- Design Name:
--- Module Name: cios_top - Behavioral
--- Project Name:
--- Target Devices:
--- Tool Versions:
--- Description:
---
--- Dependencies:
---
--- Revision:
--- Revision 0.01 - File Created
--- Additional Comments:
---
-----------------------------------------------------------------------------------
-
 
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
-
--- Uncomment the following library declaration if using
--- arithmetic functions with Signed or Unsigned values
---use IEEE.NUMERIC_STD.ALL;
-
--- Uncomment the following library declaration if instantiating
--- any Xilinx leaf cells in this code.
---library UNISIM;
---use UNISIM.VComponents.all;
 
 entity cios_top_1w is
 	generic (
@@ -43,11 +14,11 @@ entity cios_top_1w is
 		b			:in std_logic_vector(N_BITS_PER_WORD-1 downto 0);
 		n_mac		:in std_logic_vector(N_BITS_PER_WORD-1 downto 0);
 		n_sub		:in std_logic_vector(N_BITS_PER_WORD-1 downto 0);
-		start		:in std_logic;
+		start		:in std_logic;   									--! indicates that memories are full and computation is going to start, can be one or more cycles long
 
-		nn0			:in std_logic_vector(N_BITS_PER_WORD-1 downto 0);
-		EoC			:out std_logic := '0';
-		valid_out 	:out std_logic := '0';
+		nn0			:in std_logic_vector(N_BITS_PER_WORD-1 downto 0); 	--! this is the least significant word of the inverse of N modulo R, which is computed by the PC and fed to the module
+		EoC			:out std_logic := '0';								--! End Of Conversion, is high on the last word of the valid result
+		valid_out 	:out std_logic := '0';								--! Is high only when the subtractor is giving out the correct result
 		result		:out std_logic_vector(N_BITS_PER_WORD-1 downto 0)
 
 	);

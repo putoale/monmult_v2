@@ -21,7 +21,7 @@ entity input_mem_abn is
 
 		clk 		: in std_logic;
 		reset		: in std_logic;
-		memory_full	: out std_logic:='0';
+		memory_full	: out std_logic:='0';											--!unused in this implementation
 
 		wr_en		: in std_logic;													--!has to be kept high while writing
 		wr_port		: in  std_logic_vector(WRITE_WIDTH-1 downto 0);					--!accepts one word at a time, loaded by the testbench
@@ -39,14 +39,14 @@ architecture Behavioral of input_mem_abn is
 	type memory_type is array (MEMORY_DEPTH-1 downto 0) of std_logic_vector(READ_WIDTH-1 downto 0);
 	signal memory:memory_type;
 
-	signal write_counter: integer range 0 to MEMORY_DEPTH :=0;
-	signal read_counter: integer range 0 to MEMORY_DEPTH :=0;
-	signal memory_full_int: std_logic:='0';
-	signal cycle_counter: integer:=0;
-	signal initial_counter: integer:=0;
-	signal begin_reading: std_logic:='0';
-	signal start_flag: std_logic:='0';
-	signal start_int : std_logic := '0';
+	signal write_counter: integer range 0 to MEMORY_DEPTH :=0;	--! counts the times a writing in the memory is done, does only one full cycle
+	signal read_counter: integer range 0 to MEMORY_DEPTH :=0;	--! counts the times a reading from the memory is done, does as many full cycles as necessary
+	signal memory_full_int: std_logic:='0';  					--!used to tell if reading phase can start
+	signal cycle_counter: integer:=0;							--!counts the cycle between one reading and the next(i.e 1 for a, N_WORDS for b)
+	signal initial_counter: integer:=0;							--!counts the cycle to wait before the beginning of the reading phase
+	signal begin_reading: std_logic:='0';						--!flag, to 1 when writing phase is finished
+	signal start_flag: std_logic:='0';							--! used to manage the start signal, which may be high  for one or more cycles
+	signal start_int : std_logic := '0';						--! used to manage the start signal, which may be high  for one or more cycles
 begin
 	memory_full<=memory_full_int;
 	start <= start_int;
@@ -57,6 +57,10 @@ begin
 		if rising_edge(clk ) then
 			---------------------RESET-----------------------------------
 			if reset = '1' or EoC_in = '1' then
+			--resetting the memory means interrupting any reading or writing in
+			--process and erasing the content of the memory: it is done on an
+			--external signal and when the computation is finished, in order to
+			--be ready for the next one
 				memory_full_int<='0';
 				memory<=(others=>(others=>'0'));
 				begin_reading<='0';
