@@ -63,11 +63,13 @@ for conf in config_list:
 
 outcome =  tbm.test_tv_pass(tv_list)
 
-print(len(outcome['POS_tv']),' Positive Tests:')
-pp.pprint(outcome['POS_tv'],sort_dicts=0)
+#uncomment the following lines to get a list of passed and not passed tv
 
-print(len(outcome['NEG_tv']),' Negative Tests:')
-pp.pprint(outcome['NEG_tv'],sort_dicts=0)
+#print(len(outcome['POS_tv']),' Positive Tests:')
+#pp.pprint(outcome['POS_tv'],sort_dicts=0)
+
+#print(len(outcome['NEG_tv']),' Negative Tests:')
+#pp.pprint(outcome['NEG_tv'],sort_dicts=0)
 
 csv_path = os.path.join(script_dir,vec_rel_path_csv,"out_report.csv")
 tbm.print_csv_out(csv_path,tv_list)
