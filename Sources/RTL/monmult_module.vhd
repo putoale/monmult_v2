@@ -17,7 +17,7 @@ entity monmult_module is
 	);
 	Port (
 		clk				: in std_logic;
-		reset			: in std_logic;
+		reset			: in std_logic;	
 		wr_en_a			: in std_logic; --! will be rised by the testbench when the data are ready to be loaded in the input memories
 		wr_en_b			: in std_logic; --! will be rised by the testbench when the data are ready to be loaded in the input memories
 		wr_en_n_mac		: in std_logic; --! will be rised by the testbench when the data are ready to be loaded in the input memories

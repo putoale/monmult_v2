@@ -27,7 +27,7 @@ entity input_mem_abn is
 		wr_port		: in  std_logic_vector(WRITE_WIDTH-1 downto 0);					--!accepts one word at a time, loaded by the testbench
 		rd_en		: in  std_logic;												--!has to be kept high while reading
 		rd_port		: out std_logic_vector(READ_WIDTH-1 downto 0):=(others=>'0');	--!exposes one word at a time, at the right cycle
-		start		: out std_logic:='0';											--!unused in this implementation
+		start		: out std_logic:='0';											--!used to notify start_regulator that reading phase is over
 
 		---add start latency
 		start_in	: in std_logic;													--!this notifies the memory that all memories are full and ready to start providing data
