@@ -1,4 +1,4 @@
-
+--! This module includes all the computational blocks. It's embedded inside monmult_module, together with the memories.
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 
