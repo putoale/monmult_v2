@@ -76,7 +76,7 @@ begin
   begin
 
     if clk'event and clk = '1' then
-      
+
       if (reset = '1' or EoC_in = '1' or read_complete= '1') then
         memory_full    <= '0';
         memory         <= (others => (others => '0'));
@@ -100,21 +100,21 @@ begin
         --------------------------------------------------------------------------
 
         -----------------------reading phase--------------------------------------
-        if (memory_full = '1' and read_complete = '0') then  
+        if (memory_full = '1' and read_complete = '0') then
           out_valid<='1';
           if (read_counter >= memory_depth) then
             read_counter  <= 0;
             read_complete <= '1';
-          
-          else 
+
+          else
             read_counter <= read_counter + read_bigness;
-            
+
               preparing_rd_port : for i in 0 to read_bigness - 1 loop
-          
+
               read_port_temp((write_width ) * (i + 1) - 1  downto write_width * i) := memory(read_counter +read_bigness -1 - i);
             end loop;
             rd_port      <= read_port_temp;
-            
+
           end if;
 
           --------------------------------------------------------------------------

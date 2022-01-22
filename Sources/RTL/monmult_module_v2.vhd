@@ -1,46 +1,20 @@
-----------------------------------------------------------------------------------
--- Company:
--- Engineer:
---
--- Create Date: 11/21/2021 07:09:07 PM
--- Design Name:
--- Module Name: cios_top - Behavioral
--- Project Name:
--- Target Devices:
--- Tool Versions:
--- Description:
---
--- Dependencies:
---
--- Revision:
--- Revision 0.01 - File Created
--- Additional Comments:
---
-----------------------------------------------------------------------------------
-
 
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 
--- Uncomment the following library declaration if using
--- arithmetic functions with Signed or Unsigned values
---use IEEE.NUMERIC_STD.ALL;
 
--- Uncomment the following library declaration if instantiating
--- any Xilinx leaf cells in this code.
---library UNISIM;
---use UNISIM.VComponents.all;
-
+--!\brief this experimental version, adds the possibility of loading
+--!from the testbench operands with a width different from the width
+--!at which the computation is done
 entity monmult_module_v2 is
 	generic (
-		--WRITE_WIDTH			: integer :=8;
-		--READ_WIDTH			: integer :=8;
-		EXTERNAL_WIDTH		: integer := 16;
-		INTERNAL_WIDTH		: integer :=32;
-		N_BITS_PER_WORD		: integer :=32;  --must be equal to INTERNAL_WIDTH
-		N_WORDS				: integer :=8;
-		MEMORY_DEPTH		: integer:=8;
-		N_BITS_TOTAL		: integer :=256
+
+		EXTERNAL_WIDTH		: integer := 16;  --! width at which the words are loaded from the testbench
+		INTERNAL_WIDTH		: integer :=32;		--! width at which the words are read by the internal modules
+		N_BITS_PER_WORD		: integer :=32; 	--!must be equal to INTERNAL_WIDTH
+		N_WORDS				: integer :=8;				--!
+		MEMORY_DEPTH			: integer:=8;			--!
+		N_BITS_TOTAL			: integer :=256		--!
 
 	);
 	Port (
@@ -203,7 +177,6 @@ begin
 		CYLCES_TO_WAIT	=> 1,
 		LATENCY	=> LATENCY_AB,
 		N_BITS_TOTAL=>N_BITS_TOTAL
-		--MEMORY_DEPTH	=> N_WORDS
 	)
 	port map(
 		clk=> clk,
@@ -227,7 +200,6 @@ begin
 		LATENCY	=> LATENCY_AB,
 		N_BITS_TOTAL=>N_BITS_TOTAL
 
-		--MEMORY_DEPTH	=> N_WORDS
 	)
 	port map(
 		clk=> clk,
@@ -251,7 +223,6 @@ begin
 		LATENCY	=> LATENCY_N_MAC,
 		N_BITS_TOTAL=>N_BITS_TOTAL
 
-		--MEMORY_DEPTH	=> N_WORDS
 	)
 	port map(
 		clk=> clk,
@@ -275,7 +246,6 @@ begin
 		LATENCY	=> LATENCY_N_SUB,
 		N_BITS_TOTAL=>N_BITS_TOTAL
 
-		--MEMORY_DEPTH	=> MEMORY_DEPTH
 	)
 	port map(
 		clk=> clk,
@@ -298,7 +268,6 @@ begin
 		LATENCY	=> 1,
 		N_BITS_TOTAL=>INTERNAL_WIDTH
 
-		--MEMORY_DEPTH	=> MEMORY_DEPTH
 	)
 	port map(
 		clk=> clk,
