@@ -49,7 +49,7 @@
     <Option Name="SimulatorGccVersionActiveHdl" Val="6.2.0"/>
     <Option Name="TargetLanguage" Val="VHDL"/>
     <Option Name="BoardPart" Val="xilinx.com:ac701:part0:1.4"/>
-    <Option Name="ActiveSimSet" Val="top_v2_sim"/>
+    <Option Name="ActiveSimSet" Val="top_sim"/>
     <Option Name="DefaultLib" Val="xil_defaultlib"/>
     <Option Name="ProjectType" Val="Default"/>
     <Option Name="IPOutputRepo" Val="$PCACHEDIR/ip"/>
@@ -62,7 +62,7 @@
     <Option Name="IPStaticSourceDir" Val="$PIPUSERFILESDIR/ipstatic"/>
     <Option Name="EnableBDX" Val="FALSE"/>
     <Option Name="DSABoardId" Val="basys3"/>
-    <Option Name="WTXSimLaunchSim" Val="748"/>
+    <Option Name="WTXSimLaunchSim" Val="751"/>
     <Option Name="WTModelSimLaunchSim" Val="0"/>
     <Option Name="WTQuestaLaunchSim" Val="0"/>
     <Option Name="WTIesLaunchSim" Val="0"/>
@@ -207,7 +207,6 @@
       <File Path="$PPRDIR/Sources/RTL/FSM_sub.vhd">
         <FileInfo>
           <Attr Name="UserDisabled" Val="1"/>
-          <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
@@ -268,7 +267,7 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/Sources/Testbenches/tb_mult_behav.wcfg">
+      <File Path="$PPRDIR/top_tb_behav.wcfg">
         <FileInfo>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
@@ -285,7 +284,7 @@
         <Option Name="PamSignalDriverFile" Val="xil_bypass_driver"/>
         <Option Name="PamPseudoTop" Val="pseudo_tb"/>
         <Option Name="SrcSet" Val="sources_1"/>
-        <Option Name="XSimWcfgFile" Val="$PPRDIR/Sources/Testbenches/tb_mult_behav.wcfg"/>
+        <Option Name="XSimWcfgFile" Val="$PPRDIR/Sources/Testbenches/wfcg/tb_mult_behav.wcfg"/>
       </Config>
     </FileSet>
     <FileSet Name="mac_ab" Type="SimulationSrcs" RelSrcDir="$PSRCDIR/mac_ab" RelGenDir="$PGENDIR/mac_ab">
@@ -348,7 +347,7 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/Sources/Testbenches/tb_add_behav.wcfg">
+      <File Path="$PPRDIR/Sources/Testbenches/wfcg/tb_add_behav.wcfg">
         <FileInfo>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
@@ -365,7 +364,7 @@
         <Option Name="PamSignalDriverFile" Val="xil_bypass_driver"/>
         <Option Name="PamPseudoTop" Val="pseudo_tb"/>
         <Option Name="SrcSet" Val="sources_1"/>
-        <Option Name="XSimWcfgFile" Val="$PPRDIR/Sources/Testbenches/tb_add_behav.wcfg"/>
+        <Option Name="XSimWcfgFile" Val="$PPRDIR/Sources/Testbenches/wfcg/tb_add_behav.wcfg"/>
       </Config>
     </FileSet>
     <FileSet Name="sub_tb" Type="SimulationSrcs" RelSrcDir="$PSRCDIR/sub_tb" RelGenDir="$PGENDIR/sub_tb">
@@ -376,7 +375,7 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/Sources/Testbenches/tb_sub_behav.wcfg">
+      <File Path="$PPRDIR/Sources/Testbenches/wfcg/tb_sub_behav.wcfg">
         <FileInfo>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
@@ -393,7 +392,7 @@
         <Option Name="PamSignalDriverFile" Val="xil_bypass_driver"/>
         <Option Name="PamPseudoTop" Val="pseudo_tb"/>
         <Option Name="SrcSet" Val="sources_1"/>
-        <Option Name="XSimWcfgFile" Val="$PPRDIR/Sources/Testbenches/tb_sub_behav.wcfg"/>
+        <Option Name="XSimWcfgFile" Val="$PPRDIR/Sources/Testbenches/wfcg/tb_sub_behav.wcfg"/>
       </Config>
     </FileSet>
     <FileSet Name="mem_TB" Type="SimulationSrcs" RelSrcDir="$PSRCDIR/mem_TB" RelGenDir="$PGENDIR/mem_TB">
@@ -411,7 +410,7 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/Sources/Testbenches/tb_memory_behav.wcfg">
+      <File Path="$PPRDIR/Sources/Testbenches/wfcg/tb_memory_behav.wcfg">
         <FileInfo>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
@@ -428,7 +427,7 @@
         <Option Name="PamSignalDriverFile" Val="xil_bypass_driver"/>
         <Option Name="PamPseudoTop" Val="pseudo_tb"/>
         <Option Name="SrcSet" Val="sources_1"/>
-        <Option Name="XSimWcfgFile" Val="$PPRDIR/Sources/Testbenches/tb_memory_behav.wcfg"/>
+        <Option Name="XSimWcfgFile" Val="$PPRDIR/Sources/Testbenches/wfcg/tb_memory_behav.wcfg"/>
       </Config>
     </FileSet>
     <FileSet Name="tb_sub_v2" Type="SimulationSrcs" RelSrcDir="$PSRCDIR/tb_sub_v2" RelGenDir="$PGENDIR/tb_sub_v2">
@@ -439,7 +438,7 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/Sources/Testbenches/tb_sub_v2_behav.wcfg">
+      <File Path="$PPRDIR/Sources/Testbenches/wfcg/tb_sub_v2_behav.wcfg">
         <FileInfo>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
@@ -456,7 +455,7 @@
         <Option Name="PamSignalDriverFile" Val="xil_bypass_driver"/>
         <Option Name="PamPseudoTop" Val="pseudo_tb"/>
         <Option Name="SrcSet" Val="sources_1"/>
-        <Option Name="XSimWcfgFile" Val="$PPRDIR/Sources/Testbenches/tb_sub_v2_behav.wcfg"/>
+        <Option Name="XSimWcfgFile" Val="$PPRDIR/Sources/Testbenches/wfcg/tb_sub_v2_behav.wcfg"/>
       </Config>
     </FileSet>
     <FileSet Name="top_sim" Type="SimulationSrcs" RelSrcDir="$PSRCDIR/top_sim" RelGenDir="$PGENDIR/top_sim">

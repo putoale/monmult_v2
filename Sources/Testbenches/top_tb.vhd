@@ -53,15 +53,15 @@ architecture bench of top_tb is
 	constant	TB_RESET_INIT 	:	STD_LOGIC	:= '1';
 
   -- Generics
-  constant DUT_N_BITS_PER_WORD : integer := 8;
-  constant DUT_N_WORDS : integer := 64;
+  constant DUT_N_BITS_PER_WORD : integer := 64;
+  constant DUT_N_WORDS : integer := 8;
   constant DUT_WRITE_WIDTH : integer := DUT_N_BITS_PER_WORD;
   constant DUT_READ_WIDTH : integer := DUT_N_BITS_PER_WORD;
   constant DUT_MEMORY_DEPTH : integer := DUT_N_WORDS;
 
   --File GENERICS
   constant N_TEST_VECTORS   : positive := 4;
-  constant INPUT_FILE_NAME  : string := "input_vectors_512_64_8.txt";
+  constant INPUT_FILE_NAME  : string := "input_vectors_512_8_64.txt";
   constant OUTPUT_FILE_NAME : string := "out_results.txt";
 
   --Types
