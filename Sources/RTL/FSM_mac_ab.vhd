@@ -9,7 +9,7 @@ use IEEE.NUMERIC_STD.ALL;
 --!this FSM:
 --!starts at cycle 0
 --!reads a every cycle
---!reads b every cycle
+--!reads b every N_WORDS cycles
 --!reads t = 0 for i=0
 --!reads t = t_mac_in for i>=1, j<N_WORDS
 --!reads t = t_adder_in for i>=1, j=N_WORDS
