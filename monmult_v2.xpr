@@ -49,7 +49,7 @@
     <Option Name="SimulatorGccVersionActiveHdl" Val="6.2.0"/>
     <Option Name="TargetLanguage" Val="VHDL"/>
     <Option Name="BoardPart" Val="xilinx.com:ac701:part0:1.4"/>
-    <Option Name="ActiveSimSet" Val="top_sim"/>
+    <Option Name="ActiveSimSet" Val="top_v2_sim"/>
     <Option Name="DefaultLib" Val="xil_defaultlib"/>
     <Option Name="ProjectType" Val="Default"/>
     <Option Name="IPOutputRepo" Val="$PCACHEDIR/ip"/>
@@ -62,7 +62,7 @@
     <Option Name="IPStaticSourceDir" Val="$PIPUSERFILESDIR/ipstatic"/>
     <Option Name="EnableBDX" Val="FALSE"/>
     <Option Name="DSABoardId" Val="basys3"/>
-    <Option Name="WTXSimLaunchSim" Val="746"/>
+    <Option Name="WTXSimLaunchSim" Val="748"/>
     <Option Name="WTModelSimLaunchSim" Val="0"/>
     <Option Name="WTQuestaLaunchSim" Val="0"/>
     <Option Name="WTIesLaunchSim" Val="0"/>
@@ -206,13 +206,7 @@
       </File>
       <File Path="$PPRDIR/Sources/RTL/FSM_sub.vhd">
         <FileInfo>
-          <Attr Name="AutoDisabled" Val="1"/>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PPRDIR/Sources/RTL/output_mem.vhd">
-        <FileInfo>
+          <Attr Name="UserDisabled" Val="1"/>
           <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
@@ -474,17 +468,17 @@
         </FileInfo>
       </File>
       <File Path="$PPRDIR/Sources/Python/tb_vec_gen/txt/input_vectors_256_4_64.txt"/>
-      <File Path="$PPRDIR/Sources/Testbenches/top_tb_behav.wcfg">
+      <File Path="$PPRDIR/Sources/Testbenches/wfcg/top_tb_behav1.wcfg">
         <FileInfo>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/Sources/Testbenches/top_tb_mult.wcfg">
+      <File Path="$PPRDIR/Sources/Testbenches/wfcg/top_tb_mult.wcfg">
         <FileInfo>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/Sources/Testbenches/top_mac_ab_waves.wcfg">
+      <File Path="$PPRDIR/Sources/Testbenches/wfcg/top_mac_ab_waves.wcfg">
         <FileInfo>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
@@ -494,32 +488,27 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/Sources/Testbenches/top_tb_behav1.wcfg">
+      <File Path="$PPRDIR/Sources/Testbenches/wfcg/top_mac_mn_waves.wcfg">
         <FileInfo>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/Sources/Testbenches/top_mac_mn_waves.wcfg">
+      <File Path="$PPRDIR/Sources/Testbenches/wfcg/top_tb_behav_definitiva.wcfg">
         <FileInfo>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/Sources/Testbenches/top_tb_behav_definitiva.wcfg">
+      <File Path="$PPRDIR/Sources/Testbenches/wfcg/top_tb_sub.wcfg">
         <FileInfo>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/Sources/Testbenches/top_tb_sub.wcfg">
+      <File Path="$PPRDIR/Sources/Testbenches/wfcg/top_tb_add.wcfg">
         <FileInfo>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/Sources/Testbenches/top_tb_add.wcfg">
-        <FileInfo>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PPRDIR/Sources/Testbenches/top_tb_whole_comb.wcfg">
+      <File Path="$PPRDIR/Sources/Testbenches/wfcg/top_tb_whole_comb.wcfg">
         <FileInfo>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
@@ -674,7 +663,6 @@
         <Step Id="post_route_phys_opt_design"/>
         <Step Id="write_bitstream"/>
       </Strategy>
-      <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
       <ReportStrategy Name="Vivado Implementation Default Reports" Flow="Vivado Implementation 2021"/>
       <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
       <RQSFiles/>

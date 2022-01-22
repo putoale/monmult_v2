@@ -54,31 +54,33 @@ architecture bench of top_tb_v2 is
 	constant	TB_RESET_INIT 	:	STD_LOGIC	:= '1';
 
   -- Generics
-  constant DUT_N_BITS_PER_WORD : integer := 8;  --refers to the interface with the tb
-  constant DUT_N_WORDS : integer := 8;
-  constant DUT_N_BITS_TOTAL: integer := 64;
+  constant DUT_N_BITS_PER_WORD : integer := 64;  --refers to the interface with the tb
+  constant DUT_N_WORDS : integer := 4;
+  constant DUT_N_BITS_TOTAL: integer := 256;
 
-  constant DUT_INTERNAL_WIDTH : integer := 16 ;
-  constant DUT_EXTERNAL_WIDTH : integer := DUT_N_BITS_PER_WORD;
+  constant DUT_INTERNAL_WIDTH : integer := 32;
+  constant DUT_EXTERNAL_WIDTH : integer := 64;
   constant DUT_MEMORY_DEPTH : integer := DUT_N_BITS_TOTAL/DUT_INTERNAL_WIDTH; --goes to input_mem_abn
   constant DUT_EXTERNAL_MEMORY_DEPTH: integer := DUT_N_BITS_TOTAL/DUT_EXTERNAL_WIDTH;
   --File GENERICS
-  constant N_TEST_VECTORS   : positive := 11;
-  constant INPUT_FILE_NAME  : string := "input_vectors_64_8_8.txt";
-  constant OUTPUT_FILE_NAME : string := "out_results.txt";
+  constant N_TEST_VECTORS   : positive := 1;
+  --constant INPUT_FILE_NAME  : string := "input_vectors_64_8_8.txt";
+  --constant OUTPUT_FILE_NAME : string := "out_results.txt";
 
   --Types
     --array of N_WORDS to store an operand (e.g. to store "a")
-  type test_vector_input_type is array (DUT_EXTERNAL_MEMORY_DEPTH-1 downto 0) of std_logic_vector(DUT_N_BITS_PER_WORD-1 downto 0);
+  type test_vector_input_type is array (DUT_EXTERNAL_MEMORY_DEPTH-1 downto 0) of std_logic_vector(DUT_EXTERNAL_WIDTH-1 downto 0);
 
     -- type to store all the values of a N_WORDS operand to test (e.g. all test vectors for "a","b",or "n")
   type test_vector_Nw_array is array(0 to N_TEST_VECTORS-1) of test_vector_input_type;
 
+  type test_vector_1_nn0_array is array (DUT_INTERNAL_WIDTH/DUT_EXTERNAL_WIDTH -1 downto 0) of std_logic_vector(DUT_EXTERNAL_WIDTH-1 downto 0);
+
     -- type to store all the values of nn0 to test
-  type test_vector_1w_array is array(0 to N_TEST_VECTORS-1) of std_logic_vector(DUT_N_BITS_PER_WORD-1 downto 0);
+  type test_vector_N_nn0_array is array(0 to N_TEST_VECTORS-1) of test_vector_1_nn0_array;
 
     -- type to store result of one monmult
-  type output_result_array is array (DUT_EXTERNAL_MEMORY_DEPTH-1 downto 0) of std_logic_vector(DUT_N_BITS_PER_WORD-1 downto 0);
+  type output_result_array is array (DUT_EXTERNAL_MEMORY_DEPTH-1 downto 0) of std_logic_vector(DUT_EXTERNAL_WIDTH-1 downto 0);
 
   -- Ports
   signal clk              : std_logic := TB_CLK_INIT;
@@ -109,8 +111,8 @@ architecture bench of top_tb_v2 is
     -- memory with all test vectors of "n" operand
   signal n_memory   : test_vector_Nw_array := (Others =>(Others => (Others=>'0')));
 
-    -- memory with all test vectors of "nn0" operand
-  signal nn0_memory : test_vector_1w_array := (Others => (Others=>'0'));
+
+  signal nn0_memory : test_vector_N_nn0_array := (Others => (Others => (Others=>'0')));
 
     -- memory for one test vector result
   signal res_memory : output_result_array := (Others => (Others => '0'));
@@ -160,64 +162,39 @@ begin
   end process;
 ----------------------------
 
-----------File Read Process----------
 
-file_proc : process
+a_memory(0)(0) <= X"E41BE5BD";
+a_memory(0)(1) <= X"E54EA01C";
+a_memory(0)(2) <= X"5FD8132D";
+a_memory(0)(3) <= X"AE3C50BD";
+a_memory(0)(4) <= X"9F96C5AF";
+a_memory(0)(5) <= X"1324A68D";
+a_memory(0)(6) <= X"08D97804";
+a_memory(0)(7) <= X"8F69BF76";
 
---file        input_file            : text open read_mode is "input_vectors_256_4_64.txt";
-file        input_file            : text open read_mode is INPUT_FILE_NAME;
-variable    input_line            : line;
-variable    slv_a_var             : std_logic_vector(DUT_N_BITS_PER_WORD-1 downto 0) := (Others =>'0');
-variable    slv_b_var             : std_logic_vector(DUT_N_BITS_PER_WORD-1 downto 0) := (Others =>'0');
-variable    slv_n_var             : std_logic_vector(DUT_N_BITS_PER_WORD-1 downto 0) := (Others =>'0');
-variable    slv_nn0_var           : std_logic_vector(DUT_N_BITS_PER_WORD-1 downto 0) := (Others =>'0');
-variable    good_v                : boolean;
-begin
+b_memory(0)(0) <= X"F9852CD2";
+b_memory(0)(1) <= X"1DE6A57F";
+b_memory(0)(2) <= X"70BA175B";
+b_memory(0)(3) <= X"EA2FFFC2";
+b_memory(0)(4) <= X"A40A26A7";
+b_memory(0)(5) <= X"D424CF6F";
+b_memory(0)(6) <= X"3CC8843F";
+b_memory(0)(7) <= X"9135D1ED";
 
-  while not endfile(input_file) loop
+n_memory(0)(0) <= X"B6FB5F6D";
+n_memory(0)(1) <= X"A48F54FC";
+n_memory(0)(2) <= X"63AF7B4B";
+n_memory(0)(3) <= X"3E9C3631";
+n_memory(0)(4) <= X"CD781A52";
+n_memory(0)(5) <= X"6FB464A6";
+n_memory(0)(6) <= X"6BB3E127";
+n_memory(0)(7) <= X"E74E2C25";
 
-    for tv_counter in 0 to N_TEST_VECTORS-1 loop
+nn0_memory(0)(0) <= X"5A6EB41C";
+nn0_memory(0)(1) <= X"91A1F053";
 
-      readline(input_file,input_line);
+file_read_complete <= true;
 
-      for word_counter in DUT_N_WORDS-1 downto 0 loop
-
-        --read one word of "a" and put it into memory
-        hread(input_line,slv_a_var,good_v);
-        a_memory(tv_counter)(word_counter) <= slv_a_var;
-
-      end loop;
-
-      for word_counter in DUT_N_WORDS-1 downto 0 loop
-
-        --read one word of "b" and put it into memory
-        hread(input_line,slv_b_var,good_v);
-        b_memory(tv_counter)(word_counter) <= slv_b_var;
-
-      end loop;
-
-      for word_counter in DUT_N_WORDS-1 downto 0 loop
-
-        --read one word of "n" and put it into memory
-        hread(input_line,slv_n_var,good_v);
-        n_memory(tv_counter)(word_counter) <= slv_n_var;
-
-      end loop;
-
-        --read "nn0" and put it into memory
-        hread(input_line,slv_nn0_var,good_v);
-        nn0_memory(tv_counter) <= slv_nn0_var;
-
-    end loop;
-
-
-  end loop;
-  file_read_complete <= true;
-  wait;
-
-end process;
-
--------------------------------------
 
 -------- module feed process---------
 data_feed_proc : process
@@ -243,13 +220,22 @@ begin
     dut_wr_en_b     <= '1';
     dut_wr_en_n_mac <= '1';
     dut_wr_en_n_sub <= '1';
-    dut_nn0 <= nn0_memory(tv_counter);
+    dut_wr_en_nn0   <= '1';
 
-    for words_counter in 0 to DUT_N_WORDS-1 loop
+
+
+    for words_counter in 0 to (DUT_N_WORDS * DUT_INTERNAL_WIDTH/DUT_EXTERNAL_WIDTH)-1 loop
 
       dut_a <= a_memory(tv_counter)(words_counter);
       dut_b <= b_memory(tv_counter)(words_counter);
       dut_n <= n_memory(tv_counter)(words_counter);
+
+      if words_counter < DUT_INTERNAL_WIDTH/DUT_EXTERNAL_WIDTH then
+        dut_nn0 <= nn0_memory(tv_counter)(words_counter);
+      else
+        dut_wr_en_nn0   <= '0';
+      end if;
+
       wait until rising_edge(clk);
     end loop;
 
@@ -275,7 +261,7 @@ begin
 
   wait until dut_valid_out = '1';
 
-  for word_counter in 0 to DUT_N_WORDS-1 loop
+  for word_counter in 0 to (DUT_N_WORDS * DUT_INTERNAL_WIDTH/DUT_EXTERNAL_WIDTH)-1 loop
 
     wait until rising_edge(clk);
 
@@ -291,36 +277,6 @@ end process;
 
 
 ----------------------------------------------------------------
-
---------------------- output file write process------------------
-file_write_proc: process
-
---file      output_file : text open write_mode is "output_results.txt";
-file      output_file : text open write_mode is OUTPUT_FILE_NAME;
-variable  output_line : line;
-
-begin
-
-    wait until dut_EoC = '1';
-
-      wait until rising_edge(clk);
-
-      for word_counter in DUT_N_WORDS-1 downto 0 loop
-
-        wait until rising_edge(clk);
-
-
-        hwrite(output_line, res_memory(word_counter) ,left, (DUT_N_BITS_PER_WORD/4)+1);
-
-      end loop;
-
-      writeline(output_file, output_line);
-      writeline_complete <= true;
-      wait until rising_edge(clk);
-      writeline_complete <= false;
-
-end process;
------------------------------------------------------------------
 
 
 
