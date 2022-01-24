@@ -6,16 +6,17 @@ use IEEE.NUMERIC_STD.ALL;
 
 --------------------------------------------------------------------------------
 --!this FSM uses two counters i and j both going from 0 to N_WORDS-1 and are used to control what to expose at the output at every cycle
---!this FSM:
---!starts at cycle 0
---!reads a every cycle
---!reads b every N_WORDS cycles
---!reads t = 0 for i=0
---!reads t = t_mac_in for i>=1, j<N_WORDS
---!reads t = t_adder_in for i>=1, j=N_WORDS
-
---!if N_WORDS>4, a shift register is added in order to take into account the delay between the clock mac_mn exposes its t output and mac_ab reads it
---!cout is brought to the output everytime, adder has to sample the correct one
+--!
+--!This FSM:
+--!
+--!starts at cycle 0,
+--!* reads a every cycle,
+--!* reads b every N_WORDS cycles,
+--!* reads t = 0 for i=0,
+--!* reads t = t_mac_in for i>=1, j<N_WORDS,
+--!* reads t = t_adder_in for i>=1, j=N_WORDS,
+--!* if N_WORDS>4, a shift register is added in order to take into account the delay between the clock mac_mn exposes its t output and mac_ab reads it
+--!* Cout is brought to the output everytime, adder has to sample the correct one
 
 
 --------------------------------------------------------------------------------

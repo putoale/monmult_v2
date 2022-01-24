@@ -6,13 +6,15 @@
 ![Diagram](FSM_mac_mn.svg "Diagram")
 ## Description
 
-this FSM uses two counters i and j both going from 0 to N_WORDS-1 and are used to control what to expose at the output at every cycle
+This FSM uses two counters i and j both going from 0 to N_WORDS-1 and are used to control what to expose at the output at every cycle.N_BITS_PER_WORD
+
 this FSM:
-starts at cycle 0
-reads n every cycle  (n is equivalent to a in mac_ab)
-reads m every cycle with j=0	(m is equivalent to b in mac_ab)
-reads t from multiplier. the multiplier has registered  the t value of mac_ab, to give a 1 cycle delay
-cout is brought to the output everytime, adder has to sample it at the correct clock cycle
+
+* starts at cycle 0
+* reads n every cycle  (n is equivalent to a in mac_ab)
+* reads m every cycle with j=0	(m is equivalent to b in mac_ab)
+* reads t from multiplier. the multiplier has registered  the t value of mac_ab, to give a 1 cycle delay
+* Cout is brought to the output everytime, adder has to sample it at the correct clock cycle
 ## Generics
 
 | Generic name    | Type    | Value | Description |
