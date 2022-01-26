@@ -1,116 +1,112 @@
-library IEEE;
-  use IEEE.STD_LOGIC_1164.all;
+LIBRARY IEEE;
+USE IEEE.STD_LOGIC_1164.ALL;
 
-  -- Uncomment the following library declaration if using
-  -- arithmetic functions with Signed or Unsigned values
-  use IEEE.NUMERIC_STD.all;
+-- Uncomment the following library declaration if using
+-- arithmetic functions with Signed or Unsigned values
+USE IEEE.NUMERIC_STD.ALL;
 
-entity tb_out_mem_controller is
-end entity tb_out_mem_controller;
+ENTITY tb_out_mem_controller IS
+END ENTITY tb_out_mem_controller;
 
-architecture behavioral of tb_out_mem_controller is
+ARCHITECTURE behavioral OF tb_out_mem_controller IS
 
-  component out_mem_controller is
-    generic (
-      write_width : integer := 16;
-      read_width  : integer := 8;
+    COMPONENT out_mem_controller IS
+        GENERIC (
+            write_width : INTEGER := 16;
+            read_width  : INTEGER := 8;
 
-      n_bits_total : integer := 64
-    );
-    port (
-      clk       : in    std_logic;
-      reset     : in    std_logic;
-      out_valid : out   std_logic;
-      wr_en     : in    std_logic;
-      wr_port   : in    std_logic_vector(write_width - 1 downto 0);
-      rd_port   : out   std_logic_vector(read_width - 1 downto 0);
-      eoc_out   : out std_logic;
-      eoc_in    : in    std_logic
-    );
-  end component;
-  -------------------------------input_memory_case---------------------------
-  constant write_width  : integer := 16;
-  constant read_width   : integer := 8;
-  constant n_bits_total : integer := 64;
-  constant memory_depth : integer :=n_bits_total / read_width;
-  constant write_bigness: integer :=write_width/read_width;
-  ---------------------------------------------------------------------------
+            n_bits_total : INTEGER := 64
+        );
+        PORT (
+            clk       : IN STD_LOGIC;
+            reset     : IN STD_LOGIC;
+            out_valid : OUT STD_LOGIC;
+            wr_en     : IN STD_LOGIC;
+            wr_port   : IN STD_LOGIC_VECTOR(write_width - 1 DOWNTO 0);
+            rd_port   : OUT STD_LOGIC_VECTOR(read_width - 1 DOWNTO 0);
+            eoc_out   : OUT STD_LOGIC;
+            eoc_in    : IN STD_LOGIC
+        );
+    END COMPONENT;
+    -------------------------------input_memory_case---------------------------
+    CONSTANT write_width   : INTEGER := 16;
+    CONSTANT read_width    : INTEGER := 8;
+    CONSTANT n_bits_total  : INTEGER := 64;
+    CONSTANT memory_depth  : INTEGER := n_bits_total / read_width;
+    CONSTANT write_bigness : INTEGER := write_width/read_width;
+    ---------------------------------------------------------------------------
+    CONSTANT clk_period : TIME      := 10 ns;
+    SIGNAL clk          : STD_LOGIC := '0';
+    SIGNAL reset        : STD_LOGIC;
+    SIGNAL out_valid    : STD_LOGIC;
+    SIGNAL wr_en        : STD_LOGIC;
+    SIGNAL wr_port      : STD_LOGIC_VECTOR(write_width - 1 DOWNTO 0);
+    SIGNAL rd_port      : STD_LOGIC_VECTOR(read_width - 1 DOWNTO 0);
+    SIGNAL eoc_out      : STD_LOGIC;
+    SIGNAL eoc_in       : STD_LOGIC;
 
+    TYPE in_vector_type IS ARRAY (memory_depth - 1 DOWNTO 0) OF STD_LOGIC_VECTOR(write_width - 1 DOWNTO 0);
+    SIGNAL in_vector     : STD_LOGIC_VECTOR(n_bits_total - 1 DOWNTO 0);
+    SIGNAL in_vector_one : STD_LOGIC_VECTOR(n_bits_total / 2 - 1 DOWNTO 0);
+    SIGNAL in_vector_two : STD_LOGIC_VECTOR(n_bits_total / 2 - 1 DOWNTO 0);
 
-  constant clk_period : time :=10 ns;
-  signal   clk        : std_logic:='0';
-  signal   reset      : std_logic;
-  signal   out_valid  : std_logic;
-  signal   wr_en      : std_logic;
-  signal   wr_port    : std_logic_vector(write_width - 1 downto 0);
-  signal   rd_port    : std_logic_vector(read_width - 1 downto 0);
-  signal eoc_out: std_logic;
-  signal eoc_in : std_logic;
+    SIGNAL out_vector : STD_LOGIC_VECTOR(n_bits_total - 1 DOWNTO 0);
+    SIGNAL j          : INTEGER := memory_depth - 1;
+BEGIN
 
-  type in_vector_type is array (memory_depth - 1 downto 0) of std_logic_vector(write_width - 1 downto 0);
+    --in_vector_one <= std_logic_vector(to_unsigned(x"11223344", n_bits_total / 2));
+    --in_vector_two <= std_logic_vector(to_unsigned(x"55667788", n_bits_total / 2));
+    in_vector_one <= x"01234567";
+    in_vector_two <= x"89abcdef";
+    in_vector     <= in_vector_one & in_vector_two;
 
+    inst : COMPONENT out_mem_controller
+        GENERIC MAP(
+            write_width  => write_width,
+            read_width   => read_width,
+            n_bits_total => n_bits_total
+        )
+        PORT MAP(
+            clk       => clk,
+            reset     => reset,
+            out_valid => out_valid,
+            wr_en     => wr_en,
+            wr_port   => wr_port,
+            rd_port   => rd_port,
+            eoc_out   => eoc_out,
+            eoc_in    => eoc_in
+        );
 
-  signal in_vector     : std_logic_vector(n_bits_total - 1 downto 0);
-  signal in_vector_one : std_logic_vector(n_bits_total / 2 - 1 downto 0);
-  signal in_vector_two : std_logic_vector(n_bits_total / 2 - 1 downto 0);
+        clk <= NOT clk AFTER clk_period / 2;
 
-  signal out_vector : std_logic_vector(n_bits_total - 1 downto 0);
-  signal j: integer:=memory_depth-1;
-begin
+        PROCESS IS
+        BEGIN
+            wr_en <= '0';
+            reset <= '1';
+            WAIT FOR clk_period * 3;
+            reset <= '0';
 
-  --in_vector_one <= std_logic_vector(to_unsigned(x"11223344", n_bits_total / 2));
-  --in_vector_two <= std_logic_vector(to_unsigned(x"55667788", n_bits_total / 2));
-  in_vector_one<=x"01234567";
-  in_vector_two<=x"89abcdef";
-  in_vector <= in_vector_one & in_vector_two;
+            EoC_in <= '1';
+            WAIT FOR clk_period * 2;
+            EoC_in <= '0';
+            WAIT FOR clk_period * 2;
+            WAIT UNTIL rising_edge(clk);
 
-  inst : component out_mem_controller
-    generic map (
-      write_width  => write_width,
-      read_width   => read_width,
-      n_bits_total => n_bits_total
-    )
-    port map (
-      clk       => clk,
-      reset     => reset,
-      out_valid => out_valid,
-      wr_en     => wr_en,
-      wr_port   => wr_port,
-      rd_port   => rd_port,
-      eoc_out =>eoc_out,
-      eoc_in    => eoc_in
-    );
+            FOR i IN 0 TO (memory_depth/write_bigness) - 1 LOOP
+                wr_en   <= '1';
+                wr_port <= in_vector((write_width) * (i + 1) - 1 DOWNTO i * write_width);
+                WAIT UNTIL rising_edge(clk);
+            END LOOP;
 
-  clk <= not clk after clk_period / 2;
+            wr_en <= '0';
+            IF out_valid = '1' THEN
+                FOR i IN 0 TO memory_depth - 1 LOOP
+                    out_vector((read_width) * (i + 1) - 1 DOWNTO i * read_width) <= rd_port;
+                    WAIT FOR clk_period;
+                END LOOP;
+            END IF;
+            WAIT FOR clk_period * 10;
+            WAIT;
+        END PROCESS;
 
-  process is
-  begin
-	wr_en<='0';
-    reset<= '1' ;
-    wait for clk_period*3;
-    reset<='0';
-
-    EoC_in<='1';
-    wait for clk_period*2;
-    EoC_in <='0';
-    wait for clk_period*2;
-    wait until rising_edge(clk);
-
-    for i in 0 to (memory_depth/write_bigness)-1  loop
-      wr_en<='1';
-      wr_port <= in_vector((write_width)*(i+1 )-1 downto i*write_width);
-      wait until rising_edge(clk);
-    end loop;
-
-		wr_en<='0';
-    if out_valid='1' then
-      for i in 0 to memory_depth-1 loop
-        out_vector((read_width)*(i+1 ) -1  downto i*read_width) <= rd_port ;
-		wait for clk_period;
-      end loop;
-    end if;
-    wait for clk_period*10;
-    wait;
-        end process;
-
-end architecture behavioral;
+    END ARCHITECTURE behavioral;

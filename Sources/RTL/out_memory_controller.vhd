@@ -18,104 +18,102 @@
 --
 ----------------------------------------------------------------------------------
 
-library IEEE;
-  use IEEE.STD_LOGIC_1164.all;
+LIBRARY IEEE;
+USE IEEE.STD_LOGIC_1164.ALL;
 
-  use IEEE.NUMERIC_STD.all;
+USE IEEE.NUMERIC_STD.ALL;
+ENTITY out_mem_controller IS
+    GENERIC (
+        write_width : INTEGER := 64;
+        read_width  : INTEGER := 16; --write_width must be a multiple of read_width. since this is an output controller
 
+        n_bits_total : INTEGER := 256
+    );
+    PORT (
+        clk       : IN STD_LOGIC;
+        reset     : IN STD_LOGIC;
+        out_valid : OUT STD_LOGIC; -- stays at 1 as long as there are valid data on rd_port (connects to the valid of monmult_module)
+        wr_en     : IN STD_LOGIC; -- this is the valid of the sub
+        wr_port   : IN STD_LOGIC_VECTOR(write_width - 1 DOWNTO 0);
+        rd_port   : OUT STD_LOGIC_VECTOR(read_width - 1 DOWNTO 0);
+        EoC_out   : OUT STD_LOGIC; --rises with the last word on the rd_port
+        eoc_in    : IN STD_LOGIC
+    );
+END ENTITY out_mem_controller;
 
-entity out_mem_controller is
-  generic (
-    write_width : integer := 64;
-    read_width  : integer := 16;  --write_width must be a multiple of read_width. since this is an output controller
+ARCHITECTURE behavioral OF out_mem_controller IS
 
-    n_bits_total : integer := 256
-  );
-  port (
-    clk       : in    std_logic;
-    reset     : in    std_logic;
-    out_valid : out   std_logic; -- stays at 1 as long as there are valid data on rd_port (connects to the valid of monmult_module)
-    wr_en     : in    std_logic; -- this is the valid of the sub
-    wr_port   : in    std_logic_vector(write_width - 1 downto 0);
-    rd_port   : out   std_logic_vector(read_width - 1 downto 0);
-    EoC_out   : out std_logic;  --rises with the last word on the rd_port
-    eoc_in    : in    std_logic
-  );
-end entity out_mem_controller;
+    ------------------------------------------------------------------------------
+    CONSTANT memory_depth : INTEGER := n_bits_total / read_width;
+    --assuming here read_width to be lower than write_width, since this is an input memory
+    CONSTANT n_write_slots : INTEGER := n_bits_total / write_width; --memory is divided into NREADSLOTS slots
+    CONSTANT write_bigness : INTEGER := write_width / read_width; --a writing slots correponds to writebigness single memory slots
 
-architecture behavioral of out_mem_controller is
+    TYPE memory_type IS ARRAY (memory_depth - 1 DOWNTO 0) OF STD_LOGIC_VECTOR(read_width - 1 DOWNTO 0);
 
-  ------------------------------------------------------------------------------
-  constant memory_depth : integer := n_bits_total / read_width;
-  --assuming here read_width to be lower than write_width, since this is an input memory
-  constant n_write_slots : integer := n_bits_total / write_width; --memory is divided into NREADSLOTS slots
-  constant write_bigness : integer := write_width / read_width;  --a writing slots correponds to writebigness single memory slots
+    SIGNAL memory : memory_type;
+    ------------------------------------------------------------------------------
+    SIGNAL write_counter : INTEGER RANGE 0 TO memory_depth - 1 := 0;
+    SIGNAL read_counter  : INTEGER RANGE 0 TO memory_depth - 1 := 0;
 
-  type memory_type is array (memory_depth - 1 downto 0) of std_logic_vector(read_width - 1 downto 0);
+    SIGNAL write_complete : STD_LOGIC;
+    SIGNAL read_complete  : STD_LOGIC;
+    SIGNAL memory_full    : STD_LOGIC := '0';
+    SIGNAL EoC_reg        : STD_LOGIC;
+BEGIN
 
-  signal memory : memory_type;
-  ------------------------------------------------------------------------------
-  signal write_counter : integer range 0 to memory_depth - 1 := 0;
-  signal read_counter  : integer range 0 to memory_depth - 1 := 0;
+    PROCESS (clk, reset, EoC_in) IS
 
-  signal write_complete : std_logic;
-  signal read_complete  : std_logic;
-  signal memory_full    : std_logic := '0';
-  signal EoC_reg        : std_logic;
-begin
+        VARIABLE memory_temp : STD_LOGIC_VECTOR(write_width - 1 DOWNTO 0) := (OTHERS => '0');
 
-  process (clk, reset, EoC_in) is
+    BEGIN
 
-    variable memory_temp : std_logic_vector(write_width - 1 downto 0) := (others => '0');
+        IF clk'event AND clk = '1' THEN
+            EoC_reg <= EoC_in;
+            IF (reset = '1' OR EoC_reg = '1' OR read_complete = '1') THEN
+                memory_full    <= '0';
+                memory         <= (OTHERS => (OTHERS => '0'));
+                write_counter  <= 0;
+                read_counter   <= 0;
+                write_complete <= '0';
+                read_complete  <= '0';
+            ELSE
+                out_valid <= '0'; --unless overriden later
+                EoC_out   <= '0';
+                -----------------------reading phase--------------------------------------
+                IF (memory_full = '1' AND read_complete = '0' AND write_complete = '1') THEN
 
-  begin
+                    IF read_counter >= memory_depth THEN
+                        read_counter  <= 0;
+                        read_complete <= '1';
+                        EoC_out       <= '1';
+                    ELSE
+                        rd_port      <= memory(read_counter);
+                        read_counter <= read_counter + 1;
+                        out_valid    <= '1';
 
-    if clk'event and clk = '1' then
-      EoC_reg<=EoC_in;
-      if (reset = '1' or EoC_reg = '1' or read_complete= '1') then
-        memory_full    <= '0';
-        memory         <= (others => (others => '0'));
-        write_counter  <= 0;
-        read_counter   <= 0;
-        write_complete <= '0';
-        read_complete  <= '0';
-      else
-      out_valid<='0'; --unless overriden later
-      EoC_out<='0';
-      -----------------------reading phase--------------------------------------
-        if (memory_full = '1' and read_complete = '0' and write_complete= '1')  then
+                    END IF;
+                END IF;
+                --------------------------------------------------------------------------
 
-        if read_counter >= memory_depth then
-    		read_counter<=0;
-        	read_complete<='1';
-        	EoC_out<='1';
-		else
-		  rd_port<=memory(read_counter);
-          read_counter<=read_counter+1;
-          out_valid<='1';
+                ------------------------------writing phase-------------------------------
+                IF (wr_en = '1' AND memory_full = '0') THEN
 
-        end if;
-	end if;
-          --------------------------------------------------------------------------
+                    write_counter <= write_counter + write_bigness;
+                    preparing_wr : FOR i IN 0 TO write_bigness - 1 LOOP
+                        --memory(write_counter +write_bigness -1 - i)<= wr_port(read_width  * (i + 1) - 1  downto read_width * i);
+                        memory(write_counter + i) <= wr_port(read_width * (i + 1) - 1 DOWNTO read_width * i);
+                    END LOOP;
+                END IF;
+                --------------------------------------------------------------------------
+            END IF;
+            IF (write_counter >= memory_depth) THEN
+                write_counter  <= 0;
+                write_complete <= '1';
+                memory_full    <= '1';
+            END IF;
+        END IF;
 
-             ------------------------------writing phase-------------------------------
-        if (wr_en = '1' and memory_full = '0') then
+    END PROCESS;
 
-            write_counter <= write_counter + write_bigness;
-              preparing_wr : for i in 0 to write_bigness - 1 loop
-                --memory(write_counter +write_bigness -1 - i)<= wr_port(read_width  * (i + 1) - 1  downto read_width * i);
-				memory(write_counter + i)<= wr_port(read_width  * (i + 1) - 1  downto read_width * i);
-            end loop;
-    	end if;
-	    --------------------------------------------------------------------------
-        end if;
-		  if (write_counter >= memory_depth) then
-		    write_counter  <= 0;
-		    write_complete <= '1';
-		    memory_full<='1';
-		  end if;
-    end if;
-
-  end process;
-
-end architecture behavioral;
+END ARCHITECTURE behavioral;

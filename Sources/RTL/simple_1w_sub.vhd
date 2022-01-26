@@ -1,33 +1,31 @@
-library IEEE;
-use IEEE.STD_LOGIC_1164.ALL;
-use IEEE.NUMERIC_STD.ALL;
+LIBRARY IEEE;
+USE IEEE.STD_LOGIC_1164.ALL;
+USE IEEE.NUMERIC_STD.ALL;
 
-entity simple_1w_sub is
-  Generic(
-          N_BITS_PER_WORD : POSITIVE range 8 to 512 := 8
-  );
-  Port (
-        d1_in : in std_logic_vector (N_BITS_PER_WORD-1 downto 0);
-        d2_in : in std_logic_vector (N_BITS_PER_WORD-1 downto 0);
-        b_in : in std_logic_vector(0 downto 0);
+ENTITY simple_1w_sub IS
+    GENERIC (
+        N_BITS_PER_WORD : POSITIVE RANGE 8 TO 512 := 8
+    );
+    PORT (
+        d1_in : IN STD_LOGIC_VECTOR (N_BITS_PER_WORD - 1 DOWNTO 0);
+        d2_in : IN STD_LOGIC_VECTOR (N_BITS_PER_WORD - 1 DOWNTO 0);
+        b_in  : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
 
-        diff_out : out std_logic_vector (N_BITS_PER_WORD-1 downto 0) := (Others =>'0');
-        b_out    : out std_logic_vector (0 downto 0):= (Others =>'0')
+        diff_out : OUT STD_LOGIC_VECTOR (N_BITS_PER_WORD - 1 DOWNTO 0) := (OTHERS => '0');
+        b_out    : OUT STD_LOGIC_VECTOR (0 DOWNTO 0)                   := (OTHERS => '0')
 
-   );
-end simple_1w_sub;
+    );
+END simple_1w_sub;
 
-architecture Behavioral of simple_1w_sub is
+ARCHITECTURE Behavioral OF simple_1w_sub IS
 
-signal sub_temp : std_logic_vector(N_BITS_PER_WORD downto 0) := (Others =>'0');
-signal sub      : std_logic_vector(N_BITS_PER_WORD downto 0) := (Others =>'0');
+    SIGNAL sub_temp : STD_LOGIC_VECTOR(N_BITS_PER_WORD DOWNTO 0) := (OTHERS => '0');
+    SIGNAL sub      : STD_LOGIC_VECTOR(N_BITS_PER_WORD DOWNTO 0) := (OTHERS => '0');
+BEGIN
 
+    sub_temp <= STD_LOGIC_VECTOR(resize(unsigned (d1_in), sub_temp'length) - resize(unsigned(d2_in), sub_temp'length));
+    sub      <= STD_LOGIC_VECTOR(unsigned(sub_temp) - resize(unsigned(b_in), sub'length));
+    diff_out <= sub(N_BITS_PER_WORD - 1 DOWNTO 0);
+    b_out(0) <= sub(sub'high);
 
-begin
-
-sub_temp <= std_logic_vector( resize(unsigned (d1_in),sub_temp'length) - resize(unsigned(d2_in),sub_temp'length) );
-sub      <= std_logic_vector( unsigned(sub_temp) - resize(unsigned(b_in),sub'length) );
-diff_out <= sub(N_BITS_PER_WORD-1 downto 0);
-b_out(0)    <= sub(sub'high);
-
-end Behavioral;
+END Behavioral;

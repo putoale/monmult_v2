@@ -2,121 +2,111 @@
 --! It starts after 1 clock cycle w.r.t. the start signal, and performs a multiplication every s cycles. The t_out port copies and syncronizes 
 --! the t_out data from mac_ab.
 
-library IEEE;
-use IEEE.STD_LOGIC_1164.ALL;
-use IEEE.NUMERIC_STD.ALL;
+LIBRARY IEEE;
+USE IEEE.STD_LOGIC_1164.ALL;
+USE IEEE.NUMERIC_STD.ALL;
 
-entity FSM_mult is
-  Generic (
-            N_WORDS           : POSITIVE range 4 to 8192 := 4; --! Number of words per each operand
-            N_BITS_PER_WORD   : POSITIVE range 8 to 512  := 32 --! Number of bits per each word
-  );
-  Port (
+ENTITY FSM_mult IS
+    GENERIC (
+        N_WORDS         : POSITIVE RANGE 4 TO 8192 := 4; --! Number of words per each operand
+        N_BITS_PER_WORD : POSITIVE RANGE 8 TO 512  := 32 --! Number of bits per each word
+    );
+    PORT (
         ----------------------CLK AND RESET PORTS------------------
-        clk     : in std_logic; --! clock signal
-        reset   : in std_logic; --! asyncronous reset signal
+        clk   : IN STD_LOGIC; --! clock signal
+        reset : IN STD_LOGIC; --! asyncronous reset signal
         -----------------------------------------------------------
 
-        start  : in std_logic; --! start signal from outside
+        start : IN STD_LOGIC; --! start signal from outside
 
         ------------------------------Input data ports----------------------------------------
-        t_in   : in std_logic_vector (N_BITS_PER_WORD-1 downto 0); --! input word from mac_ab
-        nn0    : in std_logic_vector (N_BITS_PER_WORD-1 downto 0); --! input n'(0)
+        t_in : IN STD_LOGIC_VECTOR (N_BITS_PER_WORD - 1 DOWNTO 0); --! input word from mac_ab
+        nn0  : IN STD_LOGIC_VECTOR (N_BITS_PER_WORD - 1 DOWNTO 0); --! input n'(0)
         --------------------------------------------------------------------------------------
 
         ----------------------------------Output data ports-----------------------------------
-        t_out : out std_logic_vector (N_BITS_PER_WORD-1 downto 0) := (Others =>'0'); --! output t (input t delayed by 1 cycle)
-        m_out : out std_logic_vector (N_BITS_PER_WORD-1 downto 0) := (Others =>'0')  --! output product
+        t_out : OUT STD_LOGIC_VECTOR (N_BITS_PER_WORD - 1 DOWNTO 0) := (OTHERS => '0'); --! output t (input t delayed by 1 cycle)
+        m_out : OUT STD_LOGIC_VECTOR (N_BITS_PER_WORD - 1 DOWNTO 0) := (OTHERS => '0')  --! output product
         --------------------------------------------------------------------------------------
 
-   );
-end FSM_mult;
-
-architecture Behavioral of FSM_mult is
-
-  component simple_1w_mult is
-    Generic(
-            N_BITS_PER_WORD : POSITIVE range 2 to 512 := 32
     );
-    Port (
-          a     : in std_logic_vector (N_BITS_PER_WORD-1 downto 0);
-          b     : in std_logic_vector (N_BITS_PER_WORD-1 downto 0);
+END FSM_mult;
 
-          p_out : out std_logic_vector (N_BITS_PER_WORD-1 downto 0)
+ARCHITECTURE Behavioral OF FSM_mult IS
 
-     );
-  end component;
+    COMPONENT simple_1w_mult IS
+        GENERIC (
+            N_BITS_PER_WORD : POSITIVE RANGE 2 TO 512 := 32
+        );
+        PORT (
+            a : IN STD_LOGIC_VECTOR (N_BITS_PER_WORD - 1 DOWNTO 0);
+            b : IN STD_LOGIC_VECTOR (N_BITS_PER_WORD - 1 DOWNTO 0);
 
-  signal i_counter : natural range 0 to N_WORDS := 0; --! signal to count i cycle
-  signal j_counter : natural range 0 to N_WORDS := 0; --! signal to count words of an i_cycle
+            p_out : OUT STD_LOGIC_VECTOR (N_BITS_PER_WORD - 1 DOWNTO 0)
 
-  signal a_sig : std_logic_vector (N_BITS_PER_WORD-1 downto 0) := (Others =>'0'); --!  signals to sample input data
+        );
+    END COMPONENT;
 
-  signal start_reg : std_logic := '0'; --! signal to count 1 clock cycle delay to start multiplications
+    SIGNAL i_counter : NATURAL RANGE 0 TO N_WORDS := 0; --! signal to count i cycle
+    SIGNAL j_counter : NATURAL RANGE 0 TO N_WORDS := 0; --! signal to count words of an i_cycle
 
+    SIGNAL a_sig : STD_LOGIC_VECTOR (N_BITS_PER_WORD - 1 DOWNTO 0) := (OTHERS => '0'); --!  signals to sample input data
 
+    SIGNAL start_reg : STD_LOGIC := '0'; --! signal to count 1 clock cycle delay to start multiplications
 
-begin
+BEGIN
 
-  mult_1w: simple_1w_mult
-  Generic map(
-              N_BITS_PER_WORD => N_BITS_PER_WORD
-  )
-  Port map(
-            a => a_sig,
-            b => nn0,
+    mult_1w : simple_1w_mult
+    GENERIC MAP(
+        N_BITS_PER_WORD => N_BITS_PER_WORD
+    )
+    PORT MAP(
+        a => a_sig,
+        b => nn0,
 
-            p_out => m_out
-  );
+        p_out => m_out
+    );
+    --! This FSM controls the inputs of the combinatorial multiplier
+    Mult_FSM : PROCESS (clk, reset)
 
+    BEGIN
 
---! This FSM controls the inputs of the combinatorial multiplier
-  Mult_FSM: process (clk,reset)
+        IF reset = '1' THEN -- if reset
 
-  begin
+            i_counter <= 0; --restart counters
+            j_counter <= 0;
+            start_reg <= '0'; --restart start_reg flag
 
-    if reset = '1' then -- if reset
+        ELSIF rising_edge(clk) THEN
 
-      i_counter <= 0; --restart counters
-      j_counter <= 0;
-      start_reg <= '0'; --restart start_reg flag
+            IF start = '1' THEN -- if start = '1' it's clock 0. Mult should sample first input at clk 1
 
-    elsif rising_edge(clk) then
+                start_reg <= '1'; -- register to wait until clk 1 and flag to track if multiplication is still in progress
 
-      if start = '1' then -- if start = '1' it's clock 0. Mult should sample first input at clk 1
+            END IF;
+            IF start_reg = '1' THEN
 
-        start_reg <= '1'; -- register to wait until clk 1 and flag to track if multiplication is still in progress
-        
-      end if;
+                IF j_counter = 0 THEN
+                    a_sig <= t_in; --load t on multiplier only every s words
+                END IF;
 
+                t_out <= t_in; -- store value of t. It will be available to be read by mac_mn at the same moment of m_out
 
-      if start_reg = '1' then
+                IF j_counter = N_WORDS - 1 THEN -- increment i_counter every N_WORDS 
+                    i_counter <= i_counter + 1;
+                    j_counter <= 0;
 
-        if j_counter = 0 then
-          a_sig <= t_in; --load t on multiplier only every s words
-        end if;
+                    IF i_counter = N_WORDS - 1 THEN --when i_counter reaches N_WORDS -1, mult is done. Reset the block
+                        i_counter <= 0;
+                        start_reg <= '0';
+                    END IF;
 
-        t_out <= t_in; -- store value of t. It will be available to be read by mac_mn at the same moment of m_out
+                ELSE
+                    j_counter <= j_counter + 1;
+                END IF;
+            END IF;
 
-        if j_counter = N_WORDS-1 then -- increment i_counter every N_WORDS 
-          i_counter <= i_counter + 1;
-          j_counter <= 0;
+        END IF;
+    END PROCESS;
 
-          if i_counter = N_WORDS-1 then --when i_counter reaches N_WORDS -1, mult is done. Reset the block
-            i_counter <= 0; 
-            start_reg <= '0';
-          end if;
-
-        else
-          j_counter <= j_counter + 1;
-        end if;
-
-
-      end if;
-
-    end if;
-
-
-  end process;
-
-end Behavioral;
+END Behavioral;

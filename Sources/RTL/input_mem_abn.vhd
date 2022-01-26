@@ -1,122 +1,120 @@
 
-library IEEE;
-use IEEE.STD_LOGIC_1164.ALL;
+LIBRARY IEEE;
+USE IEEE.STD_LOGIC_1164.ALL;
 
-use IEEE.NUMERIC_STD.ALL;
+USE IEEE.NUMERIC_STD.ALL;
 --!this module takes care of storing the entire input vector, and exposes the rigth word at the output at each cycle
 --!this module will be istantiated three times:
 --! * for the input a, which exposes one word per cycle
 --! * for the input b, which expses one word every N_WORDS cycles
 --! * for the input n, which exposes one word per cycle but with an initial delay
 
-entity input_mem_abn is
-	generic(
-		WRITE_WIDTH: integer:=8;
-		READ_WIDTH: integer :=8;   					--!In this implementation, READ_WIDTH=WRITE_WIDTH
-		CYLCES_TO_WAIT: integer:=4;					--!after the first word has been exposed, after how many cycles the next word will be exposed
-		LATENCY			: integer :=4; 				--!Initial time to wait after receving start_in before exposing the first word
-		MEMORY_DEPTH: integer range 4 to 8192:=16	--!in this implementation, is equal to TOT_BITS/WRITE_WIDTH
-	);
-	Port (
+ENTITY input_mem_abn IS
+    GENERIC (
+        WRITE_WIDTH    : INTEGER                 := 8;
+        READ_WIDTH     : INTEGER                 := 8; --!In this implementation, READ_WIDTH=WRITE_WIDTH
+        CYLCES_TO_WAIT : INTEGER                 := 4; --!after the first word has been exposed, after how many cycles the next word will be exposed
+        LATENCY        : INTEGER                 := 4; --!Initial time to wait after receving start_in before exposing the first word
+        MEMORY_DEPTH   : INTEGER RANGE 4 TO 8192 := 16 --!in this implementation, is equal to TOT_BITS/WRITE_WIDTH
+    );
+    PORT (
 
-		clk 		: in std_logic;
-		reset		: in std_logic;
-		memory_full	: out std_logic:='0';											--!unused in this implementation
+        clk         : IN STD_LOGIC;
+        reset       : IN STD_LOGIC;
+        memory_full : OUT STD_LOGIC := '0'; --!unused in this implementation
 
-		wr_en		: in std_logic;													--!has to be kept high while writing
-		wr_port		: in  std_logic_vector(WRITE_WIDTH-1 downto 0);					--!accepts one word at a time, loaded by the testbench
-		rd_en		: in  std_logic;												--!has to be kept high while reading
-		rd_port		: out std_logic_vector(READ_WIDTH-1 downto 0):=(others=>'0');	--!exposes one word at a time, at the right cycle
-		start		: out std_logic:='0';											--!used to notify start_regulator that reading phase is over
+        wr_en   : IN STD_LOGIC;                                                     --!has to be kept high while writing
+        wr_port : IN STD_LOGIC_VECTOR(WRITE_WIDTH - 1 DOWNTO 0);                    --!accepts one word at a time, loaded by the testbench
+        rd_en   : IN STD_LOGIC;                                                     --!has to be kept high while reading
+        rd_port : OUT STD_LOGIC_VECTOR(READ_WIDTH - 1 DOWNTO 0) := (OTHERS => '0'); --!exposes one word at a time, at the right cycle
+        start   : OUT STD_LOGIC                                 := '0';             --!used to notify start_regulator that reading phase is over
 
-		---add start latency
-		start_in	: in std_logic;													--!this notifies the memory that all memories are full and ready to start providing data
-		EoC_in		: in std_logic													--!End of Conversion input to notify the memory that the content of the memory can be reset on order to be ready for another computation
-  );
-end input_mem_abn;
+        ---add start latency
+        start_in : IN STD_LOGIC; --!this notifies the memory that all memories are full and ready to start providing data
+        EoC_in   : IN STD_LOGIC  --!End of Conversion input to notify the memory that the content of the memory can be reset on order to be ready for another computation
+    );
+END input_mem_abn;
 
-architecture Behavioral of input_mem_abn is
-	type memory_type is array (MEMORY_DEPTH-1 downto 0) of std_logic_vector(READ_WIDTH-1 downto 0);
-	signal memory:memory_type;
+ARCHITECTURE Behavioral OF input_mem_abn IS
+    TYPE memory_type IS ARRAY (MEMORY_DEPTH - 1 DOWNTO 0) OF STD_LOGIC_VECTOR(READ_WIDTH - 1 DOWNTO 0);
+    SIGNAL memory : memory_type;
 
-	signal write_counter: integer range 0 to MEMORY_DEPTH :=0;	--! counts the times a writing in the memory is done, does only one full cycle
-	signal read_counter: integer range 0 to MEMORY_DEPTH :=0;	--! counts the times a reading from the memory is done, does as many full cycles as necessary
-	signal memory_full_int: std_logic:='0';  					--!used to tell if reading phase can start
-	signal cycle_counter: integer:=0;							--!counts the cycle between one reading and the next(i.e 1 for a, N_WORDS for b)
-	signal initial_counter: integer:=0;							--!counts the cycle to wait before the beginning of the reading phase
-	signal begin_reading: std_logic:='0';						--!flag, to 1 when writing phase is finished
-	signal start_flag: std_logic:='0';							--! used to manage the start signal, which may be high  for one or more cycles
-	signal start_int : std_logic := '0';						--! used to manage the start signal, which may be high  for one or more cycles
-begin
-	memory_full<=memory_full_int;
-	start <= start_int;
-	start_int<=memory_full_int;
-	process(clk,reset, EoC_in)
-	begin
+    SIGNAL write_counter   : INTEGER RANGE 0 TO MEMORY_DEPTH := 0;   --! counts the times a writing in the memory is done, does only one full cycle
+    SIGNAL read_counter    : INTEGER RANGE 0 TO MEMORY_DEPTH := 0;   --! counts the times a reading from the memory is done, does as many full cycles as necessary
+    SIGNAL memory_full_int : STD_LOGIC                       := '0'; --!used to tell if reading phase can start
+    SIGNAL cycle_counter   : INTEGER                         := 0;   --!counts the cycle between one reading and the next(i.e 1 for a, N_WORDS for b)
+    SIGNAL initial_counter : INTEGER                         := 0;   --!counts the cycle to wait before the beginning of the reading phase
+    SIGNAL begin_reading   : STD_LOGIC                       := '0'; --!flag, to 1 when writing phase is finished
+    SIGNAL start_flag      : STD_LOGIC                       := '0'; --! used to manage the start signal, which may be high  for one or more cycles
+    SIGNAL start_int       : STD_LOGIC                       := '0'; --! used to manage the start signal, which may be high  for one or more cycles
+BEGIN
+    memory_full <= memory_full_int;
+    start       <= start_int;
+    start_int   <= memory_full_int;
+    PROCESS (clk, reset, EoC_in)
+    BEGIN
 
-		if rising_edge(clk ) then
-			---------------------RESET-----------------------------------
-			if reset = '1' or EoC_in = '1' then
-			--resetting the memory means interrupting any reading or writing in
-			--process and erasing the content of the memory: it is done on an
-			--external signal and when the computation is finished, in order to
-			--be ready for the next one
-				memory_full_int<='0';
-				memory<=(others=>(others=>'0'));
-				begin_reading<='0';
-				write_counter<=0;
-				read_counter<=0;
-				cycle_counter<=0;
-				initial_counter<=0;
-				start_flag<='0';
-			--------------------------------------------------------------------------
-			else
+        IF rising_edge(clk) THEN
+            ---------------------RESET-----------------------------------
+            IF reset = '1' OR EoC_in = '1' THEN
+                --resetting the memory means interrupting any reading or writing in
+                --process and erasing the content of the memory: it is done on an
+                --external signal and when the computation is finished, in order to
+                --be ready for the next one
+                memory_full_int <= '0';
+                memory          <= (OTHERS => (OTHERS => '0'));
+                begin_reading   <= '0';
+                write_counter   <= 0;
+                read_counter    <= 0;
+                cycle_counter   <= 0;
+                initial_counter <= 0;
+                start_flag      <= '0';
+                --------------------------------------------------------------------------
+            ELSE
 
-				if start_in='1' then
-					start_flag<='1';
-				end if;
-				---------------INITIAL WAITING TIME------------------------------
-				if begin_reading= '0' and (start_in = '1' or  start_flag='1') then
-					initial_counter<=initial_counter+1;
-					if initial_counter = LATENCY-1 then
-						begin_reading<='1';
-						initial_counter<=0;
-					end if;
-				end if;
-				----------------------------------------------------------------
+                IF start_in = '1' THEN
+                    start_flag <= '1';
+                END IF;
+                ---------------INITIAL WAITING TIME------------------------------
+                IF begin_reading = '0' AND (start_in = '1' OR start_flag = '1') THEN
+                    initial_counter <= initial_counter + 1;
+                    IF initial_counter = LATENCY - 1 THEN
+                        begin_reading   <= '1';
+                        initial_counter <= 0;
+                    END IF;
+                END IF;
+                ----------------------------------------------------------------
 
-				----------------WRITE PROCESS---------------------------------
-				--in this implementation, the memory is completely written BEFORE it can be read
-				if wr_en='1'  and memory_full_int = '0' then
-					memory(write_counter)<=wr_port;
-					write_counter<=write_counter+1;
-					if write_counter = MEMORY_DEPTH-1 then
-						write_counter<=0;
-						memory_full_int<='1';
-						else
-						memory_full_int<= '0';
-					end if;
-				end if;
-				----------------------------------------------------------------
+                ----------------WRITE PROCESS---------------------------------
+                --in this implementation, the memory is completely written BEFORE it can be read
+                IF wr_en = '1' AND memory_full_int = '0' THEN
+                    memory(write_counter) <= wr_port;
+                    write_counter         <= write_counter + 1;
+                    IF write_counter = MEMORY_DEPTH - 1 THEN
+                        write_counter   <= 0;
+                        memory_full_int <= '1';
+                    ELSE
+                        memory_full_int <= '0';
+                    END IF;
+                END IF;
+                ----------------------------------------------------------------
 
-				----------------READ PROCESS---------------------------------
-				--this process takes care of exposing the right word at the right cycle
-				if rd_en='1' and memory_full_int='1' and begin_reading='1'  then
-					cycle_counter<=cycle_counter+1 ;
-					rd_port<=memory(read_counter);
-					if cycle_counter = CYLCES_TO_WAIT-1 then
-						cycle_counter<=0;
-						read_counter<=read_counter+1;
-						if read_counter = MEMORY_DEPTH-1 then
-							read_counter<=0;
-						end if;
-					end if;
-					----------------------------------------------------------------
-				end if;
-			end if;
+                ----------------READ PROCESS---------------------------------
+                --this process takes care of exposing the right word at the right cycle
+                IF rd_en = '1' AND memory_full_int = '1' AND begin_reading = '1' THEN
+                    cycle_counter <= cycle_counter + 1;
+                    rd_port       <= memory(read_counter);
+                    IF cycle_counter = CYLCES_TO_WAIT - 1 THEN
+                        cycle_counter <= 0;
+                        read_counter  <= read_counter + 1;
+                        IF read_counter = MEMORY_DEPTH - 1 THEN
+                            read_counter <= 0;
+                        END IF;
+                    END IF;
+                    ----------------------------------------------------------------
+                END IF;
+            END IF;
 
-
-
-		end if;
-	end process;
-end Behavioral;
+        END IF;
+    END PROCESS;
+END Behavioral;

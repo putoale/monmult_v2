@@ -1,28 +1,26 @@
-library IEEE;
-use IEEE.STD_LOGIC_1164.ALL;
-use IEEE.NUMERIC_STD.ALL;
+LIBRARY IEEE;
+USE IEEE.STD_LOGIC_1164.ALL;
+USE IEEE.NUMERIC_STD.ALL;
+ENTITY simple_1w_mult IS
+    GENERIC (
+        N_BITS_PER_WORD : POSITIVE RANGE 2 TO 512 := 32
+    );
+    PORT (
+        a : IN STD_LOGIC_VECTOR (N_BITS_PER_WORD - 1 DOWNTO 0);
+        b : IN STD_LOGIC_VECTOR (N_BITS_PER_WORD - 1 DOWNTO 0);
 
+        p_out : OUT STD_LOGIC_VECTOR (N_BITS_PER_WORD - 1 DOWNTO 0) := (OTHERS => '0')
 
-entity simple_1w_mult is
-  Generic(
-          N_BITS_PER_WORD : POSITIVE range 2 to 512 := 32
-  );
-  Port (
-        a     : in std_logic_vector (N_BITS_PER_WORD-1 downto 0);
-        b     : in std_logic_vector (N_BITS_PER_WORD-1 downto 0);
+    );
+END simple_1w_mult;
 
-        p_out : out std_logic_vector (N_BITS_PER_WORD-1 downto 0):=(others=>'0')
+ARCHITECTURE Behavioral OF simple_1w_mult IS
 
-   );
-end simple_1w_mult;
+    SIGNAL product : STD_LOGIC_VECTOR ((2 * N_BITS_PER_WORD - 1) DOWNTO 0) := (OTHERS => '0');
 
-architecture Behavioral of simple_1w_mult is
+BEGIN
 
-signal product : std_logic_vector ( (2*N_BITS_PER_WORD-1) downto 0) := (Others =>'0');
+    product <= STD_LOGIC_VECTOR(unsigned(a) * unsigned(b));
+    p_out   <= product(N_BITS_PER_WORD - 1 DOWNTO 0);
 
-begin
-
-product <= std_logic_vector( unsigned(a) * unsigned(b) );
-p_out   <= product(N_BITS_PER_WORD-1 downto 0);
-
-end Behavioral;
+END Behavioral;

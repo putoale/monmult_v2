@@ -1,34 +1,32 @@
-library IEEE;
-use IEEE.STD_LOGIC_1164.ALL;
-use IEEE.NUMERIC_STD.ALL;
-
-
+LIBRARY IEEE;
+USE IEEE.STD_LOGIC_1164.ALL;
+USE IEEE.NUMERIC_STD.ALL;
 
 -- Combinatorial 1-word adder
 
-entity simple_1w_adder is
-    Generic (
-              N_BITS_PER_WORD : POSITIVE range 2 to 512 := 32
+ENTITY simple_1w_adder IS
+    GENERIC (
+        N_BITS_PER_WORD : POSITIVE RANGE 2 TO 512 := 32
     );
-    Port (
+    PORT (
 
-          a : in std_logic_vector (N_BITS_PER_WORD-1 downto 0);
-          b : in std_logic_vector (N_BITS_PER_WORD-1 downto 0);
+        a : IN STD_LOGIC_VECTOR (N_BITS_PER_WORD - 1 DOWNTO 0);
+        b : IN STD_LOGIC_VECTOR (N_BITS_PER_WORD - 1 DOWNTO 0);
 
-          s : out std_logic_vector (N_BITS_PER_WORD -1 downto 0):=(others=>'0');
-          c : out std_logic_vector (N_BITS_PER_WORD -1 downto 0):=(others=>'0')
-     );
-end simple_1w_adder;
+        s : OUT STD_LOGIC_VECTOR (N_BITS_PER_WORD - 1 DOWNTO 0) := (OTHERS => '0');
+        c : OUT STD_LOGIC_VECTOR (N_BITS_PER_WORD - 1 DOWNTO 0) := (OTHERS => '0')
+    );
+END simple_1w_adder;
 
-architecture Behavioral of simple_1w_adder is
+ARCHITECTURE Behavioral OF simple_1w_adder IS
 
-signal sum : std_logic_vector ( (2*N_BITS_PER_WORD) - 1 downto 0):=(Others =>'0');
+    SIGNAL sum : STD_LOGIC_VECTOR ((2 * N_BITS_PER_WORD) - 1 DOWNTO 0) := (OTHERS => '0');
 
-begin
+BEGIN
 
-sum <= std_logic_vector (resize(unsigned(a),sum'length) + resize(unsigned(b),sum'length));
+    sum <= STD_LOGIC_VECTOR (resize(unsigned(a), sum'length) + resize(unsigned(b), sum'length));
 
-c <= sum (sum'high downto N_BITS_PER_WORD);
-s <= sum (N_BITS_PER_WORD-1 downto 0);
+    c <= sum (sum'high DOWNTO N_BITS_PER_WORD);
+    s <= sum (N_BITS_PER_WORD - 1 DOWNTO 0);
 
-end Behavioral;
+END Behavioral;
